@@ -1,9 +1,14 @@
-﻿namespace GestionEmpresaTransporte
-{
+﻿
+
+namespace GestionEmpresaTransporte
+{    
+    using GestionEmpresaTransporte.ui;
     internal class Program
     {
-        public static void Main(string[] args)
-        {
-        }
+        private static void Main(string[] args)
+            {
+                WinFormsUI.MainLoop(args);
+            }
+        
     }
 }
