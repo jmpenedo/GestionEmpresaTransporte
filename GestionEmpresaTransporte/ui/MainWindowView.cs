@@ -10,8 +10,8 @@
         public WForms.MainMenu mPpal;
         public WForms.MenuItem opCargar;
         public WForms.MenuItem opGestionClientes;
-        public WForms.MenuItem opGuardar;
         public WForms.MenuItem opGestionVehiculos;
+        public WForms.MenuItem opGuardar;
         public WForms.MenuItem opSalir;
         public WForms.Panel pnlCliente;
         public WForms.StatusBar sbStatus;
@@ -27,7 +27,7 @@
             BuildStatusBar();
 
             SuspendLayout();
-            pnlCliente = new SamplePanelView()
+            pnlCliente = new SamplePanelView
             {
                 Dock = WForms.DockStyle.Fill
             };
@@ -55,7 +55,7 @@
             };
             opGestionVehiculos = new WForms.MenuItem("&Gestión de vehículos")
             {
-                Shortcut = WForms.Shortcut.CtrlC
+                Shortcut = WForms.Shortcut.CtrlY
             };
             mArchivo.MenuItems.Add(opCargar);
             mArchivo.MenuItems.Add(opGuardar);
