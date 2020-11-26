@@ -11,7 +11,7 @@
         public WForms.MenuItem opCargar;
         public WForms.MenuItem opGestionClientes;
         public WForms.MenuItem opGuardar;
-        public WForms.MenuItem opPruebaClientes;
+        public WForms.MenuItem opGestionVehiculos;
         public WForms.MenuItem opSalir;
         public WForms.Panel pnlCliente;
         public WForms.StatusBar sbStatus;
@@ -27,14 +27,15 @@
             BuildStatusBar();
 
             SuspendLayout();
-            pnlCliente = new ClientePanelView()
+            pnlCliente = new SamplePanelView()
             {
                 Dock = WForms.DockStyle.Fill
             };
             pnlCliente.SuspendLayout();
             Controls.Add(pnlCliente);
             pnlCliente.ResumeLayout(false);
-            MinimumSize = new Draw.Size(800, 600);
+            MinimumSize = new Draw.Size(800, 700);
+            MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
             pnlCliente.Visible = false;
             ResumeLayout(true);
@@ -44,7 +45,6 @@
         {
             mPpal = new WForms.MainMenu();
             mArchivo = new WForms.MenuItem("&Archivo");
-
             mEditar = new WForms.MenuItem("&Editar");
             opSalir = new WForms.MenuItem("&Salir") {Shortcut = WForms.Shortcut.CtrlQ};
             opGuardar = new WForms.MenuItem("&Guardar");
@@ -53,7 +53,7 @@
             {
                 Shortcut = WForms.Shortcut.CtrlC
             };
-            opPruebaClientes = new WForms.MenuItem("&Prueba clientes")
+            opGestionVehiculos = new WForms.MenuItem("&Gestión de vehículos")
             {
                 Shortcut = WForms.Shortcut.CtrlC
             };
@@ -61,7 +61,7 @@
             mArchivo.MenuItems.Add(opGuardar);
             mArchivo.MenuItems.Add(opSalir);
             mEditar.MenuItems.Add(opGestionClientes);
-            mEditar.MenuItems.Add(opPruebaClientes);
+            mEditar.MenuItems.Add(opGestionVehiculos);
             mPpal.MenuItems.Add(mArchivo);
             mPpal.MenuItems.Add(mEditar);
             Menu = mPpal;

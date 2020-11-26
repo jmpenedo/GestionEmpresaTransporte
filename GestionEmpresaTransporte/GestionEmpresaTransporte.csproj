@@ -45,12 +45,10 @@
         <Compile Include="Core\GestorDeClientes.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="ui\ClientePanelCtrl.cs" />
-        <Compile Include="ui\ClientePanelView.cs" />
+        <Compile Include="ui\SamplePanelCtrl.cs" />
+        <Compile Include="ui\SamplePanelView.cs" />
         <Compile Include="ui\MainWindowCtrl.cs" />
         <Compile Include="ui\MainWindowView.cs" />
-        <Compile Include="ui\NuevoClienteCtrl.cs" />
-        <Compile Include="ui\NuevoClienteView.cs" />
         <Compile Include="ui\WinFormsUI.cs" />
         <Compile Include="Utils\utilidades.cs" />
     </ItemGroup>

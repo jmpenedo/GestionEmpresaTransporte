@@ -5,17 +5,17 @@ namespace GestionEmpresaTransporte.ui
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
 
-    public class ClientePanelView : WForms.Panel
+    public class SamplePanelView : WForms.Panel
     {
         public WForms.DataGridView grdLista;
         public WForms.Panel pnlPpal;
         public WForms.Panel pnlDetalle;
         public WForms.Panel pnlLista;
-        public ClientePanelView()
+        public SamplePanelView()
         {
             Build();
         }
-        public WForms.TextBox EdDireccion { get; private set; }
+        public WForms.TextBox EdInferior { get; private set; }
         private void Build()
         {
             SuspendLayout();
@@ -27,11 +27,10 @@ namespace GestionEmpresaTransporte.ui
             Controls.Add(pnlPpal);
             pnlPpal.Controls.Add(BuildPanelLista());
             pnlPpal.Controls.Add(BuildTexto());
-            pnlPpal.Height = 800;
-            pnlPpal.Width = 600;
             pnlPpal.ResumeLayout(false);
-           
-            Text = "Gestión de Clientes";
+            MinimumSize = new Draw.Size(800, 600);
+            MaximumSize = MinimumSize;
+            Text = "Gestión de ejemplo";
             ResumeLayout(true);
         }
         private WForms.Panel BuildPanelLista()
@@ -65,7 +64,7 @@ namespace GestionEmpresaTransporte.ui
         {
             pnlDetalle = new WForms.Panel {Dock = WForms.DockStyle.Bottom};
             pnlDetalle.SuspendLayout();
-            EdDireccion = new WForms.TextBox
+            EdInferior = new WForms.TextBox
             {
                 Dock = WForms.DockStyle.Fill,
                 Multiline = true,
@@ -74,7 +73,7 @@ namespace GestionEmpresaTransporte.ui
                 ForeColor = Draw.Color.Navy,
                 BackColor = Draw.Color.LightGray
             };
-            pnlDetalle.Controls.Add(EdDireccion);
+            pnlDetalle.Controls.Add(EdInferior);
             pnlDetalle.ResumeLayout(false);
             return pnlDetalle;
         }

@@ -7,23 +7,25 @@ namespace GestionEmpresaTransporte.ui
 
     public class MainWindowCtrl
     {
-        private const string FClientes = "clientes.xml"; //pasar a config.ini
-        public ClientePanelCtrl ctrlPnlCliente;
+
+        private WForms.Panel pnlPrincipal;
         public MainWindowCtrl()
         {
             View = new MainWindowView();
             //Creacion de todos los contenedores y recuperacion desde ficheros//
-            GestorClientes = new GestorDeClientes(FClientes);
-            //GestorVehiculos = new GestorDeVehiculos(FVehiculos);
-            //GestorTransportes = new GestorDeTransportes(FTransportes);
+            GestorClientes = new GestorDeClientes();
+            //GestorVehiculos = new GestorDeVehiculos();
+            //GestorTransportes = new GestorDeTransportes();
+
+            Cargar();
 
             //Asignación de Handlers
             View.Closed += (sender, e) => Salir();
             View.opSalir.Click += (sender, e) => Salir();
             View.opGestionClientes.Click += (sender, e) => GestionClientes();
-            View.opPruebaClientes.Click += (sender, e) => PruebaClientes();
-            View.opGuardar.Click += (sender, e) => GuardarClientes(FClientes);
-            View.opCargar.Click += (sender, e) => CargarClientes(FClientes);
+            View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
+            View.opGuardar.Click += (sender, e) => Guardar();
+            View.opCargar.Click += (sender, e) => Cargar();
 
         }
 
@@ -32,50 +34,51 @@ namespace GestionEmpresaTransporte.ui
 
         private void GestionClientes()
         {
-            ctrlPnlCliente = new ClientePanelCtrl(GestorClientes);
-            this.View.Controls.Add(ctrlPnlCliente.View);
+            this.View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            SamplePanelCtrl ctrlPnlSample = new SamplePanelCtrl(); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panle del controlador
+            this.View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
             
         }
-
-        private void PruebaClientes()
+        /// <summary>
+        /// REpetimos lo anterior para otra parte...
+        /// </summary>
+        private void GestionVehiculos()
         {
-            ctrlPnlCliente.View.Visible = false;
+            this.View.Controls.Remove(pnlPrincipal);
+            SamplePanelCtrl ctrlPnlSample = new SamplePanelCtrl(); //OJO como prueba estoy usando el panel sampple otra vez
+            ctrlPnlSample.View.grdLista.Visible = false;  //
+            pnlPrincipal = ctrlPnlSample.View;
+            this.View.Controls.Add(pnlPrincipal);
+
         }
 
         /// <summary>
-        ///     Permite cargar los clientes desde el nombre de fichero
-        ///     pasado como parametro
+        ///     Permite cargar los clientes
         /// </summary>
-        /// <param name="fClientes">
-        ///     <see cref="string" />
-        /// </param>
-        private void CargarClientes(string fClientes)
+        private void Cargar()
         {
             try
             {
-                GestorClientes = new GestorDeClientes(fClientes);
-                Mensaje(string.Format("Cargados desde {0} un total de {1} clientes", FClientes, GestorClientes.Count));
+
+                Mensaje("Cargados...");
             }
             catch (Exception e)
             {
                 WForms.MessageBox.Show("Se ha producido un error al cargar: " + e.Message);
-                GestorClientes = new GestorDeClientes(); //creo un gestor de clientes vacio
-                Mensaje("Creado un gestor de clientes vacío");
             }
         }
 
         /// <summary>
         ///     Guarda los clientes en fichero
         /// </summary>
-        /// <param name="fichero">
-        ///     <see cref="string" />
-        /// </param>
-        private void GuardarClientes(string fichero)
+        private void Guardar()
         {
+
             try
             {
-                GestorClientes.GuardarXML(fichero);
-                Mensaje(string.Format("Guardado en el {0} un total de {1} clientes", FClientes, GestorClientes.Count));
+
+                Mensaje("Guardados... ");
             }
             catch (Exception e)
             {
