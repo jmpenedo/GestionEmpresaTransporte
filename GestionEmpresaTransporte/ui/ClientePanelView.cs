@@ -1,4 +1,6 @@
-﻿namespace GestionEmpresaTransporte.ui
+﻿using System;
+
+namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
@@ -25,8 +27,10 @@
             Controls.Add(pnlPpal);
             pnlPpal.Controls.Add(BuildPanelLista());
             pnlPpal.Controls.Add(BuildTexto());
+            pnlPpal.Height = 800;
+            pnlPpal.Width = 600;
             pnlPpal.ResumeLayout(false);
-            
+           
             Text = "Gestión de Clientes";
             ResumeLayout(true);
         }

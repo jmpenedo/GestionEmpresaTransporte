@@ -34,10 +34,7 @@ namespace GestionEmpresaTransporte.ui
         {
             ctrlPnlCliente = new ClientePanelCtrl(GestorClientes);
             this.View.Controls.Add(ctrlPnlCliente.View);
-            /*if (ctrlClientes.View.ShowDialog() == WForms.DialogResult.OK)
-            {
-                //Acciones para despues de gestionar clientes Guardar los clientes?
-            }*/
+            
         }
 
         private void PruebaClientes()

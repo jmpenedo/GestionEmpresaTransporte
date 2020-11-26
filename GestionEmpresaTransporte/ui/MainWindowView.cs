@@ -34,7 +34,7 @@
             pnlCliente.SuspendLayout();
             Controls.Add(pnlCliente);
             pnlCliente.ResumeLayout(false);
-            MinimumSize = new Draw.Size(600, 400);
+            MinimumSize = new Draw.Size(800, 600);
             Text = "Gestion de trasportes";
             pnlCliente.Visible = false;
             ResumeLayout(true);
