@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Practica2_Ejercicio1.Transporte
+﻿namespace GestionEmpresaTransporte.Core
 {
-    using Practica2_Ejercicio1.Clientes;
-    using Practica2_Ejercicio1.Flota;
+    using System;
     using System.Globalization;
 
     class Transporte

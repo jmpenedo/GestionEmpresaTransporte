@@ -1,16 +1,7 @@
-﻿using Practica2_Ejercicio1.Clientes;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace Practica2_Ejercicio1.Transporte.UI
+﻿namespace GestionEmpresaTransporte.Core
 {
-    using Practica2_Ejercicio1.Flota;
-    using Practica2_Ejercicio1.Clientes;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     interface IControllerTransporte
     {

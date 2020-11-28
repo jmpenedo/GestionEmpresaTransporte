@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Practica2_Ejercicio1.Transporte.Core
+﻿namespace GestionEmpresaTransporte.Core
 {
-    using System.Collections;
-    using Practica2_Ejercicio1.Transporte.UI;
-    using Practica2_Ejercicio1.Empresa;
-    using Practica2_Ejercicio1.Empresa.Core;
+    using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
     using System.Collections.ObjectModel;
-    using Practica2_Ejercicio1.Clientes;
-    using Practica2_Ejercicio1.Flota;
-    using System.Globalization;
 
     class ControllerTransporte : IControllerTransporte
     {
@@ -43,7 +32,7 @@ namespace Practica2_Ejercicio1.Transporte.Core
             else
             {
                 var flota = this.Empresa.ColeccionFlota.RecuperarFlota(datos["MATRICULA"].ToString());
-                var cliente = this.Empresa.ColeccionClientes.RecuperarCliente(datos["CLIENTE"].ToString());
+                var cliente = this.Empresa.GestorDeClientes.getClientebyNif(datos["CLIENTE"].ToString());
 
                 this.Empresa.ColeccionTransportes.Add(new Transporte(flota, cliente, datos["FECHACONTRATACION"].ToString(),
                     Convert.ToInt32(datos["KMRECORRIDOS"]), datos["FECHASALIDA"].ToString(), datos["FECHAENTREGA"].ToString(),
@@ -85,7 +74,7 @@ namespace Practica2_Ejercicio1.Transporte.Core
         public List<string> ObtenerClientes()
         {
             var toret = new List<string>();
-            foreach (Cliente Cliente in this.Empresa.ColeccionClientes)
+            foreach (Cliente Cliente in this.Empresa.GestorDeClientes.Clientes)
             {
                 toret.Add(Cliente.Nif);
             }
@@ -125,7 +114,7 @@ namespace Practica2_Ejercicio1.Transporte.Core
         public Dictionary<string, object> RecuperarCliente(string nif)
         {
             var toret = new Dictionary<string, object>();
-            Cliente cliente = this.Empresa.ColeccionClientes.RecuperarCliente(nif);
+            Cliente cliente = this.Empresa.GestorDeClientes.getClientebyNif(nif);
 
             toret.Add("NIF", cliente.Nif);
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practica2_Ejercicio1.Transporte
+namespace GestionEmpresaTransporte.Core
 {
     using System.Collections;
     using System.Collections.Generic;
