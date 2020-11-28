@@ -12,6 +12,7 @@ namespace GestionEmpresaTransporte.Core
         {
             Flota = new List<Vehiculo>();
         }
+
         public ColeccionVehiculos(IEnumerable<Vehiculo> vehiculos)
             :this()
         {
@@ -102,6 +103,11 @@ namespace GestionEmpresaTransporte.Core
 
         public List<Vehiculo> Flota { get; set; }
 
-     
+        public Vehiculo RecuperarVehiculo(String matricula)
+        {
+            return this.Flota.Select(vehiculo => vehiculo).Where(vehiculo => vehiculo.Matricula.Equals(matricula)).First<Vehiculo>();
+        }
+
+
     }
 }

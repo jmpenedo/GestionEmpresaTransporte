@@ -1,73 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{776F836B-3726-42A3-8505-8F6C4D16E2F2}</ProjectGuid>
-        <OutputType>Exe</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>GestionEmpresaTransporte</RootNamespace>
-        <AssemblyName>GestionEmpresaTransporte</AssemblyName>
-        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Drawing" />
-        <Reference Include="System.Windows.Forms" />
-        <Reference Include="System.Xml" />
-        <Reference Include="System.Xml.Linq" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Core\Cliente.cs" />
-        <Compile Include="Core\ColeccionVehiculos.cs" />
-        <Compile Include="Core\GestorDeClientes.cs" />
-        <Compile Include="Core\Vehiculo.cs" />
-        <Compile Include="Core\Vehiculos\Camion.cs" />
-        <Compile Include="Core\Vehiculos\CamionArticulado.cs" />
-        <Compile Include="Core\Vehiculos\Furgoneta.cs" />
-        <Compile Include="Program.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="ui\ClienteListarPanelCtrl .cs" />
-        <Compile Include="ui\ClienteListarPanelView.cs" />
-        <Compile Include="ui\ClienteVerPanelCtrl.cs" />
-        <Compile Include="ui\ClienteVerPanelView.cs" />
-        <Compile Include="ui\SamplePanelCtrl.cs" />
-        <Compile Include="ui\SamplePanelView.cs" />
-        <Compile Include="ui\MainWindowCtrl.cs" />
-        <Compile Include="ui\MainWindowView.cs" />
-        <Compile Include="ui\WinFormsUI.cs" />
-        <Compile Include="Utils\utilidades.cs" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{776F836B-3726-42A3-8505-8F6C4D16E2F2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GestionEmpresaTransporte</RootNamespace>
+    <AssemblyName>GestionEmpresaTransporte</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Cliente.cs" />
+    <Compile Include="Core\ColeccionTransportes.cs" />
+    <Compile Include="Core\ColeccionVehiculos.cs" />
+    <Compile Include="Core\ControllerTransporte.cs" />
+    <Compile Include="Core\Empresa.cs" />
+    <Compile Include="Core\GestorDeClientes.cs" />
+    <Compile Include="Core\IControllerTransporte.cs" />
+    <Compile Include="Core\Transporte.cs" />
+    <Compile Include="Core\Vehiculo.cs" />
+    <Compile Include="Core\Vehiculos\Camion.cs" />
+    <Compile Include="Core\Vehiculos\CamionArticulado.cs" />
+    <Compile Include="Core\Vehiculos\Furgoneta.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ui\ClienteListarPanelCtrl .cs" />
+    <Compile Include="ui\ClienteListarPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\ClienteVerPanelCtrl.cs" />
+    <Compile Include="ui\ClienteVerPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\SamplePanelCtrl.cs" />
+    <Compile Include="ui\SamplePanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\MainWindowCtrl.cs" />
+    <Compile Include="ui\MainWindowView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\WinFormsUI.cs" />
+    <Compile Include="Utils\utilidades.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>

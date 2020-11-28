@@ -1,0 +1,6 @@
+C:\Users\david\Desktop\INFOR\Curso4\Cuatri1\DIA\GestionEmpresaTransporte-master\GestionEmpresaTransporte\bin\Debug\GestionEmpresaTransporte.exe
+C:\Users\david\Desktop\INFOR\Curso4\Cuatri1\DIA\GestionEmpresaTransporte-master\GestionEmpresaTransporte\bin\Debug\GestionEmpresaTransporte.pdb
+C:\Users\david\Desktop\INFOR\Curso4\Cuatri1\DIA\GestionEmpresaTransporte-master\GestionEmpresaTransporte\obj\Debug\GestionEmpresaTransporte.csproj.CoreCompileInputs.cache
+C:\Users\david\Desktop\INFOR\Curso4\Cuatri1\DIA\GestionEmpresaTransporte-master\GestionEmpresaTransporte\obj\Debug\GestionEmpresaTransporte.exe
+C:\Users\david\Desktop\INFOR\Curso4\Cuatri1\DIA\GestionEmpresaTransporte-master\GestionEmpresaTransporte\obj\Debug\GestionEmpresaTransporte.pdb
+C:\Users\david\Desktop\INFOR\Curso4\Cuatri1\DIA\GestionEmpresaTransporte-master\GestionEmpresaTransporte\obj\Debug\GestionEmpresaTransporte.csprojAssemblyReference.cache

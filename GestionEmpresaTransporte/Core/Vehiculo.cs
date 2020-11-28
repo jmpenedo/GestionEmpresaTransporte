@@ -19,7 +19,7 @@ namespace GestionEmpresaTransporte.Core
 
         public DateTime FechaAdquisicion { get; set; }
 
-        protected string Tipo { get; set; }
+        public string Tipo { get; set; }
 
         protected float Peso { get; set; }
 
