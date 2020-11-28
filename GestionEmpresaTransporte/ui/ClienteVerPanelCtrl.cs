@@ -118,6 +118,7 @@ namespace GestionEmpresaTransporte.ui
         {
             if (ElCliente != null)
             {
+                //TODO revisar que no tiene trasnportes asignado
                 var nif = ElCliente.Nif;
                 /*MessageBOX de confirmacion*/
                 var message = string.Format("¿Estás seguro de borrar el cliente con identificador: {0}?", nif);
