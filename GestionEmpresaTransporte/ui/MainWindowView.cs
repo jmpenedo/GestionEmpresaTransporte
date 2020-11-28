@@ -13,7 +13,6 @@
         public WForms.MenuItem opGestionVehiculos;
         public WForms.MenuItem opGuardar;
         public WForms.MenuItem opSalir;
-        public WForms.Panel pnlCliente;
         public WForms.StatusBar sbStatus;
 
         public MainWindowView()
@@ -25,19 +24,10 @@
         {
             BuildMenuOpciones();
             BuildStatusBar();
-
             SuspendLayout();
-            pnlCliente = new SamplePanelView
-            {
-                Dock = WForms.DockStyle.Fill
-            };
-            pnlCliente.SuspendLayout();
-            Controls.Add(pnlCliente);
-            pnlCliente.ResumeLayout(false);
-            MinimumSize = new Draw.Size(800, 700);
+            MinimumSize = new Draw.Size(800, 600);
             MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
-            pnlCliente.Visible = false;
             ResumeLayout(true);
         }
 

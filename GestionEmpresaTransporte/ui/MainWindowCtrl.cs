@@ -7,8 +7,8 @@ namespace GestionEmpresaTransporte.ui
 
     public class MainWindowCtrl
     {
-
         private WForms.Panel pnlPrincipal;
+
         public MainWindowCtrl()
         {
             View = new MainWindowView();
@@ -26,7 +26,6 @@ namespace GestionEmpresaTransporte.ui
             View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
             View.opGuardar.Click += (sender, e) => Guardar();
             View.opCargar.Click += (sender, e) => Cargar();
-
         }
 
         public GestorDeClientes GestorClientes { get; set; }
@@ -34,23 +33,21 @@ namespace GestionEmpresaTransporte.ui
 
         private void GestionClientes()
         {
-            this.View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            SamplePanelCtrl ctrlPnlSample = new SamplePanelCtrl(); //Creamos el controlador
-            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panle del controlador
-            this.View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
-            
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            var ctrlPnlSample = new ClienteListarPanelCtrl(GestorClientes); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
+            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }
+
         /// <summary>
-        /// REpetimos lo anterior para otra parte...
+        ///     REpetimos lo anterior para otra parte...
         /// </summary>
         private void GestionVehiculos()
         {
-            this.View.Controls.Remove(pnlPrincipal);
-            SamplePanelCtrl ctrlPnlSample = new SamplePanelCtrl(); //OJO como prueba estoy usando el panel sampple otra vez
-            ctrlPnlSample.View.grdLista.Visible = false;  //
-            pnlPrincipal = ctrlPnlSample.View;
-            this.View.Controls.Add(pnlPrincipal);
-
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            var ctrlPnlSample = new SamplePanelCtrl(); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panle del controlador
+            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }
 
         /// <summary>
@@ -60,7 +57,7 @@ namespace GestionEmpresaTransporte.ui
         {
             try
             {
-
+                GestorClientes.CargarXML("clientes.xml");
                 Mensaje("Cargados...");
             }
             catch (Exception e)
@@ -74,10 +71,8 @@ namespace GestionEmpresaTransporte.ui
         /// </summary>
         private void Guardar()
         {
-
             try
             {
-
                 Mensaje("Guardados... ");
             }
             catch (Exception e)
