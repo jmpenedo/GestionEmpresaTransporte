@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace GestionEmpresaTransporte.Utils
+namespace GestionEmpresaTransporte.Core
 {
     public class utilidades
     {

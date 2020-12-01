@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using GestionEmpresaTransporte.Core;
-using GestionEmpresaTransporte.Utils;
 
 namespace GestionEmpresaTransporte.ui
 {
