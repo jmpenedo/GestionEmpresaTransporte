@@ -26,7 +26,7 @@
             BuildStatusBar();
             SuspendLayout();
             MinimumSize = new Draw.Size(800, 600);
-            MaximumSize = MinimumSize;
+            //MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
             ResumeLayout(true);
         }
