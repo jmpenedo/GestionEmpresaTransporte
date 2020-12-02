@@ -7,24 +7,25 @@ namespace GestionEmpresaTransporte.ui
 
     public class MainWindowCtrl
     {
-        private const string FClientes = "clientes.xml"; //pasar a config.ini
-        public ClientePanelCtrl ctrlPnlCliente;
+        private WForms.Panel pnlPrincipal;
+
         public MainWindowCtrl()
         {
             View = new MainWindowView();
             //Creacion de todos los contenedores y recuperacion desde ficheros//
-            GestorClientes = new GestorDeClientes(FClientes);
-            //GestorVehiculos = new GestorDeVehiculos(FVehiculos);
-            //GestorTransportes = new GestorDeTransportes(FTransportes);
+            GestorClientes = new GestorDeClientes();
+            //GestorVehiculos = new GestorDeVehiculos();
+            //GestorTransportes = new GestorDeTransportes();
+
+            Cargar();
 
             //Asignación de Handlers
             View.Closed += (sender, e) => Salir();
             View.opSalir.Click += (sender, e) => Salir();
             View.opGestionClientes.Click += (sender, e) => GestionClientes();
-            View.opPruebaClientes.Click += (sender, e) => PruebaClientes();
-            View.opGuardar.Click += (sender, e) => GuardarClientes(FClientes);
-            View.opCargar.Click += (sender, e) => CargarClientes(FClientes);
-
+            View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
+            View.opGuardar.Click += (sender, e) => Guardar();
+            View.opCargar.Click += (sender, e) => Cargar();
         }
 
         public GestorDeClientes GestorClientes { get; set; }
@@ -32,53 +33,47 @@ namespace GestionEmpresaTransporte.ui
 
         private void GestionClientes()
         {
-            ctrlPnlCliente = new ClientePanelCtrl(GestorClientes);
-            this.View.Controls.Add(ctrlPnlCliente.View);
-            /*if (ctrlClientes.View.ShowDialog() == WForms.DialogResult.OK)
-            {
-                //Acciones para despues de gestionar clientes Guardar los clientes?
-            }*/
-        }
-
-        private void PruebaClientes()
-        {
-            ctrlPnlCliente.View.Visible = false;
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            var ctrlPnlSample = new ClienteListarPanelCtrl(GestorClientes); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
+            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }
 
         /// <summary>
-        ///     Permite cargar los clientes desde el nombre de fichero
-        ///     pasado como parametro
+        ///     REpetimos lo anterior para otra parte...
         /// </summary>
-        /// <param name="fClientes">
-        ///     <see cref="string" />
-        /// </param>
-        private void CargarClientes(string fClientes)
+        private void GestionVehiculos()
+        {
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            var ctrlPnlSample = new SamplePanelCtrl(); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panle del controlador
+            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
+        }
+
+        /// <summary>
+        ///     Permite cargar los clientes
+        /// </summary>
+        private void Cargar()
         {
             try
             {
-                GestorClientes = new GestorDeClientes(fClientes);
-                Mensaje(string.Format("Cargados desde {0} un total de {1} clientes", FClientes, GestorClientes.Count));
+                GestorClientes.CargarXML("clientes.xml");
+                Mensaje("Cargados...");
             }
             catch (Exception e)
             {
                 WForms.MessageBox.Show("Se ha producido un error al cargar: " + e.Message);
-                GestorClientes = new GestorDeClientes(); //creo un gestor de clientes vacio
-                Mensaje("Creado un gestor de clientes vacío");
             }
         }
 
         /// <summary>
         ///     Guarda los clientes en fichero
         /// </summary>
-        /// <param name="fichero">
-        ///     <see cref="string" />
-        /// </param>
-        private void GuardarClientes(string fichero)
+        private void Guardar()
         {
             try
             {
-                GestorClientes.GuardarXML(fichero);
-                Mensaje(string.Format("Guardado en el {0} un total de {1} clientes", FClientes, GestorClientes.Count));
+                Mensaje("Guardados... ");
             }
             catch (Exception e)
             {

@@ -1,4 +1,6 @@
+using System;
 using System.Xml.Linq;
+
 namespace GestionEmpresaTransporte.Core
 {
     public class Cliente
@@ -13,13 +15,13 @@ namespace GestionEmpresaTransporte.Core
         /// <param name="dirección">Direccion completa</param>
         public Cliente(string nif, string nombre, string telefono, string email, string dirección)
         {
-            if (Utils.utilidades.valida_NIFCIFNIE(nif))
+            if (utilidades.valida_NIFCIFNIE(nif))
             {
                 Nif = nif;
             }
             else
             {
-                InvalidClientException clientEx = new InvalidClientException("Valor de NIF no valido");
+                var clientEx = new InvalidClientException("Valor de NIF no valido");
                 throw clientEx;
             }
             ///TODO validar el resto de atributos
@@ -28,8 +30,6 @@ namespace GestionEmpresaTransporte.Core
             Telefono = telefono;
             Email = email;
             Dirección = dirección;
-
-
         }
 
         /// <summary>
@@ -93,11 +93,19 @@ namespace GestionEmpresaTransporte.Core
             return raizToret;
         }
     }
-    public class InvalidClientException : System.Exception
-    {
-        public InvalidClientException() : base() { }
-        public InvalidClientException(string message) : base(message) { }
-        public InvalidClientException(string message, System.Exception inner) : base(message, inner) { }
 
+    public class InvalidClientException : Exception
+    {
+        public InvalidClientException()
+        {
+        }
+
+        public InvalidClientException(string message) : base(message)
+        {
+        }
+
+        public InvalidClientException(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 }
