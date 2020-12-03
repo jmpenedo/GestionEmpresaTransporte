@@ -21,7 +21,7 @@ namespace GestionEmpresaTransporte.Core
 
         public string Tipo { get; set; }
 
-        protected float Peso { get; set; }
+        public float Peso { get; set; }
 
         public List<string> Comodidades;
 

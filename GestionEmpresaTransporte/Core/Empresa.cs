@@ -19,6 +19,25 @@ namespace GestionEmpresaTransporte.Core
             ColeccionVehiculos = new ColeccionVehiculos();
             ColeccionTransportes = new ColeccionTransportes();
         }
+        
+        //-------------------------------------------CARGAR Y GUARDAR------------------------------------------------------
+
+        /// <summary>
+        /// Carga el XML en las listas
+        /// </summary>
+        public void CargarXML()
+        {
+            ColeccionClientes = GestorDeClientes.CargarXML();
+            ColeccionVehiculos = ColeccionVehiculos.CargarXml();
+            ColeccionTransportes = ColeccionTransportes.CargarXML( ColeccionClientes,ColeccionVehiculos);
+        }
+        
+        public void GuardaXML()
+        {
+            ColeccionClientes.GuardaXml();
+            ColeccionVehiculos.GuardaXml();
+            ColeccionTransportes.GuardaXml();
+        }
 
         //------------------------------------------ADD-----------------------------------------------------------------
         
@@ -569,9 +588,9 @@ namespace GestionEmpresaTransporte.Core
         
         
         
-        public GestorDeClientes ColeccionClientes { get; }
-        public ColeccionVehiculos ColeccionVehiculos { get; }
-        public ColeccionTransportes ColeccionTransportes { get; }
+        public GestorDeClientes ColeccionClientes { get; set; }
+        public ColeccionVehiculos ColeccionVehiculos { get; set; }
+        public ColeccionTransportes ColeccionTransportes { get; set; }
 
     }
 }

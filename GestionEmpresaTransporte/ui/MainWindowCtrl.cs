@@ -5,19 +5,16 @@ namespace GestionEmpresaTransporte.ui
 {
     using WForms = System.Windows.Forms;
 
-    public class MainWindowCtrl
+    class MainWindowCtrl
     {
         private WForms.Panel pnlPrincipal;
 
         public MainWindowCtrl()
         {
             View = new MainWindowView();
-            //Creacion de todos los contenedores y recuperacion desde ficheros//
-            GestorClientes = new GestorDeClientes();
-            //GestorVehiculos = new GestorDeVehiculos();
-            //GestorTransportes = new GestorDeTransportes();
+            empresa = new Empresa();
+            empresa.CargarXML();
 
-            Cargar();
 
             //Asignación de Handlers
             View.Closed += (sender, e) => Salir();
@@ -25,16 +22,16 @@ namespace GestionEmpresaTransporte.ui
             View.opGestionClientes.Click += (sender, e) => GestionClientes();
             View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
             View.opGuardar.Click += (sender, e) => Guardar();
-            View.opCargar.Click += (sender, e) => Cargar();
         }
 
+        public Empresa empresa { get; set; }
         public GestorDeClientes GestorClientes { get; set; }
         public MainWindowView View { get; }
 
         private void GestionClientes()
         {
             View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctrlPnlSample = new ClienteListarPanelCtrl(GestorClientes); //Creamos el controlador
+            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa.ColeccionClientes); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }
@@ -51,28 +48,13 @@ namespace GestionEmpresaTransporte.ui
         }
 
         /// <summary>
-        ///     Permite cargar los clientes
-        /// </summary>
-        private void Cargar()
-        {
-            try
-            {
-                GestorClientes.CargarXML("clientes.xml");
-                Mensaje("Cargados...");
-            }
-            catch (Exception e)
-            {
-                WForms.MessageBox.Show("Se ha producido un error al cargar: " + e.Message);
-            }
-        }
-
-        /// <summary>
         ///     Guarda los clientes en fichero
         /// </summary>
         private void Guardar()
         {
             try
             {
+                empresa.GuardaXML();
                 Mensaje("Guardados... ");
             }
             catch (Exception e)

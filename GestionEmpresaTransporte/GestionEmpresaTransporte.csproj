@@ -47,7 +47,7 @@
     <Compile Include="Core\Empresa.cs" />
     <Compile Include="Core\GestorDeClientes.cs" />
     <Compile Include="Core\Transporte.cs" />
-    <Compile Include="Core\utilidades.cs"/>
+    <Compile Include="Core\utilidades.cs" />
     <Compile Include="Core\Vehiculo.cs" />
     <Compile Include="Core\Vehiculos\Camion.cs" />
     <Compile Include="Core\Vehiculos\CamionArticulado.cs" />
@@ -71,6 +71,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ui\WinFormsUI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\clientes.xml" />
+    <Content Include="Samples\transportes.xml" />
+    <Content Include="Samples\vehiculos.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
