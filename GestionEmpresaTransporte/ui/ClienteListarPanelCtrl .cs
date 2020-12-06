@@ -34,7 +34,7 @@ namespace GestionEmpresaTransporte.ui
         ///     Muestra la información  del cliente seleccionado
         ///     en el panel inferior
         /// </summary>
-        private void ActualizarPanelCliente()
+        public void ActualizarPanelCliente()
         {
             foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
             {

@@ -1,1 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<transportes>
+  <transporte>
+    <ID>9999AAA20201206</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>9999AAA</matriculaVehiculo>
+    <nifCliente>44660663E</nifCliente>
+    <fechaContratacion>20201206</fechaContratacion>
+    <kmRecorridos>1</kmRecorridos>
+    <fechaSalida>20201206</fechaSalida>
+    <fechaEntrega>20201206</fechaEntrega>
+    <importeDia>1</importeDia>
+    <iva>0.1</iva>
+    <precioLitro>2</precioLitro>
+    <gasConsumido>1</gasConsumido>
+    <precioTotal>1.6</precioTotal>
+  </transporte>
+</transportes>

@@ -234,5 +234,40 @@ namespace GestionEmpresaTransporte.Core
                 return false;
             }
         }
+
+        public static bool IsValidFechaSalida(string fechaContratacion, string fechaSalida)
+        {
+            if ((DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                 DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsValidFechaEntrega(string fechaSalida, string fechaEntrega)
+        {
+            if ((DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                                      DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsValidFechaContratacion(string fechaContratacion, string fechaSalida, string fechaEntrega)
+        {
+            if ((DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0
+                || (DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

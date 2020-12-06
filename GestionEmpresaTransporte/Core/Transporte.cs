@@ -62,5 +62,7 @@
             toret += String.Format("Cliente: {0}, Precio por día: {1} euros, Número de días: {2}, Precio por Km: {3} euros, Número de Km: {4}, IVA aplicado: {5}, Precio Total: {6} euros", this.Cliente.ToString(), this.ImportePorDia, this.NumDias, 3*this.Camion.Consumo*this.PrecioLitro , this.KmRecorridos, this.IVA, this.PrecioTotal);
             return toret;
         }
+
+
     }
 }

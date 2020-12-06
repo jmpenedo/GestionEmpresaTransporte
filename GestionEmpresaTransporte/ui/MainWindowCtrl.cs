@@ -21,6 +21,7 @@ namespace GestionEmpresaTransporte.ui
             View.opSalir.Click += (sender, e) => Salir();
             View.opGestionClientes.Click += (sender, e) => GestionClientes();
             View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
+            View.opGestionTransportes.Click += (sender, e) => GestionTransportes();
             View.opGuardar.Click += (sender, e) => Guardar();
         }
 
@@ -45,6 +46,25 @@ namespace GestionEmpresaTransporte.ui
             var ctrlPnlSample = new SamplePanelCtrl(); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panle del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
+        }
+
+        private void GestionTransportes()
+        {
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            var ctrlPnlSample = new TransporteListarPanelCtrl(empresa,this); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
+            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
+        }
+
+        public void VerCliente(Cliente cliente)
+        {
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa.ColeccionClientes); //Creamos el controlador
+            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
+            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
+
+            var pos = ctrlPnlSample.GestorClientes.PosCliente(cliente);
+            ctrlPnlSample.View.grdLista.Rows[pos].Selected = true;
         }
 
         /// <summary>

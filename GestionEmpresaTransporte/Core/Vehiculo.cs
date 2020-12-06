@@ -58,10 +58,17 @@ namespace GestionEmpresaTransporte.Core
 
         public override string ToString()
         {
-            return 
+            return this.Matricula;
+        }
+
+        public string ImprimirDatos()
+        {
+            return
                 $":\n\tMatricula: {this.Matricula}\t\tpeso máximo: {this.Peso}t" +
                 $"\n\tFecha de fabricacion: {this.FechaFabricacion}\nFecha de adquisicion: {this.FechaAdquisicion}";
         }
+        
+
         public static bool ValidarMatricula(string m)
         {
            

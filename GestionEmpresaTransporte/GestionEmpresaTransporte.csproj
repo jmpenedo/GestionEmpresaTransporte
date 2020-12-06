@@ -70,6 +70,14 @@
     <Compile Include="ui\MainWindowView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ui\TransporteListarPanelCtrl.cs" />
+    <Compile Include="ui\TransporteListarPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\TransporteVerPanelCtrl.cs" />
+    <Compile Include="ui\TransporteVerPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ui\WinFormsUI.cs" />
   </ItemGroup>
   <ItemGroup>

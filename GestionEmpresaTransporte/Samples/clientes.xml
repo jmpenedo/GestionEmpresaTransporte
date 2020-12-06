@@ -1,1 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<clientes>
+  <cliente>
+    <nif>44660662K</nif>
+    <nombre>David</nombre>
+    <telefono>650597495</telefono>
+    <email>Encarnacion</email>
+    <DireccionPostal>david@hotmail.com</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>44660663E</nif>
+    <nombre>Monica</nombre>
+    <telefono>650597495</telefono>
+    <email>Encarnacion</email>
+    <DireccionPostal>monica@hotmail.com</DireccionPostal>
+  </cliente>
+</clientes>

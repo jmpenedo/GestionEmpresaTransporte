@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using GestionEmpresaTransporte.Core.Vehiculos;
+using System.Collections.ObjectModel;
 
 namespace GestionEmpresaTransporte.Core
 {
@@ -114,6 +115,16 @@ namespace GestionEmpresaTransporte.Core
         public Vehiculo RecuperarVehiculo(String matricula)
         {
             return this.listaVehiculos.Select(vehiculo => vehiculo).Where(vehiculo => vehiculo.Matricula.Equals(matricula)).First<Vehiculo>();
+        }
+
+        public List<string> ListaMatriculas()
+        {
+                var toret = new List<string>();
+                foreach (Vehiculo Vehiculo in this.listaVehiculos)
+                {
+                    toret.Add(Vehiculo.Matricula);
+                }
+                return toret;
         }
 
         public void GuardaXml()

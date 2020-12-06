@@ -94,6 +94,16 @@ namespace GestionEmpresaTransporte.Core
 
         public bool IsReadOnly => ((ICollection<Cliente>) Clientes).IsReadOnly;
 
+        public List<string> ListaNifs()
+        {
+            var toret = new List<string>();
+            foreach (Cliente Cliente in this.Clientes)
+            {
+                toret.Add(Cliente.Nif);
+            }
+            return toret;
+        }
+
         /// <summary>
         ///     Busca en el listado de clientes el NIF pasado como
         ///     parámetro
@@ -124,6 +134,14 @@ namespace GestionEmpresaTransporte.Core
             foreach (var cliente in Clientes) toret.AppendLine(cliente.ToString());
             return toret.ToString();
         }
+
+
+        public int PosCliente(Cliente aBuscar)
+        {
+            return Clientes.FindIndex(cliente => cliente.Nif == aBuscar.Nif);
+        }
+
+
 
         /// <summary>
         ///     Devuelve el listado de clientes como  XElement

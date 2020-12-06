@@ -15,7 +15,7 @@ namespace GestionEmpresaTransporte.Core
 
     class ColeccionTransportes : ICollection<Transporte>
     {
-        protected List<Transporte> ListaTransportes = new List<Transporte>();
+        public List<Transporte> ListaTransportes = new List<Transporte>();
         
         public const string ArchivoXml = "../../Samples/transportes.xml"; 
         public const string EtqTransportes = "transportes"; 

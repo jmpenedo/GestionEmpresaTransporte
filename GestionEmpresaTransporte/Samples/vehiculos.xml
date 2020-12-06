@@ -1,1 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<vehiculos>
+  <vehiculo>
+    <matricula>9999AAA</matricula>
+    <tipo>Camion</tipo>
+    <marca>aaaa</marca>
+    <modelo>aaaa</modelo>
+    <consumoKm>0.1</consumoKm>
+    <fechaAdquisicion>2020-12-06T00:00:00+01:00</fechaAdquisicion>
+    <fechaFabricacion>2020-12-06T13:41:24.2327898+01:00</fechaFabricacion>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades />
+  </vehiculo>
+  <vehiculo>
+    <matricula>8888BBB</matricula>
+    <tipo>Camion</tipo>
+    <marca>bbbb</marca>
+    <modelo>bbbb</modelo>
+    <consumoKm>0.1</consumoKm>
+    <fechaAdquisicion>2020-12-06T00:00:00+01:00</fechaAdquisicion>
+    <fechaFabricacion>2020-12-06T13:41:24.2372535+01:00</fechaFabricacion>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades />
+  </vehiculo>
+</vehiculos>
