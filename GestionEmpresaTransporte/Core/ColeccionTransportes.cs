@@ -1,48 +1,42 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace GestionEmpresaTransporte.Core
 {
-    using System.Xml.Linq;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Xml;
-
-    class ColeccionTransportes : ICollection<Transporte>
+    internal class ColeccionTransportes : ICollection<Transporte>
     {
-        public List<Transporte> ListaTransportes = new List<Transporte>();
-        
-        public const string ArchivoXml = "../../Samples/transportes.xml"; 
-        public const string EtqTransportes = "transportes"; 
-        public const string EtqID = "ID"; 
-        public const string EtqTipo = "tipo"; 
+        public const string ArchivoXml = "../../Samples/transportes.xml";
+        public const string EtqTransportes = "transportes";
+        public const string EtqID = "ID";
+        public const string EtqTipo = "tipo";
         public const string EtqTransporte = "transporte";
         public const string EtqVehiculo = "matriculaVehiculo";
         public const string EtqCliente = "nifCliente";
         public const string EtqPrecio = "precioTotal";
-        public const string EtqFechaContratacion = "fechaContratacion"; 
-        public const string EtqKmRecorridos = "kmRecorridos"; 
+        public const string EtqFechaContratacion = "fechaContratacion";
+        public const string EtqKmRecorridos = "kmRecorridos";
         public const string EtqFechaSalida = "fechaSalida";
-        public const string EtqFechaEntrega = "fechaEntrega"; 
+        public const string EtqFechaEntrega = "fechaEntrega";
         public const string EtqImporteDia = "importeDia";
         public const string EtqPrecioLitro = "precioLitro";
         public const string EtqIva = "iva";
         public const string EtqGas = "gasConsumido";
+        public List<Transporte> ListaTransportes = new List<Transporte>();
 
-        public int Count
+        public Transporte this[int i]
         {
-            get { return ListaTransportes.Count; }
+            get => ListaTransportes[i];
+            set => ListaTransportes[i] = value;
         }
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public int Count => ListaTransportes.Count;
+
+        public bool IsReadOnly => false;
 
         public void Add(Transporte transporte)
         {
@@ -71,24 +65,12 @@ namespace GestionEmpresaTransporte.Core
 
         IEnumerator<Transporte> IEnumerable<Transporte>.GetEnumerator()
         {
-            foreach (var Transporte in ListaTransportes)
-            {
-                yield return Transporte;
-            }
+            foreach (var Transporte in ListaTransportes) yield return Transporte;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            foreach (var Transporte in ListaTransportes)
-            {
-                yield return Transporte;
-            }
-        }
-
-        public Transporte this[int i]
-        {
-            get { return ListaTransportes[i]; }
-            set { ListaTransportes[i] = value; }
+            foreach (var Transporte in ListaTransportes) yield return Transporte;
         }
 
         public ReadOnlyCollection<Transporte> AsReadOnly()
@@ -96,35 +78,33 @@ namespace GestionEmpresaTransporte.Core
             return ListaTransportes.AsReadOnly();
         }
 
-        public Boolean ExisteTransporte(String idTransporte)
+        public bool ExisteTransporte(string idTransporte)
         {
-            Boolean toret = false;
-            var count = this.ListaTransportes.Select(transp => transp).Where(transp => transp.IdTransporte.Equals(idTransporte)).Count();
-            if (count != 0)
-            {
-                toret = true;
-            }
+            var toret = false;
+            var count = ListaTransportes.Select(transp => transp)
+                .Where(transp => transp.IdTransporte.Equals(idTransporte)).Count();
+            if (count != 0) toret = true;
 
             return toret;
         }
 
-        public Transporte RecuperarTransporte(String idTransporte)
+        public Transporte RecuperarTransporte(string idTransporte)
         {
-            return this.ListaTransportes.Select(transp => transp).Where(transp => transp.IdTransporte.Equals(idTransporte)).First<Transporte>();
+            return ListaTransportes.Select(transp => transp).Where(transp => transp.IdTransporte.Equals(idTransporte))
+                .First();
         }
-        
+
         public void GuardaXml()
         {
-            this.GuardaXml( ArchivoXml );
+            GuardaXml(ArchivoXml);
         }
-        
+
         public void GuardaXml(string nf)
         {
             var doc = new XDocument();
             var root = new XElement(EtqTransportes);
 
-            foreach (Transporte transporte in this.ListaTransportes)
-            {
+            foreach (var transporte in ListaTransportes)
                 root.Add(
                     new XElement(EtqTransporte,
                         new XElement(EtqID, transporte.IdTransporte),
@@ -140,28 +120,27 @@ namespace GestionEmpresaTransporte.Core
                         new XElement(EtqPrecioLitro, transporte.PrecioLitro),
                         new XElement(EtqGas, transporte.GasConsumido),
                         new XElement(EtqPrecio, transporte.PrecioTotal)));
-            }
-            doc.Add( root );
-            doc.Save( nf );
+            doc.Add(root);
+            doc.Save(nf);
         }
-        
+
         public static ColeccionTransportes CargarXML(string f, GestorDeClientes c, ColeccionVehiculos v)
         {
             var toret = new ColeccionTransportes();
-            
+
             try
             {
-                var doc = XDocument.Load(f); 
+                var doc = XDocument.Load(f);
                 if (doc.Root != null
                     && doc.Root.Name == EtqTransportes)
                 {
                     var transportes = doc.Root.Elements(EtqTransporte);
-                    
-                    foreach(XElement transporteXml in transportes)
+
+                    foreach (var transporteXml in transportes)
                     {
-                        Cliente cliente = c.getClientebyNif((string)transporteXml.Element(EtqCliente));
-                        Vehiculo vehiculo = v.RecuperarVehiculo((string) transporteXml.Element(EtqVehiculo));
-                        toret.ListaTransportes.Add( new Transporte(vehiculo,
+                        var cliente = c.getClientebyNif((string) transporteXml.Element(EtqCliente));
+                        var vehiculo = v.RecuperarVehiculo((string) transporteXml.Element(EtqVehiculo));
+                        toret.ListaTransportes.Add(new Transporte(vehiculo,
                             cliente,
                             (string) transporteXml.Element(EtqFechaContratacion),
                             (int) transporteXml.Element(EtqKmRecorridos),
@@ -174,23 +153,22 @@ namespace GestionEmpresaTransporte.Core
                             (double) transporteXml.Element(EtqPrecio)));
                     }
                 }
-                
-            }catch(XmlException)
+            }
+            catch (XmlException)
             {
-                
                 toret.Clear();
             }
-            catch(IOException)
+            catch (IOException)
             {
                 toret.Clear();
             }
 
             return toret;
         }
-        
+
         public static ColeccionTransportes CargarXML(GestorDeClientes c, ColeccionVehiculos v)
         {
-            return CargarXML( ArchivoXml,c,v );
+            return CargarXML(ArchivoXml, c, v);
         }
     }
 }

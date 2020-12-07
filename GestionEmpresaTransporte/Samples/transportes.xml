@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<transportes/>
 <transportes>
-  <transporte>
+<transporte>
     <ID>9999AAA20201206</ID>
     <tipo>Camion</tipo>
     <matriculaVehiculo>9999AAA</matriculaVehiculo>

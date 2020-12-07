@@ -24,6 +24,7 @@ namespace GestionEmpresaTransporte.ui
             //Asignamos Handlers
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelCliente();
             clienteVerPanelCtrl._padre = View.grdLista;
+            View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
         }
 
         public ClienteListarPanelView View { get; }
