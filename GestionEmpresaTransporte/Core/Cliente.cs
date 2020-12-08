@@ -65,7 +65,7 @@ namespace GestionEmpresaTransporte.Core
         /// <returns></returns>
         public string ImprimirDatos()
         {
-            return string.Format("[{0}], Nombre:{1}, Telefono:{2}, Email:{3}, Dirección:{4} ",
+            return string.Format("{0}, Nombre:{1}, Telefono:{2}, Email:{3}, Dirección:{4} ",
                 Nif, Nombre, Telefono, Email, Dirección);
         }
 

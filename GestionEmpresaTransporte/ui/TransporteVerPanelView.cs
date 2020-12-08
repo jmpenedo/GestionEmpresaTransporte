@@ -426,7 +426,7 @@ namespace GestionEmpresaTransporte.ui
             EdFactura = new WForms.TextBox
             {
                 Dock = WForms.DockStyle.Left,
-                Width = 785,
+                Width = 765,
                 TextAlign = WForms.HorizontalAlignment.Left,
                 Multiline = true,
                 ScrollBars = WForms.ScrollBars.Vertical

@@ -57,8 +57,8 @@ namespace GestionEmpresaTransporte.Core
         {
             var toret = "";
             toret += string.Format(
-                "Cliente: {0}, Precio por día: {1} euros, Número de días: {2}, Precio por Km: {3} euros, Número de Km: {4}, IVA aplicado: {5}, Precio Total: {6} euros",
-                Cliente, ImportePorDia, NumDias, 3 * Camion.Consumo * PrecioLitro, KmRecorridos, IVA, PrecioTotal);
+                "Cliente: {0}{7}Precio por día: {1} euros, Número de días: {2}, Precio por Km: {3} euros, Número de Km: {4}, IVA aplicado: {5}, PRECIO TOTAL: {6} euros",
+                Cliente.ImprimirDatos(), ImportePorDia, NumDias, 3 * Camion.Consumo * PrecioLitro, KmRecorridos, IVA, PrecioTotal, Environment.NewLine);
             return toret;
         }
     }

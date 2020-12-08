@@ -28,7 +28,7 @@
             View.BtAceptar.Click += (sender, e) => Aceptar();
             View.BtCancelar.Click += (sender, e) => Cancelar();
             View.BtBorrar.Click += (sender, e) => BorrarTransporte();
-            View.BtModificar.Click += (sender, e) => View.ModoModificar();
+            View.BtModificar.Click += (sender, e) => ModoModificar();
             EstadoPnlTransporte = Estados.Consultar;
             View.ModoConsulta();
         }
@@ -95,7 +95,7 @@
                     ModificarTransporte();
                     return;
                 case Estados.Consultar:
-                    ConsultarTransporte();
+                    //ConsultarTransporte();
                     return;
                 default:
                     return;
@@ -108,26 +108,30 @@
             ActualizaTextTransporte();
         }
 
-        private void ConsultarTransporte()
+        private void ModoModificar()
         {
-            throw new NotImplementedException();
+            EstadoPnlTransporte = Estados.Modificar;
+            View.ModoModificar();
         }
 
         private void BorrarTransporte()
         {
             if (ElTransporte != null)
             {
-                /*MessageBOX de confirmacion*/
-                var message = string.Format("¿Estás seguro de borrar el transporte con identificador: {0}?", ElTransporte.IdTransporte);
-                var caption = "Borrar Transporte";
-                var buttons = WForms.MessageBoxButtons.YesNo;
-                WForms.DialogResult result;
-                // Displays the MessageBox.
-                result = WForms.MessageBox.Show(message, caption, buttons);
-                if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElTransporte);
+                if (MiEmpresa.ColeccionTransportes.ExisteTransporte(ElTransporte.IdTransporte))
+                {
+                    /*MessageBOX de confirmacion*/
+                    var message = string.Format("¿Estás seguro de borrar el transporte con identificador: {0}?", ElTransporte.IdTransporte);
+                    var caption = "Borrar Transporte";
+                    var buttons = WForms.MessageBoxButtons.YesNo;
+                    WForms.DialogResult result;
+                    // Displays the MessageBox.
+                    result = WForms.MessageBox.Show(message, caption, buttons);
+                    if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElTransporte);
 
-                ActualizarPadre();
-                View.ModoConsulta();
+                    ActualizarPadre();
+                    View.ModoConsulta();
+                }
             }
         }
 
@@ -143,6 +147,17 @@
             //Si las validaciones son correctas se actulizan los datos del cliente
             if (ComprobarDatos())
             {
+                var kmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
+                var fechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
+                var fechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
+                var importeDia = Convert.ToDouble(View.EdImporteDia.Value);
+                var iva = Convert.ToDouble(View.EdIVA.Value);
+                var precioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
+                var gas = Convert.ToDouble(View.EdGas.Value);
+
+                var vehiculo = this.MiEmpresa.ColeccionVehiculos.RecuperarVehiculo(View.EdFlota.Text);
+                var precioTotal = CalcularPrecioTotal(vehiculo, kmRecorridos, fechaSalida, fechaEntrega, importeDia, iva, precioLitro, gas);
+
                 ElTransporte.KmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
                 ElTransporte.FechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
                 ElTransporte.FechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
@@ -150,6 +165,10 @@
                 ElTransporte.IVA = Convert.ToDouble(View.EdIVA.Value);
                 ElTransporte.PrecioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
                 ElTransporte.GasConsumido = Convert.ToDouble(View.EdGas.Value);
+                ElTransporte.PrecioTotal = precioTotal ;
+                ActualizaTextTransporte();
+                ActualizarPadre();
+                View.ModoConsulta();
             }
         }
 
@@ -161,27 +180,36 @@
         {
             if (ComprobarDatos())
             {
-                var nifCliente = View.EdCliente.Text;
                 var matricula = View.EdFlota.Text;
                 var fechaContratacion = View.EdFechaContratacion.Value.ToString("yyyyMMdd");
-                var kmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
-                var fechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
-                var fechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
-                var importeDia = Convert.ToDouble(View.EdImporteDia.Value);
-                var iva = Convert.ToDouble(View.EdIVA.Value);
-                var precioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
-                var gas = Convert.ToDouble(View.EdGas.Value);
+                if (MiEmpresa.ColeccionTransportes.ExisteTransporte(matricula+fechaContratacion))
+                {
+                    WForms.MessageBox.Show("El transporte que desea agragar ya existe. El id de los transporte (matrícula + fecha de contratación) debe ser único");
+                }
+                else
+                {
+                    var nifCliente = View.EdCliente.Text;
+                    var kmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
+                    var fechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
+                    var fechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
+                    var importeDia = Convert.ToDouble(View.EdImporteDia.Value);
+                    var iva = Convert.ToDouble(View.EdIVA.Value);
+                    var precioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
+                    var gas = Convert.ToDouble(View.EdGas.Value);
 
-                var vehiculo = this.MiEmpresa.ColeccionVehiculos.RecuperarVehiculo(matricula);
-                var cliente = this.MiEmpresa.ColeccionClientes.getClientebyNif(nifCliente);
-                var precioTotal = CalcularPrecioTotal(vehiculo, kmRecorridos, fechaSalida, fechaEntrega, importeDia, precioLitro, gas);
+                    var vehiculo = this.MiEmpresa.ColeccionVehiculos.RecuperarVehiculo(matricula);
+                    var cliente = this.MiEmpresa.ColeccionClientes.getClientebyNif(nifCliente);
+                    var precioTotal = CalcularPrecioTotal(vehiculo, kmRecorridos, fechaSalida, fechaEntrega, importeDia, iva, precioLitro, gas);
+       
+                    var nuevoTransporte = new Transporte(vehiculo, cliente, fechaContratacion, kmRecorridos,
+                                                         fechaSalida, fechaEntrega, importeDia, iva, precioLitro,
+                                                         gas, precioTotal);
+                    _bindingList.Add(nuevoTransporte);
+                    ActualizaTextTransporte();
+                    //ActualizarPadre();
+                    View.ModoConsulta();
+                }
                 
-                var nuevoTransporte = new Transporte(vehiculo, cliente, fechaContratacion, kmRecorridos,
-                                                     fechaSalida, fechaEntrega, importeDia, iva, precioLitro,
-                                                     gas, precioTotal);
-                _bindingList.Add(nuevoTransporte);
-                //ActualizarPadre();
-                View.ModoConsulta();
             }
         }
 
@@ -262,16 +290,16 @@
             return valido;
         }
 
-        private double CalcularPrecioTotal(Vehiculo camion, int kmRecorridos, string fechaSalida, string fechaEntrega, double importeDia, double precioLitro, double gas)
+        private double CalcularPrecioTotal(Vehiculo camion, int kmRecorridos, string fechaSalida, string fechaEntrega, double importeDia, double iva, double precioLitro, double gas)
         {
         
 
             double numd = (DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) - DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays;
             var suplencia = CalcularSuplencia(numd);
             double ppkm = 3 * Convert.ToDouble(camion.Consumo) * precioLitro;
-            var precioTotal = (numd * importeDia * suplencia) + (Convert.ToDouble(kmRecorridos) * ppkm) + gas;
+            var precioParcial = (numd * importeDia * suplencia) + (Convert.ToDouble(kmRecorridos) * ppkm) + gas;
 
-            return precioTotal;
+            return Math.Round(precioParcial + precioParcial*iva,2);
         }
 
         private int CalcularSuplencia(double numd)
