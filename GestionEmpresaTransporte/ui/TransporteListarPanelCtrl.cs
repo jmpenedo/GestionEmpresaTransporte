@@ -16,19 +16,6 @@
         public TransporteListarPanelCtrl(Empresa empresa)
         {
             MiEmpresa = empresa;
-
-            Cliente cliente1 = new Cliente("44660662K", "David", "650597495", "Encarnacion", "david@hotmail.com");
-            Cliente cliente2 = new Cliente("44660663E", "Monica", "650597495", "Encarnacion", "monica@hotmail.com");
-
-            Vehiculo vehiculo1 = new Camion("9999aaa", DateTime.Now, DateTime.Today, 0.1, "aaaa", "aaaa", new List<string> { "aire" } );
-            Vehiculo vehiculo2 = new Camion("8888bbb", DateTime.Now, DateTime.Today, 0.1, "bbbb", "bbbb", new List<string> { "aire" });
-
-
-            MiEmpresa.ColeccionClientes.Add(cliente1);
-            MiEmpresa.ColeccionClientes.Add(cliente2);
-            MiEmpresa.ColeccionVehiculos.Add(vehiculo1);
-            MiEmpresa.ColeccionVehiculos.Add(vehiculo2);
-
             _bindingList = new BindingList<Transporte>(MiEmpresa.ColeccionTransportes.ListaTransportes);
             var sourceTransportes = new WForms.BindingSource(_bindingList, null);
             TransporteVerPanelCtrl = new TransporteVerPanelCtrl(_bindingList, MiEmpresa);
