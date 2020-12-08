@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using GestionEmpresaTransporte.Core;
 
 namespace GestionEmpresaTransporte.ui
@@ -31,10 +30,11 @@ namespace GestionEmpresaTransporte.ui
             View.BtAceptar.Click += (sender, e) => Aceptar();
             View.BtCancelar.Click += (sender, e) => Cancelar();
             View.BtBorrar.Click += (sender, e) => BorrarCliente();
-            View.BtModificar.Click += (sender, e) => View.ModoModificar();
+            View.BtModificar.Click += (sender, e) => ModoModificar();
             EstadoPnlCliente = Estados.Consultar;
             View.ModoConsulta();
         }
+
 
         public ClienteVerPanelCtrl(GestorDeClientes gestorDeClientes) : this()
         {
@@ -55,7 +55,6 @@ namespace GestionEmpresaTransporte.ui
 
         public ClienteVerPanelView View { get; }
 
-
         public Cliente ElCliente
         {
             get => miCliente;
@@ -67,7 +66,6 @@ namespace GestionEmpresaTransporte.ui
         }
 
         public Estados EstadoPnlCliente { get; set; }
-
 
         private void ActualizaTextCliente()
         {
@@ -95,7 +93,7 @@ namespace GestionEmpresaTransporte.ui
                     ModificarCliente();
                     return;
                 case Estados.Consultar:
-                    ConsultarCliente();
+                    //ConsultarCliente();
                     return;
                 default:
                     return;
@@ -108,9 +106,10 @@ namespace GestionEmpresaTransporte.ui
             ActualizaTextCliente();
         }
 
-        private void ConsultarCliente()
+        private void ModoModificar()
         {
-            throw new NotImplementedException();
+            EstadoPnlCliente = Estados.Modificar;
+            View.ModoModificar();
         }
 
         private void BorrarCliente()
@@ -166,6 +165,9 @@ namespace GestionEmpresaTransporte.ui
                 ElCliente.Email = correo;
                 ElCliente.Dirección = direccion;
             }
+
+            ActualizarPadre();
+            View.ModoConsulta();
         }
 
         /// <summary>
