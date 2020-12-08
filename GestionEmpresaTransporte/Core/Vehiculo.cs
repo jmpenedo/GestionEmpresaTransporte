@@ -46,7 +46,7 @@ namespace GestionEmpresaTransporte.Core
                 throw new InvalidDataException("Formato de matrícula incorrecto");
             }
 
-            if (Consumo > 0)
+            if (Consumo >= 0)
             {
                 this.Consumo = consumo;  
             }
