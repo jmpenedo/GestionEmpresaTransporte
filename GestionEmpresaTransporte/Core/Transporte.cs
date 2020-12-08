@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace GestionEmpresaTransporte.Core
 {
-    internal class Transporte
+    public class Transporte
     {
         public Transporte(Vehiculo camion, Cliente cliente, string fechaContratacion, int kmRecorridos,
             string fechaSalida, string fechaEntrega, double importeDia, double iva, double precioLitro, double gas,

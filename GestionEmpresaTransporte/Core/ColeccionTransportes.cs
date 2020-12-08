@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace GestionEmpresaTransporte.Core
 {
-    internal class ColeccionTransportes : ICollection<Transporte>
+    public class ColeccionTransportes : ICollection<Transporte>
     {
         public const string ArchivoXml = "../../Samples/transportes.xml";
         public const string EtqTransportes = "transportes";
@@ -40,7 +40,15 @@ namespace GestionEmpresaTransporte.Core
 
         public void Add(Transporte transporte)
         {
-            ListaTransportes.Add(transporte);
+            if (transporte != null)
+            {
+                if (ExisteTransporte(transporte.IdTransporte))
+                {
+                    Remove(RecuperarTransporte(transporte.IdTransporte));
+                }
+                ListaTransportes.Add(transporte);
+
+            }
         }
 
         public void Clear()
@@ -138,19 +146,19 @@ namespace GestionEmpresaTransporte.Core
 
                     foreach (var transporteXml in transportes)
                     {
-                        var cliente = c.getClientebyNif((string) transporteXml.Element(EtqCliente));
-                        var vehiculo = v.RecuperarVehiculo((string) transporteXml.Element(EtqVehiculo));
+                        var cliente = c.getClientebyNif((string)transporteXml.Element(EtqCliente));
+                        var vehiculo = v.RecuperarVehiculo((string)transporteXml.Element(EtqVehiculo));
                         toret.ListaTransportes.Add(new Transporte(vehiculo,
                             cliente,
-                            (string) transporteXml.Element(EtqFechaContratacion),
-                            (int) transporteXml.Element(EtqKmRecorridos),
-                            (string) transporteXml.Element(EtqFechaSalida),
-                            (string) transporteXml.Element(EtqFechaEntrega),
-                            (double) transporteXml.Element(EtqImporteDia),
-                            (double) transporteXml.Element(EtqIva),
-                            (double) transporteXml.Element(EtqPrecioLitro),
-                            (double) transporteXml.Element(EtqGas),
-                            (double) transporteXml.Element(EtqPrecio)));
+                            (string)transporteXml.Element(EtqFechaContratacion),
+                            (int)transporteXml.Element(EtqKmRecorridos),
+                            (string)transporteXml.Element(EtqFechaSalida),
+                            (string)transporteXml.Element(EtqFechaEntrega),
+                            (double)transporteXml.Element(EtqImporteDia),
+                            (double)transporteXml.Element(EtqIva),
+                            (double)transporteXml.Element(EtqPrecioLitro),
+                            (double)transporteXml.Element(EtqGas),
+                            (double)transporteXml.Element(EtqPrecio)));
                     }
                 }
             }
@@ -170,5 +178,19 @@ namespace GestionEmpresaTransporte.Core
         {
             return CargarXML(ArchivoXml, c, v);
         }
+
+        public bool ExisteCliente(Cliente unCliente)
+        {
+            var toret = false;
+            foreach (var transporte in ListaTransportes)
+                if (transporte.Cliente.Equals(unCliente))
+                    toret = true;
+            return toret;
+        }
     }
 }
+
+
+
+
+

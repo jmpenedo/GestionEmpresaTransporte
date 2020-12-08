@@ -33,6 +33,7 @@ namespace GestionEmpresaTransporte.ui
         public WForms.Button BtModificar { get; private set; }
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
+        public WForms.TextBox EdFactura { get; private set; }
 
         private List<string> ListaClientes { get; set; }
 
@@ -40,12 +41,12 @@ namespace GestionEmpresaTransporte.ui
 
         private void Build()
         {
-            var tableLayoutPanel1 = new WForms.TableLayoutPanel();
-            tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.Dock = WForms.DockStyle.Fill;
-            tableLayoutPanel1.ColumnStyles.Add(new WForms.ColumnStyle(WForms.SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new WForms.ColumnStyle(WForms.SizeType.Percent, 50F));
+            var PanelDatos = new WForms.TableLayoutPanel();
+            PanelDatos.SuspendLayout();
+            PanelDatos.ColumnCount = 2;
+            PanelDatos.Dock = WForms.DockStyle.Fill;
+            PanelDatos.ColumnStyles.Add(new WForms.ColumnStyle(WForms.SizeType.Percent, 50F));
+            PanelDatos.ColumnStyles.Add(new WForms.ColumnStyle(WForms.SizeType.Percent, 50F));
 
             var pnlTable1 = new WForms.TableLayoutPanel();
             pnlTable1.SuspendLayout();
@@ -68,20 +69,29 @@ namespace GestionEmpresaTransporte.ui
             pnlTable2.Controls.Add(BuildRelleno());
             pnlTable2.Controls.Add(BuildPanelBotones());
 
+            var PanelFactura = new WForms.TableLayoutPanel();
+            PanelFactura.SuspendLayout();
+            PanelFactura.ColumnCount = 1;
+            PanelFactura.Dock = WForms.DockStyle.Bottom;
+
+            PanelFactura.Controls.Add(BuildFactura());
+
             pnlTable2.ResumeLayout(false);
             pnlTable1.ResumeLayout(false);
 
             pnlTable1.MaximumSize = pnlTable1.MinimumSize;
-
             pnlTable2.MaximumSize = pnlTable2.MinimumSize;
 
 
-            tableLayoutPanel1.Controls.Add(pnlTable1, 0, 0);
-            tableLayoutPanel1.Controls.Add(pnlTable2, 1, 0);
+            PanelDatos.Controls.Add(pnlTable1, 0, 0);
+            PanelDatos.Controls.Add(pnlTable2, 1, 0);
 
-            tableLayoutPanel1.ResumeLayout(false);
+            PanelDatos.ResumeLayout(false);
+            PanelFactura.ResumeLayout(false);
 
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(PanelDatos);
+            Controls.Add(PanelFactura);
+
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
         }
@@ -101,7 +111,7 @@ namespace GestionEmpresaTransporte.ui
             EdCliente = new WForms.ComboBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
                 SelectionLength = 0,
                 DropDownStyle = WForms.ComboBoxStyle.DropDownList,
             };
@@ -125,7 +135,7 @@ namespace GestionEmpresaTransporte.ui
             EdFlota = new WForms.ComboBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
             };
             EdFlota.Items.AddRange(ListaFlota.ToArray<object>());
             toret.Controls.Add(EdFlota);
@@ -149,7 +159,7 @@ namespace GestionEmpresaTransporte.ui
             EdFechaContratacion = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
             };
             
             toret.Controls.Add(EdFechaContratacion);
@@ -173,10 +183,9 @@ namespace GestionEmpresaTransporte.ui
             EdKmsRecorridos = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
-                DecimalPlaces = 2,
                 Value = 0
             };
 
@@ -201,7 +210,7 @@ namespace GestionEmpresaTransporte.ui
             EdFechaSalida = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
             };
 
             toret.Controls.Add(EdFechaSalida);
@@ -225,7 +234,7 @@ namespace GestionEmpresaTransporte.ui
             EdFechaEntrega = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
             };
 
             toret.Controls.Add(EdFechaEntrega);
@@ -249,7 +258,7 @@ namespace GestionEmpresaTransporte.ui
             EdImporteDia = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
@@ -277,10 +286,11 @@ namespace GestionEmpresaTransporte.ui
             EdIVA = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 Maximum = 1,
+                Increment = 0.1M,
                 DecimalPlaces = 2,
                 Value = 0
             };
@@ -306,7 +316,7 @@ namespace GestionEmpresaTransporte.ui
             EdPrecioLitro = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
@@ -334,7 +344,7 @@ namespace GestionEmpresaTransporte.ui
             EdGas = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 0.90),
+                Width = (int)(Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
@@ -409,6 +419,32 @@ namespace GestionEmpresaTransporte.ui
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
             return toret;
         }
+
+        private WForms.Panel BuildFactura()
+        {
+            var toret = new WForms.Panel();
+            EdFactura = new WForms.TextBox
+            {
+                Dock = WForms.DockStyle.Left,
+                Width = 785,
+                TextAlign = WForms.HorizontalAlignment.Left,
+                Multiline = true,
+                ScrollBars = WForms.ScrollBars.Vertical
+            };
+            EdFactura.Enabled = false;
+            var lbFactura = new WForms.Label
+            {
+                Text = "FACTURA",
+                Dock = WForms.DockStyle.Top
+            };
+
+            toret.Controls.Add(this.EdFactura);
+            toret.Controls.Add(lbFactura);
+            toret.Dock = WForms.DockStyle.Top;
+
+            return toret;
+        }
+
 
         public void ModoConsulta()
         {

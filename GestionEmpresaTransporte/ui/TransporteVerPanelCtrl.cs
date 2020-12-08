@@ -77,6 +77,7 @@
                 View.EdIVA.Text = Convert.ToString(ElTransporte.IVA);
                 View.EdPrecioLitro.Text = Convert.ToString(ElTransporte.PrecioLitro);
                 View.EdGas.Text = Convert.ToString(ElTransporte.GasConsumido);
+                View.EdFactura.Text = ElTransporte.ToString();
             }
         }
 
