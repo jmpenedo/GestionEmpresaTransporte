@@ -27,9 +27,16 @@ namespace GestionEmpresaTransporte.ui
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
         }
 
+        public ClienteListarPanelCtrl(Empresa unaEmpresa) : this(unaEmpresa.ColeccionClientes)
+        {
+            MiEmpresa = unaEmpresa;
+        }
+
+
         public ClienteListarPanelView View { get; }
         public ClienteVerPanelCtrl clienteVerPanelCtrl { get; }
         public GestorDeClientes GestorClientes { get; set; }
+        private Empresa MiEmpresa { get; }
 
         /// <summary>
         ///     Muestra la información  del cliente seleccionado

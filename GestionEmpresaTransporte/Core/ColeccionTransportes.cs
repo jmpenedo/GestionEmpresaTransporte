@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace GestionEmpresaTransporte.Core
 {
-    internal class ColeccionTransportes : ICollection<Transporte>
+    public class ColeccionTransportes : ICollection<Transporte>
     {
         public const string ArchivoXml = "../../Samples/transportes.xml";
         public const string EtqTransportes = "transportes";
@@ -169,6 +169,15 @@ namespace GestionEmpresaTransporte.Core
         public static ColeccionTransportes CargarXML(GestorDeClientes c, ColeccionVehiculos v)
         {
             return CargarXML(ArchivoXml, c, v);
+        }
+
+        public bool ExisteCliente(Cliente unCliente)
+        {
+            var toret = false;
+            foreach (var transporte in ListaTransportes)
+                if (transporte.Cliente.Equals(unCliente))
+                    toret = true;
+            return toret;
         }
     }
 }

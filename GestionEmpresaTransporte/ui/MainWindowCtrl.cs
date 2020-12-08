@@ -32,7 +32,7 @@ namespace GestionEmpresaTransporte.ui
         private void GestionClientes()
         {
             View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa.ColeccionClientes); //Creamos el controlador
+            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }

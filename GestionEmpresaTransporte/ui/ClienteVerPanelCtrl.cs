@@ -36,9 +36,10 @@ namespace GestionEmpresaTransporte.ui
         }
 
 
-        public ClienteVerPanelCtrl(GestorDeClientes gestorDeClientes) : this()
+        public ClienteVerPanelCtrl(Empresa laEmpresa) : this()
         {
-            GestorClientes = gestorDeClientes;
+            GestorClientes = laEmpresa.ColeccionClientes;
+            cTransportes = laEmpresa.ColeccionTransportes;
         }
 
         public ClienteVerPanelCtrl(BindingList<Cliente> unaBindingList) : this()
@@ -46,12 +47,13 @@ namespace GestionEmpresaTransporte.ui
             _bindingList = unaBindingList;
         }
 
-        public ClienteVerPanelCtrl(GestorDeClientes gestorDeClientes, Cliente unCliente) : this(gestorDeClientes)
+        public ClienteVerPanelCtrl(Empresa laEmpresa, Cliente unCliente) : this(laEmpresa)
         {
             ElCliente = unCliente;
         }
 
         public GestorDeClientes GestorClientes { get; set; }
+        public ColeccionTransportes cTransportes { get; set; }
 
         public ClienteVerPanelView View { get; }
 
@@ -116,7 +118,7 @@ namespace GestionEmpresaTransporte.ui
         {
             if (ElCliente != null)
             {
-                //TODO revisar que no tiene trasnportes asignado
+                //TODO if(!cTransportes.ExisteCliente(ElCliente)){
                 var nif = ElCliente.Nif;
                 /*MessageBOX de confirmacion*/
                 var message = string.Format("¿Estás seguro de borrar el cliente con identificador: {0}?", nif);
@@ -126,7 +128,12 @@ namespace GestionEmpresaTransporte.ui
                 // Displays the MessageBox.
                 result = WForms.MessageBox.Show(message, caption, buttons);
                 if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElCliente);
-
+                //TODO
+                /* }
+                else
+                {
+                    WForms.MessageBox.Show("El cliente tiene transportes asignados, no se puede borrar ");
+                }*/
                 ActualizarPadre();
                 View.ModoConsulta();
             }
