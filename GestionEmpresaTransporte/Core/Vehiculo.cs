@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace GestionEmpresaTransporte.Core
 {
@@ -9,7 +8,7 @@ namespace GestionEmpresaTransporte.Core
     {
         public string Matricula { get; }
 
-        public string Modelo { get;
+        public string Modelo { get; }
 
         public string Marca { get;  }
 
