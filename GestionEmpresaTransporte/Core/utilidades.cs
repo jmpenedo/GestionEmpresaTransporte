@@ -186,6 +186,17 @@ namespace GestionEmpresaTransporte.Core
             }
         }
 
+        /// <summary>
+        ///  Verifica que una matrícula es correcta en formato EU
+        /// </summary>
+        /// <param name="matricula"></param>
+        /// <returns></returns>
+        public static bool ValidarMatricula(string matricula)
+        {
+           
+            Regex rx = new Regex(@"[0-9]{4}[A-Z]{3}");
+            return rx.IsMatch(matricula.ToUpper()) & matricula.Length == 7;
+        }
 
         public static bool IsValidEmail(string email)
         {

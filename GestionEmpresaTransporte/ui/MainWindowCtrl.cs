@@ -5,7 +5,7 @@ namespace GestionEmpresaTransporte.ui
 {
     using WForms = System.Windows.Forms;
 
-    class MainWindowCtrl
+    internal class MainWindowCtrl
     {
         private WForms.Panel pnlPrincipal;
 
@@ -32,7 +32,7 @@ namespace GestionEmpresaTransporte.ui
         private void GestionClientes()
         {
             View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa.ColeccionClientes); //Creamos el controlador
+            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }
@@ -51,7 +51,7 @@ namespace GestionEmpresaTransporte.ui
         private void GestionTransportes()
         {
             View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctrlPnlSample = new TransporteListarPanelCtrl(empresa,this); //Creamos el controlador
+            var ctrlPnlSample = new TransporteListarPanelCtrl(empresa, this); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
         }
@@ -59,7 +59,7 @@ namespace GestionEmpresaTransporte.ui
         public void VerCliente(Cliente cliente)
         {
             View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa.ColeccionClientes); //Creamos el controlador
+            var ctrlPnlSample = new ClienteListarPanelCtrl(empresa); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
 
