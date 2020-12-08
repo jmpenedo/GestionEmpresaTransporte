@@ -50,7 +50,7 @@ namespace GestionEmpresaTransporte.ui
 
         private void GestionTransportes()
         {
-            //View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
+            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
             var ctrlPnlSample = new TransporteListarPanelCtrl(empresa, this); //Creamos el controlador
             pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
