@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 using GestionEmpresaTransporte.Core.Vehiculos;
-using System.Collections.ObjectModel;
 
 namespace GestionEmpresaTransporte.Core
 {
+    /// <summary>
+    ///     Coleccion de vehiculos y gestión
+    /// </summary>
     public class ColeccionVehiculos : ICollection<Vehiculo>
     {
         protected List<Vehiculo> listaVehiculos = new List<Vehiculo>();
@@ -39,6 +40,11 @@ namespace GestionEmpresaTransporte.Core
             return listaVehiculos.GetEnumerator();
         }
 
+        /// <summary>
+        ///     Si no existe el Vehiculo se añade al sistema
+        ///     Si ya existe un vehiculo con la misma matrícula, descarta lo añadido
+        /// </summary>
+        /// <param name="item"></param>
         public void Add(Vehiculo item)
         {
             if (item != null & !Contains(item))
@@ -46,16 +52,25 @@ namespace GestionEmpresaTransporte.Core
                 listaVehiculos.Add(item);
             }
         }
-
+        /// <summary>
+        ///    Borra todos los vehiculos de la coleccion
+        /// </summary>
         public void Clear()
         {
             listaVehiculos.Clear();
         }
 
+        /// <summary>
+        ///     Comprueba si existe un vehículo con la misma matrícula
+        /// </summary>
+        /// <param name="t">
+        ///     <see cref="Vehiculo" />
+        /// </param>
+        /// <returns></returns>
         public bool Contains(Vehiculo t)
         {
             var toret = false;
-            foreach (var x in listaVehiculos.Where(x => t != null && x.Matricula.Equals(t.Matricula)))
+            foreach (var unused in listaVehiculos.Where(x => t != null && x.Matricula.Equals(t.Matricula)))
             {
                 toret = true;
             }
@@ -67,12 +82,21 @@ namespace GestionEmpresaTransporte.Core
         {
             listaVehiculos.CopyTo(array,arrayIndex);
         }
-
+        /// <summary>
+        ///     Elimina ese vehiculo de la colección
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Remove(Vehiculo item)
         {
             return item != null && listaVehiculos.Remove(item);
         }
         
+        /// <summary>
+        ///     Elimina un vehiculo con esa matricula
+        /// </summary>
+        /// <param name="matricula"></param>
+        /// <returns></returns>
         public bool Remove(String matricula)
         {
             Vehiculo toremove = null;
@@ -85,15 +109,9 @@ namespace GestionEmpresaTransporte.Core
             return Remove(toremove);
         }
 
-        public int Count
-        {
-            get { return listaVehiculos.Count; }
-        }
+        public int Count => listaVehiculos.Count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public override string ToString()
         {
