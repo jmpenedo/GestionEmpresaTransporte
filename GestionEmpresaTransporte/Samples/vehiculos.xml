@@ -9,9 +9,7 @@
     <fechaAdquisicion>2020-12-07T00:00:00+01:00</fechaAdquisicion>
     <fechaFabricacion>2020-11-07T19:13:28.985806+01:00</fechaFabricacion>
     <pesoMaximo>25</pesoMaximo>
-    <comodidades>
-      <comodidad>A/C</comodidad>
-    </comodidades>
+    <comodidades />
   </vehiculo>
   <vehiculo>
     <matricula>8888BBB</matricula>
@@ -22,8 +20,6 @@
     <fechaAdquisicion>2020-12-07T00:00:00+01:00</fechaAdquisicion>
     <fechaFabricacion>2020-11-07T19:13:28.986401+01:00</fechaFabricacion>
     <pesoMaximo>25</pesoMaximo>
-    <comodidades>
-      <comodidad>A/C</comodidad>
-    </comodidades>
+    <comodidades />
   </vehiculo>
 </vehiculos>

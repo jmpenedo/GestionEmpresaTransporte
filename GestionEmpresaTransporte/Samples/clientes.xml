@@ -5,69 +5,55 @@
     <nombre>Juan Perez Fernandez</nombre>
     <telefono>988567890</telefono>
     <email>juan.perz.fernandez@gmail.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>E35911197</nif>
     <nombre>Empresa de prueba 1</nombre>
     <telefono>890789099</telefono>
     <email>empresa1@hotmail.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>A32226003</nif>
     <nombre>Sociedad Textil Lonia Sa</nombre>
     <telefono>988519444</telefono>
     <email>contacto|@stlonia.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>F32001976</nif>
     <nombre>COOP OURENSANAS S. C. GALEGA</nombre>
     <telefono>988369400</telefono>
     <email>contacto@coren.es</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>X4054242D</nif>
     <nombre>Extranjero 1</nombre>
     <telefono>890890567</telefono>
     <email>ext@gmail.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>88740046C</nif>
     <nombre>Filemon Pi</nombre>
     <telefono>678343434</telefono>
     <email>filemonPi@tia.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>96229159B</nif>
     <nombre>Mortadelo Azpilicuetagorricoechea</nombre>
     <telefono>678788900</telefono>
     <email>mortadeloA@tia.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
   <cliente>
     <nif>Q5133195G</nif>
     <nombre>TIA(Técnicos de Investigación Aeroterráquea)</nombre>
     <telefono>9024566789</telefono>
     <email>contacto@tia.com</email>
-    <DireccionPostal/>
+    <DireccionPostal></DireccionPostal>
   </cliente>
-<cliente>
-  <nif>44660662K</nif>
-  <nombre>David</nombre>
-  <telefono>650597495</telefono>
-  <email>Encarnacion</email>
-  <DireccionPostal>david@hotmail.com</DireccionPostal>
-</cliente>
-<cliente>
-  <nif>44660663E</nif>
-  <nombre>Monica</nombre>
-  <telefono>650597495</telefono>
-  <email>Encarnacion</email>
-  <DireccionPostal>monica@hotmail.com</DireccionPostal>
-</cliente>
 </clientes>
