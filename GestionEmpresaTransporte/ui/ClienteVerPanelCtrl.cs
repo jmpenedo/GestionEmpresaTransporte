@@ -23,8 +23,11 @@ namespace GestionEmpresaTransporte.ui
         /// <summary>
         /// </summary>
         /// <param name="gestorDeClientes"></param>
-        private ClienteVerPanelCtrl()
+        public ClienteVerPanelCtrl(Empresa laEmpresa)
         {
+            GestorClientes = laEmpresa.ColeccionClientes;
+            cTransportes = laEmpresa.ColeccionTransportes;
+            //_bindingList = new BindingList<Cliente>(GestorClientes.Clientes);
             View = new ClienteVerPanelView();
             View.BtInsertar.Click += (sender, e) => InsertarCliente();
             View.BtAceptar.Click += (sender, e) => Aceptar();
@@ -35,21 +38,20 @@ namespace GestionEmpresaTransporte.ui
             View.ModoConsulta();
         }
 
-
-        public ClienteVerPanelCtrl(Empresa laEmpresa) : this()
-        {
-            GestorClientes = laEmpresa.ColeccionClientes;
-            cTransportes = laEmpresa.ColeccionTransportes;
-        }
-
+/*
         public ClienteVerPanelCtrl(BindingList<Cliente> unaBindingList) : this()
         {
             _bindingList = unaBindingList;
         }
-
+*/
         public ClienteVerPanelCtrl(Empresa laEmpresa, Cliente unCliente) : this(laEmpresa)
         {
             ElCliente = unCliente;
+        }
+
+        public ClienteVerPanelCtrl(Empresa laEmpresa, BindingList<Cliente> bndListClientes) : this(laEmpresa)
+        {
+            _bindingList = bndListClientes;
         }
 
         public GestorDeClientes GestorClientes { get; set; }
@@ -118,22 +120,23 @@ namespace GestionEmpresaTransporte.ui
         {
             if (ElCliente != null)
             {
-                //TODO if(!cTransportes.ExisteCliente(ElCliente)){
-                var nif = ElCliente.Nif;
-                /*MessageBOX de confirmacion*/
-                var message = string.Format("¿Estás seguro de borrar el cliente con identificador: {0}?", nif);
-                var caption = "Borrar cliente";
-                var buttons = WForms.MessageBoxButtons.YesNo;
-                WForms.DialogResult result;
-                // Displays the MessageBox.
-                result = WForms.MessageBox.Show(message, caption, buttons);
-                if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElCliente);
-                //TODO
-                /* }
+                if (!cTransportes.ExisteCliente(ElCliente))
+                {
+                    var nif = ElCliente.Nif;
+                    /*MessageBOX de confirmacion*/
+                    var message = string.Format("¿Estás seguro de borrar el cliente con identificador: {0}?", nif);
+                    var caption = "Borrar cliente";
+                    var buttons = WForms.MessageBoxButtons.YesNo;
+                    WForms.DialogResult result;
+                    // Displays the MessageBox.
+                    result = WForms.MessageBox.Show(message, caption, buttons);
+                    if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElCliente);
+                }
                 else
                 {
                     WForms.MessageBox.Show("El cliente tiene transportes asignados, no se puede borrar ");
-                }*/
+                }
+
                 ActualizarPadre();
                 View.ModoConsulta();
             }
