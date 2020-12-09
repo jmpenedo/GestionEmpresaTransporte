@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<transportes>
+  <transporte>
+    <ID>9999AAA20201208</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>9999AAA</matriculaVehiculo>
+    <nifCliente>E35911197</nifCliente>
+    <fechaContratacion>20201208</fechaContratacion>
+    <kmRecorridos>50</kmRecorridos>
+    <fechaSalida>20201208</fechaSalida>
+    <fechaEntrega>20201208</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.25</precioLitro>
+    <gasConsumido>40</gasConsumido>
+    <precioTotal>71.09</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>8888BBB20201208</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>8888BBB</matriculaVehiculo>
+    <nifCliente>88740046C</nifCliente>
+    <fechaContratacion>20201208</fechaContratacion>
+    <kmRecorridos>20</kmRecorridos>
+    <fechaSalida>20201208</fechaSalida>
+    <fechaEntrega>20201208</fechaEntrega>
+    <importeDia>11</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>27</gasConsumido>
+    <precioTotal>40.29</precioTotal>
+  </transporte>
+</transportes>

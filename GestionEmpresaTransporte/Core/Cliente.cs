@@ -51,12 +51,21 @@ namespace GestionEmpresaTransporte.Core
         public string Dirección { get; set; }
 
         /// <summary>
-        ///     Devuelve los datos del cliente como un String
+        ///     Devuelve el nif del cliente
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[{0}], Nombre:{1}, Telefono:{2}, Email:{3}, Dirección:{4} ",
+            return Nif;
+        }
+
+        /// <summary>
+        ///     Devuelve los datos del cliente como un String
+        /// </summary>
+        /// <returns></returns>
+        public string ImprimirDatos()
+        {
+            return string.Format("{0}, Nombre:{1}, Telefono:{2}, Email:{3}, Dirección:{4} ",
                 Nif, Nombre, Telefono, Email, Dirección);
         }
 

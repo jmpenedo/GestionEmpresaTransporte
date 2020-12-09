@@ -44,11 +44,10 @@
     <Compile Include="Core\Cliente.cs" />
     <Compile Include="Core\ColeccionTransportes.cs" />
     <Compile Include="Core\ColeccionVehiculos.cs" />
-    <Compile Include="Core\ControllerTransporte.cs" />
     <Compile Include="Core\Empresa.cs" />
     <Compile Include="Core\GestorDeClientes.cs" />
-    <Compile Include="Core\IControllerTransporte.cs" />
     <Compile Include="Core\Transporte.cs" />
+    <Compile Include="Core\utilidades.cs" />
     <Compile Include="Core\Vehiculo.cs" />
     <Compile Include="Core\Vehiculos\Camion.cs" />
     <Compile Include="Core\Vehiculos\CamionArticulado.cs" />
@@ -71,8 +70,20 @@
     <Compile Include="ui\MainWindowView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ui\TransporteListarPanelCtrl.cs" />
+    <Compile Include="ui\TransporteListarPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\TransporteVerPanelCtrl.cs" />
+    <Compile Include="ui\TransporteVerPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ui\WinFormsUI.cs" />
-    <Compile Include="Utils\utilidades.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\clientes.xml" />
+    <Content Include="Samples\transportes.xml" />
+    <Content Include="Samples\vehiculos.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using GestionEmpresaTransporte.Core;
 
 namespace GestionEmpresaTransporte.ui
@@ -24,37 +23,41 @@ namespace GestionEmpresaTransporte.ui
         /// <summary>
         /// </summary>
         /// <param name="gestorDeClientes"></param>
-        private ClienteVerPanelCtrl()
+        public ClienteVerPanelCtrl(Empresa laEmpresa)
         {
+            GestorClientes = laEmpresa.ColeccionClientes;
+            cTransportes = laEmpresa.ColeccionTransportes;
+            //_bindingList = new BindingList<Cliente>(GestorClientes.Clientes);
             View = new ClienteVerPanelView();
             View.BtInsertar.Click += (sender, e) => InsertarCliente();
             View.BtAceptar.Click += (sender, e) => Aceptar();
             View.BtCancelar.Click += (sender, e) => Cancelar();
             View.BtBorrar.Click += (sender, e) => BorrarCliente();
-            View.BtModificar.Click += (sender, e) => View.ModoModificar();
+            View.BtModificar.Click += (sender, e) => ModoModificar();
             EstadoPnlCliente = Estados.Consultar;
             View.ModoConsulta();
         }
 
-        public ClienteVerPanelCtrl(GestorDeClientes gestorDeClientes) : this()
-        {
-            GestorClientes = gestorDeClientes;
-        }
-
+/*
         public ClienteVerPanelCtrl(BindingList<Cliente> unaBindingList) : this()
         {
             _bindingList = unaBindingList;
         }
-
-        public ClienteVerPanelCtrl(GestorDeClientes gestorDeClientes, Cliente unCliente) : this(gestorDeClientes)
+*/
+        public ClienteVerPanelCtrl(Empresa laEmpresa, Cliente unCliente) : this(laEmpresa)
         {
             ElCliente = unCliente;
         }
 
+        public ClienteVerPanelCtrl(Empresa laEmpresa, BindingList<Cliente> bndListClientes) : this(laEmpresa)
+        {
+            _bindingList = bndListClientes;
+        }
+
         public GestorDeClientes GestorClientes { get; set; }
+        public ColeccionTransportes cTransportes { get; set; }
 
         public ClienteVerPanelView View { get; }
-
 
         public Cliente ElCliente
         {
@@ -67,7 +70,6 @@ namespace GestionEmpresaTransporte.ui
         }
 
         public Estados EstadoPnlCliente { get; set; }
-
 
         private void ActualizaTextCliente()
         {
@@ -95,7 +97,7 @@ namespace GestionEmpresaTransporte.ui
                     ModificarCliente();
                     return;
                 case Estados.Consultar:
-                    ConsultarCliente();
+                    //ConsultarCliente();
                     return;
                 default:
                     return;
@@ -108,25 +110,32 @@ namespace GestionEmpresaTransporte.ui
             ActualizaTextCliente();
         }
 
-        private void ConsultarCliente()
+        private void ModoModificar()
         {
-            throw new NotImplementedException();
+            EstadoPnlCliente = Estados.Modificar;
+            View.ModoModificar();
         }
 
         private void BorrarCliente()
         {
             if (ElCliente != null)
             {
-                //TODO revisar que no tiene trasnportes asignado
-                var nif = ElCliente.Nif;
-                /*MessageBOX de confirmacion*/
-                var message = string.Format("¿Estás seguro de borrar el cliente con identificador: {0}?", nif);
-                var caption = "Borrar cliente";
-                var buttons = WForms.MessageBoxButtons.YesNo;
-                WForms.DialogResult result;
-                // Displays the MessageBox.
-                result = WForms.MessageBox.Show(message, caption, buttons);
-                if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElCliente);
+                if (!cTransportes.ExisteCliente(ElCliente))
+                {
+                    var nif = ElCliente.Nif;
+                    /*MessageBOX de confirmacion*/
+                    var message = string.Format("¿Estás seguro de borrar el cliente con identificador: {0}?", nif);
+                    var caption = "Borrar cliente";
+                    var buttons = WForms.MessageBoxButtons.YesNo;
+                    WForms.DialogResult result;
+                    // Displays the MessageBox.
+                    result = WForms.MessageBox.Show(message, caption, buttons);
+                    if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElCliente);
+                }
+                else
+                {
+                    WForms.MessageBox.Show("El cliente tiene transportes asignados, no se puede borrar ");
+                }
 
                 ActualizarPadre();
                 View.ModoConsulta();
@@ -166,6 +175,9 @@ namespace GestionEmpresaTransporte.ui
                 ElCliente.Email = correo;
                 ElCliente.Dirección = direccion;
             }
+
+            ActualizarPadre();
+            View.ModoConsulta();
         }
 
         /// <summary>

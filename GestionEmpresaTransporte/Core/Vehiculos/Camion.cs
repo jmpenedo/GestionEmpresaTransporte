@@ -24,7 +24,7 @@ namespace GestionEmpresaTransporte.Core.Vehiculos
 
         public override string ToString()
         {
-            return Tipo + base.ToString();
+            return base.ToString();
         }
     }
 }

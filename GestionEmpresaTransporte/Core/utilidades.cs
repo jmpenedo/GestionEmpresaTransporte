@@ -186,6 +186,17 @@ namespace GestionEmpresaTransporte.Core
             }
         }
 
+        /// <summary>
+        ///  Verifica que una matrícula es correcta en formato EU
+        /// </summary>
+        /// <param name="matricula"></param>
+        /// <returns></returns>
+        public static bool ValidarMatricula(string matricula)
+        {
+           
+            Regex rx = new Regex(@"[0-9]{4}[A-Z]{3}");
+            return rx.IsMatch(matricula.ToUpper()) & matricula.Length == 7;
+        }
 
         public static bool IsValidEmail(string email)
         {
@@ -233,6 +244,41 @@ namespace GestionEmpresaTransporte.Core
             {
                 return false;
             }
+        }
+
+        public static bool IsValidFechaSalida(string fechaContratacion, string fechaSalida)
+        {
+            if ((DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                 DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsValidFechaEntrega(string fechaSalida, string fechaEntrega)
+        {
+            if ((DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                                      DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsValidFechaContratacion(string fechaContratacion, string fechaSalida, string fechaEntrega)
+        {
+            if ((DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0
+                || (DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture) -
+                DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

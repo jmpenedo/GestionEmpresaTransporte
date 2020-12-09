@@ -11,6 +11,7 @@
         public WForms.MenuItem opCargar;
         public WForms.MenuItem opGestionClientes;
         public WForms.MenuItem opGestionVehiculos;
+        public WForms.MenuItem opGestionTransportes;
         public WForms.MenuItem opGuardar;
         public WForms.MenuItem opSalir;
         public WForms.StatusBar sbStatus;
@@ -25,7 +26,7 @@
             BuildMenuOpciones();
             BuildStatusBar();
             SuspendLayout();
-            MinimumSize = new Draw.Size(800, 600);
+            MinimumSize = new Draw.Size(800, 645);
             //MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
             ResumeLayout(true);
@@ -47,11 +48,16 @@
             {
                 Shortcut = WForms.Shortcut.CtrlY
             };
+            opGestionTransportes = new WForms.MenuItem("&Gestión de transportes")
+            {
+                Shortcut = WForms.Shortcut.CtrlT
+            };
             mArchivo.MenuItems.Add(opCargar);
             mArchivo.MenuItems.Add(opGuardar);
             mArchivo.MenuItems.Add(opSalir);
             mEditar.MenuItems.Add(opGestionClientes);
             mEditar.MenuItems.Add(opGestionVehiculos);
+            mEditar.MenuItems.Add(opGestionTransportes);
             mPpal.MenuItems.Add(mArchivo);
             mPpal.MenuItems.Add(mEditar);
             Menu = mPpal;

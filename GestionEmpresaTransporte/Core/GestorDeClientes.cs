@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace GestionEmpresaTransporte.Core
@@ -12,21 +14,20 @@ namespace GestionEmpresaTransporte.Core
     /// </summary>
     public class GestorDeClientes : ICollection<Cliente>
     {
-        /// <summary>
-        ///     Crea un gestor de clientes con una lista vacía de clientes
-        /// </summary>
-        public GestorDeClientes()
-        {
-            Clientes = new List<Cliente>();
-        }
 
-        //Crea un gestor de clientes apartir de un fichero XML pasado por parametro
-        public GestorDeClientes(string ficheroXml) : this()
-        {
-            CargarXML(ficheroXml);
-        }
-
-        public List<Cliente> Clientes { get; set; }
+        public List<Cliente> Clientes = new List<Cliente>();
+        
+        
+        //Asigna una variable a la ruta del fichero XML y a las etiquetas
+        
+        public const string ArchivoXml = "../../Samples/clientes.xml";
+        public const string EtqClientes = "clientes"; 
+        public const string EtqCliente = "cliente";
+        public const string EtqNIF = "nif"; 
+        public const string EtqNombre = "nombre"; 
+        public const string EtqTelefono = "telefono"; 
+        public const string EtqEmail = "email";
+        public const string EtqDireccionPostal = "DireccionPostal";
 
         public IEnumerator<Cliente> GetEnumerator()
         {
@@ -93,6 +94,16 @@ namespace GestionEmpresaTransporte.Core
 
         public bool IsReadOnly => ((ICollection<Cliente>) Clientes).IsReadOnly;
 
+        public List<string> ListaNifs()
+        {
+            var toret = new List<string>();
+            foreach (Cliente Cliente in this.Clientes)
+            {
+                toret.Add(Cliente.Nif);
+            }
+            return toret;
+        }
+
         /// <summary>
         ///     Busca en el listado de clientes el NIF pasado como
         ///     parámetro
@@ -124,6 +135,14 @@ namespace GestionEmpresaTransporte.Core
             return toret.ToString();
         }
 
+
+        public int PosCliente(Cliente aBuscar)
+        {
+            return Clientes.FindIndex(cliente => cliente.Nif == aBuscar.Nif);
+        }
+
+
+
         /// <summary>
         ///     Devuelve el listado de clientes como  XElement
         /// </summary>
@@ -135,6 +154,12 @@ namespace GestionEmpresaTransporte.Core
             return raiz;
         }
 
+        
+        public void GuardaXml()
+        {
+            this.GuardaXml( ArchivoXml );
+        }
+        
         /// <summary>
         ///     Guarda el listado en formato XML en disco con el nombre pasado
         ///     por parametro
@@ -142,36 +167,62 @@ namespace GestionEmpresaTransporte.Core
         /// <param name="fn">
         ///     <see cref="string" />
         /// </param>
-        public void GuardarXML(string fn)
+        public void GuardaXml(string nf)
         {
-            try
+            var doc = new XDocument();
+            var root = new XElement(EtqClientes);
+
+            foreach (Cliente cliente in this.Clientes)
             {
-                ToXmlElement().Save(fn);
+                root.Add(
+                    new XElement(EtqCliente,
+                        new XElement(EtqNIF, cliente.Nif),
+                        new XElement(EtqNombre, cliente.Nombre),
+                        new XElement(EtqTelefono, cliente.Telefono),
+                        new XElement(EtqEmail, cliente.Email),
+                        new XElement(EtqDireccionPostal, cliente.Dirección)));
             }
-            catch (SystemException exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
+            doc.Add( root );
+            doc.Save( nf );
         }
 
-        /// <summary>
-        ///     Carga clientes desde un XML del que se pasa el nombre como
-        ///     parámertro
-        /// </summary>
-        /// <param name="fn">
-        ///     <see cref="string" />
-        /// </param>
-        public void CargarXML(string fn)
+        public static GestorDeClientes CargarXML(string f) 
         {
+            var toret = new GestorDeClientes();
+            
             try
             {
-                var docXml = XElement.Load(fn);
-                foreach (var clienteXml in docXml.Elements("cliente")) Clientes.Add(new Cliente(clienteXml));
-            }
-            catch (SystemException exception)
+                var doc = XDocument.Load(f);
+                if (doc.Root != null
+                    && doc.Root.Name == EtqClientes)
+                {
+                    var clientes = doc.Root.Elements(EtqCliente);
+
+                    foreach(XElement clienteXml in clientes) {
+                        toret.Clientes.Add( new Cliente((string)clienteXml.Element(EtqNIF),
+                            (string) clienteXml.Element(EtqNombre),
+                            (string) clienteXml.Element(EtqTelefono),
+                            (string) clienteXml.Element(EtqEmail),
+                            (string) clienteXml.Element(EtqDireccionPostal)));
+                    }
+                }
+                
+            }catch(XmlException)
             {
-                Console.WriteLine(exception.Message);
+                
+                toret.Clear();
             }
+            catch(IOException)
+            {
+                toret.Clear();
+            }
+
+            return toret;
+        }
+        
+        public static GestorDeClientes CargarXML()
+        {
+            return CargarXML( ArchivoXml );
         }
     }
 }
