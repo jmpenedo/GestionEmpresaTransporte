@@ -16,8 +16,6 @@ namespace GestionEmpresaTransporte.ui
             View = new MainWindowView();
             empresa = new Empresa();
             empresa.CargarXML();
-
-
             //Asignación de Handlers
             View.Closed += (sender, e) => Salir();
             View.opSalir.Click += (sender, e) => Salir();
@@ -39,9 +37,6 @@ namespace GestionEmpresaTransporte.ui
             pnlCliente.BringToFront(); //la traemos al frente (el de transportes queda detrás)
         }
 
-        /// <summary>
-        ///     REpetimos lo anterior para otra parte...
-        /// </summary>
         private void GestionVehiculos()
         {
             View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
@@ -53,8 +48,8 @@ namespace GestionEmpresaTransporte.ui
         private void GestionTransportes()
         {
             View.Controls.Remove(pnlTransporte); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var CtlTransporte = new TransporteListarPanelCtrl(empresa, this); //Creamos el controlador
-            pnlTransporte = CtlTransporte.View; //Recuperamos el panel del controlador
+            var ctlTransporte = new TransporteListarPanelCtrl(empresa, this); //Creamos el controlador
+            pnlTransporte = ctlTransporte.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlTransporte); //lo asignamos al formulario principal
             pnlTransporte.BringToFront();
         }
