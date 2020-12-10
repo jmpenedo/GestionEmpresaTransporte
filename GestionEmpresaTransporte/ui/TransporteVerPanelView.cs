@@ -18,7 +18,7 @@ namespace GestionEmpresaTransporte.ui
         }
 
         /*Datos del cliente*/
-        public WForms.ComboBox EdCliente { get; private set; }
+        public WForms.TextBox EdCliente { get; private set; }
         public WForms.ComboBox EdFlota { get; private set; }
         public WForms.DateTimePicker EdFechaContratacion { get; private set; }
         public WForms.NumericUpDown EdKmsRecorridos { get; private set; }
@@ -33,6 +33,7 @@ namespace GestionEmpresaTransporte.ui
         public WForms.Button BtModificar { get; private set; }
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
+        public WForms.Button BtSelecCliente { get; private set; }
         public WForms.TextBox EdFactura { get; private set; }
 
         private List<string> ListaClientes { get; set; }
@@ -108,15 +109,24 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Left,
                 Text = "Cliente"
             });
-            EdCliente = new WForms.ComboBox
+            EdCliente = new WForms.TextBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int)(Width * 0.87),
                 SelectionLength = 0,
-                DropDownStyle = WForms.ComboBoxStyle.DropDownList,
+                ReadOnly = true
+                //DropDownStyle = WForms.ComboBoxStyle.DropDownList,
             };
-            EdCliente.Items.AddRange(ListaClientes.ToArray<object>());
+
+            BtSelecCliente = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
+            
+            //EdCliente.Items.AddRange(ListaClientes.ToArray<object>());
             toret.Controls.Add(EdCliente);
+            toret.Controls.Add(BtSelecCliente);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdCliente.Height);
             return toret;
         }
@@ -474,6 +484,7 @@ namespace GestionEmpresaTransporte.ui
             EdIVA.Enabled = true;
             EdPrecioLitro.Enabled = true;
             EdGas.Enabled = true;
+            BtSelecCliente.Enabled = false;
 
             EdKmsRecorridos.Focus();
             HabilitarBtAceptar();
@@ -502,9 +513,10 @@ namespace GestionEmpresaTransporte.ui
             EdIVA.Enabled = true;
             EdPrecioLitro.Enabled = true;
             EdGas.Enabled = true;
-
+            BtSelecCliente.Enabled = true;
             EdCliente.Focus();
             HabilitarBtAceptar();
+
         }
 
         private void HabilitarBtAceptar()
@@ -523,6 +535,7 @@ namespace GestionEmpresaTransporte.ui
             BtInsertar.Enabled = true;
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
+            BtSelecCliente.Enabled = false;
         }
     }
 }

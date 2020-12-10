@@ -7,9 +7,9 @@ namespace GestionEmpresaTransporte.ui
 
     internal class MainWindowCtrl
     {
-        private ClienteListarPanelCtrl CtrlpnlCliente;
+        private static ClienteListarPanelCtrl CtrlpnlCliente = null;
+        private static TransporteListarPanelCtrl CtrlpnlTransporte = null;
         private WForms.Panel pnlPrincipal;
-        private WForms.Panel pnlTransporte;
 
         public MainWindowCtrl()
         {
@@ -23,16 +23,37 @@ namespace GestionEmpresaTransporte.ui
             View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
             View.opGestionTransportes.Click += (sender, e) => GestionTransportes();
             View.opGuardar.Click += (sender, e) => Guardar();
+
+            GestionTransportes();
         }
 
         public Empresa empresa { get; set; }
         public GestorDeClientes GestorClientes { get; set; }
         public MainWindowView View { get; }
 
-        private void GestionClientes()
+        public ClienteListarPanelCtrl getInstanceCliente()
         {
-            CtrlpnlCliente = new ClienteListarPanelCtrl(empresa); //Creamos el controlador
-            var pnlCliente = CtrlpnlCliente.View; //Recuperamos el panel del controlador
+            if (CtrlpnlCliente == null)
+            {
+                CtrlpnlCliente = new ClienteListarPanelCtrl(empresa); //Creamos el controlador de clientes
+            }
+            CtrlpnlCliente.clienteVerPanelCtrl._padre.Visible = true;
+
+            return CtrlpnlCliente;
+        }
+
+        public TransporteListarPanelCtrl getInstanceTransporte()
+        {
+            if (CtrlpnlTransporte == null)
+            {
+                CtrlpnlTransporte = new TransporteListarPanelCtrl(empresa, this); //Creamos el controlador de transportes
+            }
+            return CtrlpnlTransporte;
+        }
+
+        public void GestionClientes()
+        {
+            var pnlCliente = getInstanceCliente().View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlCliente); //lo asignamos al formulario principal
             pnlCliente.BringToFront(); //la traemos al frente (el de transportes queda detrás)
         }
@@ -47,9 +68,8 @@ namespace GestionEmpresaTransporte.ui
 
         private void GestionTransportes()
         {
-            View.Controls.Remove(pnlTransporte); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctlTransporte = new TransporteListarPanelCtrl(empresa, this); //Creamos el controlador
-            pnlTransporte = ctlTransporte.View; //Recuperamos el panel del controlador
+            
+            var pnlTransporte = getInstanceTransporte().View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlTransporte); //lo asignamos al formulario principal
             pnlTransporte.BringToFront();
         }
@@ -63,6 +83,7 @@ namespace GestionEmpresaTransporte.ui
             var pos = CtrlpnlCliente.GestorClientes.PosCliente(cliente);
             CtrlpnlCliente.View.grdLista.Rows[pos].Selected = true;
         }
+
 
         /// <summary>
         ///     Guarda los clientes en fichero

@@ -114,6 +114,7 @@
             View.ModoModificar();
         }
 
+
         private void BorrarTransporte()
         {
             if (ElTransporte != null)

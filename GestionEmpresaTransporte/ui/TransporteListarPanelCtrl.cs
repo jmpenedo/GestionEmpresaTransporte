@@ -27,7 +27,8 @@
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
             View.grdLista.CellDoubleClick += (sender, args) => this.CeldaSeleccionada();
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelTransporte();
-            
+            TransporteVerPanelCtrl.View.BtSelecCliente.Click += (sender, e) => SeleccionarCliente();
+
             TransporteVerPanelCtrl._padre = View.grdLista;
 
         }
@@ -75,6 +76,30 @@
             }
 
             return;
+        }
+
+        private void SeleccionarCliente()
+        {
+            var instanciaClientes = this.MainWindowControl.getInstanceCliente();
+
+            instanciaClientes.clienteVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => CambiarCliente(instanciaClientes);
+            instanciaClientes.clienteVerPanelCtrl.View.BtVolver.Click += (sender, e) => CambiarCliente(instanciaClientes);
+            
+
+            MainWindowControl.GestionClientes();
+        }
+
+        private void CambiarCliente(ClienteListarPanelCtrl instanciaClientes)
+        {
+            if (instanciaClientes.clienteVerPanelCtrl.ElCliente != null) //Caso seleccionar
+            {
+                TransporteVerPanelCtrl.View.EdCliente.Text = instanciaClientes.clienteVerPanelCtrl.ElCliente.Nif;
+
+            }
+            else //caso volver
+            {
+                TransporteVerPanelCtrl.View.EdCliente.Text = "";
+            }
         }
     }
 }
