@@ -17,7 +17,7 @@ namespace GestionEmpresaTransporte.ui
         }
 
         private readonly BindingList<Cliente> _bindingList;
-        public WForms.Control _padre;
+        public ClienteListarPanelView _padre;
         private Cliente miCliente;
 
         /// <summary>
@@ -34,11 +34,13 @@ namespace GestionEmpresaTransporte.ui
             View.BtCancelar.Click += (sender, e) => Cancelar();
             View.BtBorrar.Click += (sender, e) => BorrarCliente();
             View.BtModificar.Click += (sender, e) => ModoModificar();
+            View.BtVolver.Click += (sender, e) => Volver();
+            View.BtSeleccionar.Click += (sender, e) => Seleccionar();
             EstadoPnlCliente = Estados.Consultar;
             View.ModoConsulta();
         }
 
-/*
+        /*
         public ClienteVerPanelCtrl(BindingList<Cliente> unaBindingList) : this()
         {
             _bindingList = unaBindingList;
@@ -70,6 +72,17 @@ namespace GestionEmpresaTransporte.ui
         }
 
         public Estados EstadoPnlCliente { get; set; }
+
+        private void Seleccionar()
+        {
+            _padre.Visible = false;
+        }
+
+        private void Volver()
+        {
+            ElCliente = null;
+            _padre.Visible = false;
+        }
 
         private void ActualizaTextCliente()
         {
@@ -221,11 +234,7 @@ namespace GestionEmpresaTransporte.ui
 
         private void ActualizarPadre()
         {
-            if (_padre != null)
-            {
-                _padre.Update();
-                _padre.Refresh();
-            }
+            if (_padre != null) _padre.Actualizar();
         }
     }
 }

@@ -68,5 +68,11 @@
                 grdLista.Columns[4].Visible = false; //Ocultamos la columna 4 que contiene la direccion
             }
         }
+
+        public void Actualizar()
+        {
+            grdLista.Update();
+            grdLista.Refresh();
+        }
     }
 }

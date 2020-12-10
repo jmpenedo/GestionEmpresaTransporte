@@ -22,6 +22,10 @@
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
 
+        public WForms.Button BtSeleccionar { get; private set; }
+
+        public WForms.Button BtVolver { get; private set; }
+
         private void Build()
         {
             var pnlTable = new WForms.TableLayoutPanel();
@@ -32,6 +36,7 @@
             pnlTable.Controls.Add(BuildTelefono());
             pnlTable.Controls.Add(BuildCorreo());
             pnlTable.Controls.Add(BuildPanelBotones());
+            pnlTable.Controls.Add(BuildPanelBotonesSeleccion());
             pnlTable.ResumeLayout(false);
             pnlTable.MinimumSize = new Draw.Size(400, 300);
             pnlTable.MaximumSize = pnlTable.MinimumSize;
@@ -111,6 +116,7 @@
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdTelefono.Height);
             return toret;
         }
+
 
         private WForms.Panel BuildCorreo()
         {
@@ -212,11 +218,35 @@
                 Text = "&Cancelar"
             };
             toret.Controls.Add(BtCancelar);
+            toret.Dock = WForms.DockStyle.Top;
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
+            return toret;
+        }
 
+        public WForms.Panel BuildPanelBotonesSeleccion()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+            BtSeleccionar = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
+            toret.Controls.Add(BtSeleccionar);
+            BtVolver = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Volver"
+            };
 
+            toret.Controls.Add(BtVolver);
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 
+            toret.Dock = WForms.DockStyle.Top;
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
@@ -276,6 +306,13 @@
             BtInsertar.Enabled = true;
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
+        }
+
+        public void ModoSeleccion()
+        {
+            BtSeleccionar.Visible = true;
+            BtVolver.Visible = true;
+            ModoConsulta();
         }
     }
 }

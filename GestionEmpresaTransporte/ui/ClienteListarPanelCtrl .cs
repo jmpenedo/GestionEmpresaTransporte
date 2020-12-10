@@ -24,15 +24,9 @@ namespace GestionEmpresaTransporte.ui
             View.grdLista.DataSource = sourceClientes;
             //Asignamos Handlers
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelCliente();
-            clienteVerPanelCtrl._padre = View.grdLista;
+            clienteVerPanelCtrl._padre = View;
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
         }
-/*
-        public ClienteListarPanelCtrl(Empresa unaEmpresa) : this(unaEmpresa.ColeccionClientes)
-        {
-            MiEmpresa = unaEmpresa;
-        }*/
-
 
         public ClienteListarPanelView View { get; }
         public ClienteVerPanelCtrl clienteVerPanelCtrl { get; }
