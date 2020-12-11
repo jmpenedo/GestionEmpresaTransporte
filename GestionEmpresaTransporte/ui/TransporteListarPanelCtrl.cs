@@ -1,15 +1,13 @@
-﻿namespace GestionEmpresaTransporte.ui
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
+using GestionEmpresaTransporte.Core;
+
+namespace GestionEmpresaTransporte.ui
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using GestionEmpresaTransporte.Core;
     using WForms = System.Windows.Forms;
 
-    using GestionEmpresaTransporte.Core.Vehiculos;
-
-    class TransporteListarPanelCtrl
+    internal class TransporteListarPanelCtrl
     {
         private readonly BindingList<Transporte> _bindingList;
 
@@ -25,12 +23,11 @@
 
             //Asignamos Handlers
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
-            View.grdLista.CellDoubleClick += (sender, args) => this.CeldaSeleccionada();
+            View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelTransporte();
             TransporteVerPanelCtrl.View.BtSelecCliente.Click += (sender, e) => SeleccionarCliente();
 
             TransporteVerPanelCtrl._padre = View.grdLista;
-
         }
 
         public TransporteListarPanelCtrl(Empresa empresa, MainWindowCtrl controlPrincipal) : this(empresa)
@@ -61,45 +58,39 @@
 
         private void CeldaSeleccionada()
         {
-            int columna = System.Math.Max(0, View.grdLista.CurrentCell.ColumnIndex);
+            var columna = Math.Max(0, View.grdLista.CurrentCell.ColumnIndex);
             if (columna == 3)
             {
                 var idTransporte = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
                 var TransporteSeleccionado = _bindingList.FirstOrDefault(item => item.IdTransporte == idTransporte);
                 TransporteVerPanelCtrl.ElTransporte = TransporteSeleccionado;
                 var Cliente = TransporteSeleccionado.Cliente;
-                this.MainWindowControl.VerCliente(Cliente);
+                MainWindowControl.VerCliente(Cliente);
             }
             else if (columna == 2)
             {
                 //TODO 
             }
-
-            return;
         }
 
         private void SeleccionarCliente()
         {
-            var instanciaClientes = this.MainWindowControl.getInstanceCliente();
+            var instanciaClientes = MainWindowControl.getInstanceCliente();
 
-            instanciaClientes.clienteVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => CambiarCliente(instanciaClientes);
-            instanciaClientes.clienteVerPanelCtrl.View.BtVolver.Click += (sender, e) => CambiarCliente(instanciaClientes);
-            
-
+            instanciaClientes.clienteVerPanelCtrl.View.BtSeleccionar.Click +=
+                (sender, e) => CambiarCliente(instanciaClientes);
+            instanciaClientes.clienteVerPanelCtrl.View.BtVolver.Click +=
+                (sender, e) => CambiarCliente(instanciaClientes);
+            instanciaClientes.View.pnlCliente.ModoSeleccion();
             MainWindowControl.GestionClientes();
         }
 
         private void CambiarCliente(ClienteListarPanelCtrl instanciaClientes)
         {
-            if (instanciaClientes.clienteVerPanelCtrl.ElCliente != null) //Caso seleccionar
-            {
-                TransporteVerPanelCtrl.View.EdCliente.Text = instanciaClientes.clienteVerPanelCtrl.ElCliente.Nif;
-
-            }
+            if (instanciaClientes.ElCliente != null) //Caso seleccionar
+                TransporteVerPanelCtrl.View.EdCliente.Text = instanciaClientes.ElCliente.Nif;
             else //caso volver
-            {
                 TransporteVerPanelCtrl.View.EdCliente.Text = "";
-            }
         }
     }
 }
