@@ -69,10 +69,10 @@
             {
                 View.EdCliente.Text = ElTransporte.Cliente.Nif;
                 View.EdFlota.Text = ElTransporte.Camion.Matricula;
-                View.EdFechaContratacion.Text = DateTime.ParseExact(ElTransporte.FechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture).ToString();
+                View.EdFechaContratacion.Value = ElTransporte.FechaContratacion;
                 View.EdKmsRecorridos.Text = Convert.ToString(ElTransporte.KmRecorridos);
-                View.EdFechaSalida.Text = DateTime.ParseExact(ElTransporte.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture).ToString();
-                View.EdFechaEntrega.Text = DateTime.ParseExact(ElTransporte.FechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture).ToString();
+                View.EdFechaSalida.Value = ElTransporte.FechaSalida;
+                View.EdFechaEntrega.Value = ElTransporte.FechaEntrega;
                 View.EdImporteDia.Text = Convert.ToString(ElTransporte.ImportePorDia);
                 View.EdIVA.Text = Convert.ToString(ElTransporte.IVA);
                 View.EdPrecioLitro.Text = Convert.ToString(ElTransporte.PrecioLitro);
@@ -167,8 +167,8 @@
             if (ComprobarDatos())
             {
                 var kmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
-                var fechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
-                var fechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
+                var fechaSalida = View.EdFechaSalida.Value;
+                var fechaEntrega = View.EdFechaEntrega.Value;
                 var importeDia = Convert.ToDouble(View.EdImporteDia.Value);
                 var iva = Convert.ToDouble(View.EdIVA.Value);
                 var precioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
@@ -178,8 +178,8 @@
                 var precioTotal = CalcularPrecioTotal(vehiculo, kmRecorridos, fechaSalida, fechaEntrega, importeDia, iva, precioLitro, gas);
 
                 ElTransporte.KmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
-                ElTransporte.FechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
-                ElTransporte.FechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
+                ElTransporte.FechaSalida = View.EdFechaSalida.Value;
+                ElTransporte.FechaEntrega = View.EdFechaEntrega.Value;
                 ElTransporte.ImportePorDia = Convert.ToDouble(View.EdImporteDia.Value);
                 ElTransporte.IVA = Convert.ToDouble(View.EdIVA.Value);
                 ElTransporte.PrecioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
@@ -200,17 +200,18 @@
             if (ComprobarDatos())
             {
                 var matricula = View.EdFlota.Text;
-                var fechaContratacion = View.EdFechaContratacion.Value.ToString("yyyyMMdd");
-                if (MiEmpresa.ColeccionTransportes.ExisteTransporte(matricula+fechaContratacion))
+                var fecha = View.EdFechaContratacion.Value.ToString("yyyyMMdd");
+                if (MiEmpresa.ColeccionTransportes.ExisteTransporte(matricula+fecha))
                 {
                     WForms.MessageBox.Show("El transporte que desea agragar ya existe. El id de los transporte (matrícula + fecha de contratación) debe ser único");
                 }
                 else
                 {
                     var nifCliente = View.EdCliente.Text;
+                    var fechaContratacion = View.EdFechaContratacion.Value;
                     var kmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
-                    var fechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
-                    var fechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
+                    var fechaSalida = View.EdFechaSalida.Value;
+                    var fechaEntrega = View.EdFechaEntrega.Value;
                     var importeDia = Convert.ToDouble(View.EdImporteDia.Value);
                     var iva = Convert.ToDouble(View.EdIVA.Value);
                     var precioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
@@ -246,10 +247,10 @@
             var valido = true;
             var nifCliente = View.EdCliente.Text;
             var matricula = View.EdFlota.Text;
-            var fechaContratacion = View.EdFechaContratacion.Value.ToString("yyyyMMdd");
+            var fechaContratacion = View.EdFechaContratacion.Value;
             var kmRecorridos = Convert.ToInt32(View.EdKmsRecorridos.Value);
-            var fechaSalida = View.EdFechaSalida.Value.ToString("yyyyMMdd");
-            var fechaEntrega = View.EdFechaEntrega.Value.ToString("yyyyMMdd");
+            var fechaSalida = View.EdFechaSalida.Value;
+            var fechaEntrega = View.EdFechaEntrega.Value;
             var importeDia = Convert.ToDouble(View.EdImporteDia.Value);
             var iva = Convert.ToDouble(View.EdIVA.Value);
             var precioLitro = Convert.ToDouble(View.EdPrecioLitro.Value);
@@ -265,7 +266,7 @@
                 WForms.MessageBox.Show("Debe seleccionar una matrícula");
                 valido = false;
             }
-            else if (string.IsNullOrWhiteSpace(fechaContratacion) || !utilidades.IsValidFechaContratacion(fechaContratacion, fechaSalida, fechaEntrega))
+            else if (string.IsNullOrWhiteSpace(fechaContratacion.ToString("yyyyMMdd")) || !utilidades.IsValidFechaContratacion(fechaContratacion, fechaSalida, fechaEntrega))
             {
                 WForms.MessageBox.Show("La fecha de contratación debe ser igual o anterior a las fechas de entrega y salida");
                 valido = false;
@@ -275,12 +276,12 @@
                 WForms.MessageBox.Show("Los km Recorridos deben ser mayor que 0");
                 valido = false;
             }
-            else if (string.IsNullOrWhiteSpace(fechaSalida) || !utilidades.IsValidFechaSalida(fechaContratacion, fechaSalida))
+            else if (string.IsNullOrWhiteSpace(fechaSalida.ToString("yyyyMMdd")) || !utilidades.IsValidFechaSalida(fechaContratacion, fechaSalida))
             {
                 WForms.MessageBox.Show("La fecha de salida debe ser posterior a la de contratacion");
                 valido = false;
             }
-            else if (string.IsNullOrWhiteSpace(fechaEntrega) || !utilidades.IsValidFechaEntrega(fechaSalida, fechaEntrega))
+            else if (string.IsNullOrWhiteSpace(fechaEntrega.ToString("yyyyMMdd")) || !utilidades.IsValidFechaEntrega(fechaSalida, fechaEntrega))
             {
                 WForms.MessageBox.Show("La fecha de entrega debe ser posterior a la de salida");
                 valido = false;
@@ -309,11 +310,11 @@
             return valido;
         }
 
-        private double CalcularPrecioTotal(Vehiculo camion, int kmRecorridos, string fechaSalida, string fechaEntrega, double importeDia, double iva, double precioLitro, double gas)
+        private double CalcularPrecioTotal(Vehiculo camion, int kmRecorridos, DateTime fechaSalida, DateTime fechaEntrega, double importeDia, double iva, double precioLitro, double gas)
         {
         
 
-            double numd = (DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) - DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays;
+            double numd = (fechaEntrega- fechaSalida).TotalDays;
             var suplencia = CalcularSuplencia(numd);
             double ppkm = 3 * Convert.ToDouble(camion.Consumo) * precioLitro;
             var precioParcial = (numd * importeDia * suplencia) + (Convert.ToDouble(kmRecorridos) * ppkm) + gas;

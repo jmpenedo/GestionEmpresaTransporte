@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -150,10 +151,10 @@ namespace GestionEmpresaTransporte.Core
                         var vehiculo = v.RecuperarVehiculo((string)transporteXml.Element(EtqVehiculo));
                         toret.ListaTransportes.Add(new Transporte(vehiculo,
                             cliente,
-                            (string)transporteXml.Element(EtqFechaContratacion),
+                            (DateTime)transporteXml.Element(EtqFechaContratacion),
                             (int)transporteXml.Element(EtqKmRecorridos),
-                            (string)transporteXml.Element(EtqFechaSalida),
-                            (string)transporteXml.Element(EtqFechaEntrega),
+                            (DateTime)transporteXml.Element(EtqFechaSalida),
+                            (DateTime)transporteXml.Element(EtqFechaEntrega),
                             (double)transporteXml.Element(EtqImporteDia),
                             (double)transporteXml.Element(EtqIva),
                             (double)transporteXml.Element(EtqPrecioLitro),

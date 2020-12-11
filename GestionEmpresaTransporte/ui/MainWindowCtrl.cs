@@ -10,7 +10,6 @@ namespace GestionEmpresaTransporte.ui
         private static ClienteListarPanelCtrl CtrlpnlCliente;
         private static TransporteListarPanelCtrl CtrlpnlTransporte;
         private static VehiculoListarPanelCtrl CtrlpnlVehiculo;
-        private WForms.Panel pnlPrincipal;
 
         public MainWindowCtrl()
         {

@@ -5,8 +5,8 @@ namespace GestionEmpresaTransporte.Core
 {
     public class Transporte
     {
-        public Transporte(Vehiculo camion, Cliente cliente, string fechaContratacion, int kmRecorridos,
-            string fechaSalida, string fechaEntrega, double importeDia, double iva, double precioLitro, double gas,
+        public Transporte(Vehiculo camion, Cliente cliente, DateTime fechaContratacion, int kmRecorridos,
+            DateTime fechaSalida, DateTime fechaEntrega, double importeDia, double iva, double precioLitro, double gas,
             double precioTotal)
         {
             Camion = camion;
@@ -22,7 +22,7 @@ namespace GestionEmpresaTransporte.Core
             PrecioTotal = precioTotal;
         }
 
-        public string IdTransporte => Camion.Matricula + FechaContratacion;
+        public string IdTransporte => Camion.Matricula + FechaContratacion.ToString("yyyyMMdd");
 
         public string TipoTransporte => Camion.Tipo;
 
@@ -30,13 +30,13 @@ namespace GestionEmpresaTransporte.Core
 
         public Cliente Cliente { get; }
 
-        public string FechaContratacion { get; }
+        public DateTime FechaContratacion { get; }
 
         public int KmRecorridos { get; set; }
 
-        public string FechaSalida { get; set; }
+        public DateTime FechaSalida { get; set; }
 
-        public string FechaEntrega { get; set; }
+        public DateTime FechaEntrega { get; set; }
 
         public double ImportePorDia { get; set; }
 
@@ -48,9 +48,7 @@ namespace GestionEmpresaTransporte.Core
 
         public double PrecioTotal { get; set; }
 
-        private string NumDias =>
-            (DateTime.ParseExact(FechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
-             DateTime.ParseExact(FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays.ToString();
+        private string NumDias => (FechaEntrega - FechaSalida).TotalDays.ToString();
 
 
         public override string ToString()

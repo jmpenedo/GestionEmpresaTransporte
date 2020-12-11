@@ -246,10 +246,9 @@ namespace GestionEmpresaTransporte.Core
             }
         }
 
-        public static bool IsValidFechaSalida(string fechaContratacion, string fechaSalida)
+        public static bool IsValidFechaSalida(DateTime fechaContratacion, DateTime fechaSalida)
         {
-            if ((DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture) -
-                 DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            if ((fechaSalida - fechaContratacion).TotalDays < 0)
             {
                 return false;
             }
@@ -257,10 +256,9 @@ namespace GestionEmpresaTransporte.Core
             return true;
         }
 
-        public static bool IsValidFechaEntrega(string fechaSalida, string fechaEntrega)
+        public static bool IsValidFechaEntrega(DateTime fechaSalida, DateTime fechaEntrega)
         {
-            if ((DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
-                                      DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            if ((fechaEntrega - fechaSalida).TotalDays < 0)
             {
                 return false;
             }
@@ -268,12 +266,10 @@ namespace GestionEmpresaTransporte.Core
             return true;
         }
 
-        public static bool IsValidFechaContratacion(string fechaContratacion, string fechaSalida, string fechaEntrega)
+        public static bool IsValidFechaContratacion(DateTime fechaContratacion, DateTime fechaSalida, DateTime fechaEntrega)
         {
-            if ((DateTime.ParseExact(fechaEntrega, "yyyyMMdd", CultureInfo.InvariantCulture) -
-                DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0
-                || (DateTime.ParseExact(fechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture) -
-                DateTime.ParseExact(fechaContratacion, "yyyyMMdd", CultureInfo.InvariantCulture)).TotalDays < 0)
+            if ((fechaEntrega - fechaContratacion).TotalDays < 0
+                || (fechaSalida - fechaContratacion).TotalDays < 0)
             {
                 return false;
             }

@@ -203,7 +203,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (fechaTransporte.CompareTo(limite) < 0 &&
                     fechaTransporte.CompareTo(actual) > 0)
                 {
@@ -236,7 +236,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (fechaTransporte.CompareTo(limite) < 0 &&
                     fechaTransporte.CompareTo(actual) > 0 &&
                     t.Camion.Matricula.Equals(matricula))
@@ -280,7 +280,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (DateTime.Compare(actual, fechaTransporte) < 0) vehiculosDisponible.Remove(t.Camion);
             }
 
@@ -322,7 +322,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (DateTime.Compare(actual, fechaTransporte) < 0 || !t.Camion.Tipo.Equals(tipo))
                     vehiculoDisponible.Remove(t.Camion);
             }
@@ -401,7 +401,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (t.Cliente.Nif == nif && fechaTransporte.Year == year)
                 {
                     Console.WriteLine(t + "\n-------------------------------------\n");
@@ -489,7 +489,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (fechaTransporte.Year == year)
                 {
                     Console.WriteLine(t + "\n-----------------------------\n");
@@ -517,7 +517,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (fechaTransporte.Year == year && t.Camion.Matricula.Equals(matricula))
                 {
                     Console.WriteLine(t + "\n-----------------------------\n");
@@ -545,7 +545,7 @@ namespace GestionEmpresaTransporte.Core
 
             foreach (var t in ColeccionTransportes)
             {
-                var fechaTransporte = DateTime.ParseExact(t.FechaSalida, "yyyyMMdd", CultureInfo.InvariantCulture);
+                var fechaTransporte = t.FechaSalida;
                 if (fecha.ToString("ddMMyyyy").Equals(fechaTransporte.ToString("ddMMyyyy")))
                 {
                     Console.WriteLine(t + "\n-----------------------------\n");
