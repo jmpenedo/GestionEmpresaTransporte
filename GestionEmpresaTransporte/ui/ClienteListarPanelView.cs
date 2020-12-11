@@ -73,6 +73,8 @@
         {
             grdLista.Update();
             grdLista.Refresh();
+            if (grdLista.Rows.Count > 0 && grdLista.SelectedRows.Count == 0)
+                grdLista.Rows[grdLista.Rows.Count - 1].Selected = true;
         }
     }
 }
