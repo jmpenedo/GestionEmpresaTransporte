@@ -260,8 +260,6 @@
             EdTelefono.Enabled = false;
             EdCorreo.Enabled = false;
             EdDireccion.Enabled = false;
-            BtSeleccionar.Visible = false;
-            BtVolver.Visible = false;
             DeshabilitarBtAceptar();
         }
 
@@ -310,11 +308,11 @@
             BtCancelar.Enabled = false;
         }
 
-        public void ModoSeleccion()
+
+        public void ModoSeleccion(bool estado)
         {
-            ModoConsulta();
-            BtSeleccionar.Visible = true;
-            BtVolver.Visible = true;
+            BtSeleccionar.Visible = estado;
+            BtVolver.Visible = estado;
         }
     }
 }

@@ -227,7 +227,7 @@ namespace GestionEmpresaTransporte.ui
             {
                 var nuevoCliente = new Cliente(nif, nombre, telefono, correo, direccion);
                 _bindingList.Add(nuevoCliente);
-                //ActualizarPadre();
+                SeleccionarCliente(nuevoCliente);
                 clienteVerPanelCtrl.View.ModoConsulta();
             }
         }
@@ -237,12 +237,22 @@ namespace GestionEmpresaTransporte.ui
             ElCliente = null;
             View.Visible = false;
             clienteVerPanelCtrl.View.ModoConsulta();
+            clienteVerPanelCtrl.View.ModoSeleccion(false);
         }
 
         private void Seleccionar()
         {
+            //Antes de volver revisar que hay un cliente seleccionado
+            if (ElCliente == null)
+            {
+                ActualizarPanelCliente(); //Devolvemos el cliente seleccionado en el grid
+                if (ElCliente == null)
+                    WForms.MessageBox.Show("NO se ha seleccionado ningún cliente"); //No hay clientes en la BD
+            }
+
             View.Visible = false;
             clienteVerPanelCtrl.View.ModoConsulta();
+            clienteVerPanelCtrl.View.ModoSeleccion(false);
         }
 
 
@@ -251,11 +261,7 @@ namespace GestionEmpresaTransporte.ui
             var pos = MiEmpresa.ColeccionClientes
                 .PosCliente(cliente); //CtrlpnlCliente.empresa.ColeccionClientes.PosCliente(cliente);
 
-            if (View.grdLista.Columns.Count > 0)
-            {
-                View.grdLista.Rows[pos].Selected = true;
-                WForms.MessageBox.Show(pos.ToString());
-            }
+            if (View.grdLista.Columns.Count > 0) View.grdLista.Rows[pos].Selected = true;
         }
     }
 }
