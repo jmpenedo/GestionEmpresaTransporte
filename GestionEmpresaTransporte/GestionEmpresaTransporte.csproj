@@ -78,6 +78,10 @@
     <Compile Include="ui\TransporteVerPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ui\VehiculoListarPanelCtrl.cs" />
+    <Compile Include="ui\VehiculoListarPanelView.cs" />
+    <Compile Include="ui\VehiculoVerPanelCtrl.cs" />
+    <Compile Include="ui\VehiculoVerPanelView.cs" />
     <Compile Include="ui\WinFormsUI.cs" />
   </ItemGroup>
   <ItemGroup>

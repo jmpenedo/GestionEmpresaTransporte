@@ -14,7 +14,7 @@ namespace GestionEmpresaTransporte.Core
     /// </summary>
     public class ColeccionVehiculos : ICollection<Vehiculo>
     {
-        protected List<Vehiculo> listaVehiculos = new List<Vehiculo>();
+        public List<Vehiculo> listaVehiculos = new List<Vehiculo>();
         
         public const string ArchivoXml = "../../Samples/vehiculos.xml";
         public const string EtqVehiculos = "vehiculos";
@@ -42,7 +42,7 @@ namespace GestionEmpresaTransporte.Core
 
         /// <summary>
         ///     Si no existe el Vehiculo se añade al sistema
-        ///     Si ya existe un vehiculo con la misma matrícula, descarta lo añadido
+        ///     Si ya existe un vehiculo con la misma matrícula, descarta el añadido
         /// </summary>
         /// <param name="item"></param>
         public void Add(Vehiculo item)
@@ -112,6 +112,11 @@ namespace GestionEmpresaTransporte.Core
         public int Count => listaVehiculos.Count;
 
         public bool IsReadOnly => false;
+        
+        public int PosVehiculo(Vehiculo aBuscar)
+        {
+            return listaVehiculos.FindIndex(cliente => cliente.Matricula == aBuscar.Matricula);
+        }
 
         public override string ToString()
         {
