@@ -1,4 +1,6 @@
-﻿namespace GestionEmpresaTransporte.ui
+﻿using System;
+
+namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
@@ -10,8 +12,8 @@
         public WForms.MainMenu mPpal;
         public WForms.MenuItem opCargar;
         public WForms.MenuItem opGestionClientes;
-        public WForms.MenuItem opGestionVehiculos;
         public WForms.MenuItem opGestionTransportes;
+        public WForms.MenuItem opGestionVehiculos;
         public WForms.MenuItem opGuardar;
         public WForms.MenuItem opSalir;
         public WForms.StatusBar sbStatus;
@@ -26,10 +28,22 @@
             BuildMenuOpciones();
             BuildStatusBar();
             SuspendLayout();
-            MinimumSize = new Draw.Size(800, 645);
-            //MaximumSize = MinimumSize;
+            MinimumSize = new Draw.Size(800, 700);
+            MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
-            ResumeLayout(true);
+            BuildIcono();
+        }
+
+        private void BuildIcono()
+        {
+            try
+            {
+                Icon = new Draw.Icon("../../Res/camion.ico");
+            }
+            catch (Exception e)
+            {
+                //A log de error
+            }
         }
 
         private void BuildMenuOpciones()

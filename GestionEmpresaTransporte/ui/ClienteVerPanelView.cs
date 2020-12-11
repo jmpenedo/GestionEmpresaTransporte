@@ -166,7 +166,7 @@
             };
 
             toret.Controls.Add(EdDireccion);
-            toret.MinimumSize = new Draw.Size(350, 300);
+            toret.MinimumSize = new Draw.Size(350, 150);
             toret.MaximumSize = toret.MinimumSize;
 
             return toret;
