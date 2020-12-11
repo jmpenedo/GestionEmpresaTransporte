@@ -42,11 +42,8 @@ namespace GestionEmpresaTransporte.ui
             clienteVerPanelCtrl.View.BtModificar.Click += (sender, e) => ModoModificar();
             clienteVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
             clienteVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => Seleccionar();
-
-
-            ////
-            /// clienteVerPanelCtrl._padre = View;
             EstadoPnlCliente = Estados.Consultar;
+            clienteVerPanelCtrl.View.ModoSeleccion(false);
             clienteVerPanelCtrl.View.ModoConsulta();
         }
 
