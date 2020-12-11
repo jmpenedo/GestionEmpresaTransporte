@@ -74,11 +74,19 @@ namespace GestionEmpresaTransporte.ui
         /// </summary>
         public void ActualizarPanelCliente()
         {
-            foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
+            if (View.grdLista.Rows.Count > 0 && MiEmpresa.ColeccionClientes.Count > 0)
             {
-                var nif = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
-                var ClienteSeleccionado = _bindingList.FirstOrDefault(item => item.Nif == nif);
-                ElCliente = ClienteSeleccionado;
+                foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
+                {
+                    var nif = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
+                    var ClienteSeleccionado = _bindingList.FirstOrDefault(item => item.Nif == nif);
+                    ElCliente = ClienteSeleccionado;
+                }
+            }
+            else
+            {
+                ElCliente = null;
+                ActualizaTextCliente();
             }
 
             View.AjustarColGrid();
@@ -93,6 +101,14 @@ namespace GestionEmpresaTransporte.ui
                 clienteVerPanelCtrl.View.EdCorreo.Text = ElCliente.Email;
                 clienteVerPanelCtrl.View.EdDireccion.Text = ElCliente.Dirección;
                 clienteVerPanelCtrl.View.EdTelefono.Text = ElCliente.Telefono;
+            }
+            else
+            {
+                clienteVerPanelCtrl.View.EdNif.Clear();
+                clienteVerPanelCtrl.View.EdNombre.Clear();
+                clienteVerPanelCtrl.View.EdCorreo.Clear();
+                clienteVerPanelCtrl.View.EdDireccion.Clear();
+                clienteVerPanelCtrl.View.EdTelefono.Clear();
             }
         }
 
@@ -143,16 +159,21 @@ namespace GestionEmpresaTransporte.ui
                     WForms.DialogResult result;
                     // Displays the MessageBox.
                     result = WForms.MessageBox.Show(message, caption, buttons);
-                    if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElCliente);
+                    if (result == WForms.DialogResult.Yes)
+                    {
+                        _bindingList.Remove(ElCliente);
+                        ActualizarPanelCliente();
+                    }
                 }
                 else
                 {
                     WForms.MessageBox.Show("El cliente tiene transportes asignados, no se puede borrar ");
                 }
-
-                View.Actualizar();
-                clienteVerPanelCtrl.View.ModoConsulta();
             }
+
+            View.Actualizar();
+            clienteVerPanelCtrl.View.ModoConsulta();
+            ActualizarPanelCliente();
         }
 
         private void InsertarCliente()
