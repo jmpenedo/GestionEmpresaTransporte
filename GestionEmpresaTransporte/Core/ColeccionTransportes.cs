@@ -187,6 +187,14 @@ namespace GestionEmpresaTransporte.Core
                     toret = true;
             return toret;
         }
+        
+        public bool ExisteVehiculo(Vehiculo unVehiculo)
+        {
+            var toret = false;
+            foreach (var transporte in ListaTransportes.Where(transporte => transporte.Camion.Equals(unVehiculo)))
+                toret = true;
+            return toret;
+        }
     }
 }
 
