@@ -9,6 +9,7 @@ namespace GestionEmpresaTransporte.ui
     {
         private static ClienteListarPanelCtrl CtrlpnlCliente;
         private static TransporteListarPanelCtrl CtrlpnlTransporte;
+        private static VehiculoListarPanelCtrl CtrlpnlVehiculo;
         private WForms.Panel pnlPrincipal;
 
         public MainWindowCtrl()
@@ -41,6 +42,17 @@ namespace GestionEmpresaTransporte.ui
 
             return CtrlpnlCliente;
         }
+        
+        public VehiculoListarPanelCtrl getInstanceVehiculo()
+        {
+            if (CtrlpnlVehiculo == null)
+                CtrlpnlVehiculo = new VehiculoListarPanelCtrl(empresa); //Creamos el controlador de vehiculo
+
+            CtrlpnlVehiculo.vehiculoVerPanelCtrl.View.Visible = true;
+            
+
+            return CtrlpnlVehiculo;
+        }
 
         public TransporteListarPanelCtrl getInstanceTransporte()
         {
@@ -60,10 +72,10 @@ namespace GestionEmpresaTransporte.ui
 
         private void GestionVehiculos()
         {
-            View.Controls.Remove(pnlPrincipal); //1) Siempre quitamos el principal (si es nulo no da fallo)
-            var ctrlPnlSample = new SamplePanelCtrl(); //Creamos el controlador
-            pnlPrincipal = ctrlPnlSample.View; //Recuperamos el panle del controlador
-            View.Controls.Add(pnlPrincipal); //lo asignamos al formulario principal
+            var pnlVehiculo = getInstanceVehiculo().View; //Recuperamos el panel del controlador
+            View.Controls.Add(pnlVehiculo); //lo asignamos al formulario principal
+            pnlVehiculo.Visible = true;
+            pnlVehiculo.BringToFront(); //la traemos al frente (el de transportes queda detrás)
         }
 
         private void GestionTransportes()
