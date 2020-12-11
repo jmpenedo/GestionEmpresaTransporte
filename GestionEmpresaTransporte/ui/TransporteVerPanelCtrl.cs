@@ -79,6 +79,20 @@
                 View.EdGas.Text = Convert.ToString(ElTransporte.GasConsumido);
                 View.EdFactura.Text = ElTransporte.ToString();
             }
+            else
+            {
+                View.EdCliente.Text = "";
+                View.EdFlota.Text = "";
+                View.EdFechaContratacion.Text = "";
+                View.EdKmsRecorridos.Text = "";
+                View.EdFechaSalida.Text = "";
+                View.EdFechaEntrega.Text = "";
+                View.EdImporteDia.Text = "";
+                View.EdIVA.Text = "";
+                View.EdPrecioLitro.Text = "";
+                View.EdGas.Text = "";
+                View.EdFactura.Text = "";
+            }
         }
 
         private void Aceptar()
@@ -130,6 +144,10 @@
                     result = WForms.MessageBox.Show(message, caption, buttons);
                     if (result == WForms.DialogResult.Yes) _bindingList.Remove(ElTransporte);
 
+                    if(_bindingList.Count == 0)
+                    {
+                        ElTransporte = null;
+                    }
                     ActualizarPadre();
                     View.ModoConsulta();
                 }
