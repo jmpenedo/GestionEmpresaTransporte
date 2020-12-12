@@ -70,6 +70,8 @@ namespace GestionEmpresaTransporte.ui
                 (int) Math.Floor(width * .40); // Nombre
             grdLista.Columns[2].Width =
                 (int) Math.Floor(width * .10); // TLF
+            grdLista.Columns[3].Width =
+                (int) Math.Floor(width * .40); // mail
             grdLista.Columns[4].Visible = false; //Direccion
         }
 
