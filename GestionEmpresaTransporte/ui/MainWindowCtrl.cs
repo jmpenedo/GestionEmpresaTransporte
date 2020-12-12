@@ -69,7 +69,7 @@ namespace GestionEmpresaTransporte.ui
             getInstanceCliente().ActualizarPanelCliente(); //Correcion de error tras pulsar volver
         }
 
-        private void GestionVehiculos()
+        public void GestionVehiculos()
         {
             var pnlVehiculo = getInstanceVehiculo().View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlVehiculo); //lo asignamos al formulario principal

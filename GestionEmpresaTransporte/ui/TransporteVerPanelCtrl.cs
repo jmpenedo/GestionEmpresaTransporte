@@ -23,7 +23,7 @@
         private TransporteVerPanelCtrl(Empresa miEmpresa)
         {
             MiEmpresa = miEmpresa;
-            View = new TransporteVerPanelView(MiEmpresa.ColeccionClientes.ListaNifs(), MiEmpresa.ColeccionVehiculos.ListaMatriculas());
+            View = new TransporteVerPanelView();
             View.BtInsertar.Click += (sender, e) => InsertarTransporte();
             View.BtAceptar.Click += (sender, e) => Aceptar();
             View.BtCancelar.Click += (sender, e) => Cancelar();
@@ -157,6 +157,7 @@
         private void InsertarTransporte()
         {
             View.ModoInsercion();
+            View.EdFactura.Text = "";
             EstadoPnlTransporte = Estados.Insertar;
         }
 

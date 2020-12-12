@@ -26,6 +26,7 @@ namespace GestionEmpresaTransporte.ui
             View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelTransporte();
             TransporteVerPanelCtrl.View.BtSelecCliente.Click += (sender, e) => SeleccionarCliente();
+            TransporteVerPanelCtrl.View.BtSelecVehiculo.Click += (sender, e) => SeleccionarVehiculo();
 
             TransporteVerPanelCtrl._padre = View.grdLista;
         }
@@ -95,6 +96,26 @@ namespace GestionEmpresaTransporte.ui
                 TransporteVerPanelCtrl.View.EdCliente.Text = instanciaClientes.ElCliente.Nif;
             else //caso volver
                 TransporteVerPanelCtrl.View.EdCliente.Text = "";
+        }
+
+        private void SeleccionarVehiculo()
+        {
+            var instanciaVehiculos = MainWindowControl.getInstanceVehiculo();
+
+            instanciaVehiculos.View.pnlVehiculo.BtSeleccionar.Click +=
+                (sender, e) => CambiarVehiculo(instanciaVehiculos);
+            instanciaVehiculos.View.pnlVehiculo.BtVolver.Click +=
+                (sender, e) => CambiarVehiculo(instanciaVehiculos);
+            instanciaVehiculos.View.pnlVehiculo.ModoSeleccion(true);
+            MainWindowControl.GestionVehiculos();
+        }
+
+        private void CambiarVehiculo(VehiculoListarPanelCtrl instanciaVehiculos)
+        {
+            if (instanciaVehiculos.ElVehiculo != null) //Caso seleccionar
+                TransporteVerPanelCtrl.View.EdFlota.Text = instanciaVehiculos.ElVehiculo.Matricula;
+            else //caso volver
+                TransporteVerPanelCtrl.View.EdFlota.Text = "";
         }
     }
 }

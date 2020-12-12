@@ -9,17 +9,14 @@ namespace GestionEmpresaTransporte.ui
 
     class TransporteVerPanelView : WForms.Panel
     {
-        public TransporteVerPanelView(List<string> listaClientes, List<string> listaVehiculos)
+        public TransporteVerPanelView()
         {
-            ListaClientes = listaClientes;
-            ListaFlota = listaVehiculos;
-
             Build();
         }
 
         /*Datos del cliente*/
         public WForms.TextBox EdCliente { get; private set; }
-        public WForms.ComboBox EdFlota { get; private set; }
+        public WForms.TextBox EdFlota { get; private set; }
         public WForms.DateTimePicker EdFechaContratacion { get; private set; }
         public WForms.NumericUpDown EdKmsRecorridos { get; private set; }
         public WForms.DateTimePicker EdFechaSalida { get; private set; }
@@ -34,11 +31,8 @@ namespace GestionEmpresaTransporte.ui
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
         public WForms.Button BtSelecCliente { get; private set; }
+        public WForms.Button BtSelecVehiculo { get; private set; }
         public WForms.TextBox EdFactura { get; private set; }
-
-        private List<string> ListaClientes { get; set; }
-
-        private List<string> ListaFlota { get; set; }
 
         private void Build()
         {
@@ -115,16 +109,13 @@ namespace GestionEmpresaTransporte.ui
                 Width = (int)(Width * 0.87),
                 SelectionLength = 0,
                 ReadOnly = true
-                //DropDownStyle = WForms.ComboBoxStyle.DropDownList,
             };
-
             BtSelecCliente = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
                 Text = "&Seleccionar"
             };
             
-            //EdCliente.Items.AddRange(ListaClientes.ToArray<object>());
             toret.Controls.Add(EdCliente);
             toret.Controls.Add(BtSelecCliente);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdCliente.Height);
@@ -142,13 +133,21 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Left,
                 Text = "Matrícula"
             });
-            EdFlota = new WForms.ComboBox
+            EdFlota = new WForms.TextBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int)(Width * 0.87),
+                SelectionLength = 0,
+                ReadOnly = true
             };
-            EdFlota.Items.AddRange(ListaFlota.ToArray<object>());
+            BtSelecVehiculo = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
+
             toret.Controls.Add(EdFlota);
+            toret.Controls.Add(BtSelecVehiculo);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdFlota.Height);
             return toret;
         }
@@ -490,6 +489,7 @@ namespace GestionEmpresaTransporte.ui
             EdPrecioLitro.Enabled = true;
             EdGas.Enabled = true;
             BtSelecCliente.Enabled = false;
+            BtSelecVehiculo.Enabled = false;
 
             EdKmsRecorridos.Focus();
             HabilitarBtAceptar();
@@ -519,6 +519,8 @@ namespace GestionEmpresaTransporte.ui
             EdPrecioLitro.Enabled = true;
             EdGas.Enabled = true;
             BtSelecCliente.Enabled = true;
+            BtSelecVehiculo.Enabled = true;
+
             EdCliente.Focus();
             HabilitarBtAceptar();
 
@@ -541,6 +543,7 @@ namespace GestionEmpresaTransporte.ui
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
             BtSelecCliente.Enabled = false;
+            BtSelecVehiculo.Enabled = false;
         }
     }
 }

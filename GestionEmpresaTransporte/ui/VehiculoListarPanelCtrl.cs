@@ -42,9 +42,11 @@ namespace GestionEmpresaTransporte.ui
             vehiculoVerPanelCtrl.View.BtBorrar.Click += (sender, e) => BorrarVehiculo();
             vehiculoVerPanelCtrl.View.BtModificar.Click += (sender, e) => ModoModificar();
             vehiculoVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
+            vehiculoVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => Seleccionar();
 
             EstadoPnlVehiculo = Estados.Consultar;
             vehiculoVerPanelCtrl.View.ModoConsulta();
+            vehiculoVerPanelCtrl.View.ModoSeleccion(false);
         }
 
         public Estados EstadoPnlVehiculo { get; set; }
@@ -254,6 +256,22 @@ namespace GestionEmpresaTransporte.ui
             View.SendToBack(); //Vuelve al anterior panel llamado
             //View.Visible = false;
             vehiculoVerPanelCtrl.View.ModoConsulta();
+            vehiculoVerPanelCtrl.View.ModoSeleccion(false);
+        }
+
+        private void Seleccionar()
+        {
+            //Antes de volver revisar que hay un vehiculo seleccionado
+            if (ElVehiculo == null)
+            {
+                ActualizarPanelVehiculo(); //Devolvemos el vehiculo seleccionado en el grid
+                if (ElVehiculo == null)
+                    WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay clientes en la BD
+            }
+
+            View.SendToBack();
+            vehiculoVerPanelCtrl.View.ModoConsulta();
+            vehiculoVerPanelCtrl.View.ModoSeleccion(false);
         }
     }
 }

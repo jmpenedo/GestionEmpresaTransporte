@@ -36,6 +36,8 @@ namespace GestionEmpresaTransporte.ui
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
 
+        public WForms.Button BtSeleccionar { get; private set; }
+
 
         public WForms.Button BtVolver { get; private set; }
 
@@ -426,12 +428,17 @@ namespace GestionEmpresaTransporte.ui
             {
                 Dock = WForms.DockStyle.Fill
             };
+            BtSeleccionar = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
             BtVolver = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
                 Text = "&Volver"
             };
-
+            toret.Controls.Add(BtSeleccionar);
             toret.Controls.Add(BtVolver);
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
@@ -513,6 +520,11 @@ namespace GestionEmpresaTransporte.ui
             EdMatricula.Focus();
 
             HabilitarBtAceptar();
+        }
+
+        public void ModoSeleccion(bool estado)
+        {
+            BtSeleccionar.Visible = estado;
         }
 
         private void HabilitarBtAceptar()
