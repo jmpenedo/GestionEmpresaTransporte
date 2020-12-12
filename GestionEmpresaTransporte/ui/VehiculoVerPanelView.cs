@@ -1,5 +1,4 @@
 using System;
-using GestionEmpresaTransporte.Core.Vehiculos;
 
 namespace GestionEmpresaTransporte.ui
 {
@@ -89,7 +88,6 @@ namespace GestionEmpresaTransporte.ui
 
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
-
         }
 
         private WForms.Panel BuildMatricula()
@@ -168,7 +166,8 @@ namespace GestionEmpresaTransporte.ui
             toret.Controls.Add(new WForms.Label
             {
                 Dock = WForms.DockStyle.Left,
-                Text = "Consumo L/100Km"
+                Text = "Consumo L/100Km",
+                Width = Width
             });
 
             EdConsumo = new WForms.NumericUpDown
@@ -180,7 +179,7 @@ namespace GestionEmpresaTransporte.ui
                 Minimum = 0,
                 Maximum = 40,
                 DecimalPlaces = 1,
-                Increment = 0.1M,
+                Increment = 0.1M
             };
             toret.Controls.Add(EdConsumo);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdConsumo.Height);
@@ -203,7 +202,7 @@ namespace GestionEmpresaTransporte.ui
             EdFechaFa = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int) (Width * 1.00),
+                Width = (int) (Width * 1.00)
             };
 
             toret.Controls.Add(EdFechaFa);
@@ -252,9 +251,8 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Right,
                 Width = (int) (Width * 0.80),
                 RightToLeft = WForms.RightToLeft.Yes
-                
             };
-            object[] tipos = {"Furgoneta" , "Camion" , "Camion Articulado"};
+            object[] tipos = {"Furgoneta", "Camion", "Camion Articulado"};
             EdTipo.Items.AddRange(tipos);
             toret.Controls.Add(EdTipo);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdTipo.Height);
@@ -274,16 +272,13 @@ namespace GestionEmpresaTransporte.ui
                 Text = "WIFI"
             });
 
-            EdWIFI = new WForms.CheckBox()
+            EdWIFI = new WForms.CheckBox
             {
-                Dock = WForms.DockStyle.Right,
-
-
+                Dock = WForms.DockStyle.Right
             };
             toret.Controls.Add(EdWIFI);
-            toret.MaximumSize = new Draw.Size(int.MaxValue, EdWIFI.Height/4);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdWIFI.Height / 4);
             return toret;
-
         }
 
         private WForms.Panel BuildAC()
@@ -299,16 +294,13 @@ namespace GestionEmpresaTransporte.ui
                 Text = "A/C"
             });
 
-            EdAC = new WForms.CheckBox()
+            EdAC = new WForms.CheckBox
             {
-                Dock = WForms.DockStyle.Right,
-
-
+                Dock = WForms.DockStyle.Right
             };
             toret.Controls.Add(EdAC);
-            toret.MaximumSize = new Draw.Size(int.MaxValue, EdAC.Height/4);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdAC.Height / 4);
             return toret;
-
         }
 
         private WForms.Panel BuildBluetooth()
@@ -324,16 +316,13 @@ namespace GestionEmpresaTransporte.ui
                 Text = "Bluetooth"
             });
 
-            EdBluetooth = new WForms.CheckBox()
+            EdBluetooth = new WForms.CheckBox
             {
-                Dock = WForms.DockStyle.Right,
-
-
+                Dock = WForms.DockStyle.Right
             };
             toret.Controls.Add(EdBluetooth);
-            toret.MaximumSize = new Draw.Size(int.MaxValue, EdBluetooth.Height/4);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdBluetooth.Height / 4);
             return toret;
-
         }
 
         private WForms.Panel BuildTV()
@@ -349,16 +338,13 @@ namespace GestionEmpresaTransporte.ui
                 Text = "TV"
             });
 
-            EdTV = new WForms.CheckBox()
+            EdTV = new WForms.CheckBox
             {
-                Dock = WForms.DockStyle.Right,
-
-
+                Dock = WForms.DockStyle.Right
             };
             toret.Controls.Add(EdTV);
-            toret.MaximumSize = new Draw.Size(int.MaxValue, EdTV.Height/4);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdTV.Height / 4);
             return toret;
-
         }
 
         private WForms.Panel BuildNevera()
@@ -374,16 +360,13 @@ namespace GestionEmpresaTransporte.ui
                 Text = "Nevera"
             });
 
-            EdNevera = new WForms.CheckBox()
+            EdNevera = new WForms.CheckBox
             {
-                Dock = WForms.DockStyle.Right,
-
-
+                Dock = WForms.DockStyle.Right
             };
             toret.Controls.Add(EdNevera);
-            toret.MaximumSize = new Draw.Size(int.MaxValue, EdNevera.Height/4);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdNevera.Height / 4);
             return toret;
-
         }
 
         public WForms.Panel BuildPanelBotones()
@@ -455,7 +438,7 @@ namespace GestionEmpresaTransporte.ui
 
             return toret;
         }
-        
+
         public void ModoConsulta()
         {
             EdMatricula.Enabled = false;
@@ -471,32 +454,31 @@ namespace GestionEmpresaTransporte.ui
             EdTV.Enabled = false;
             EdAC.Enabled = false;
             EdBluetooth.Enabled = false;
-            
+
             DeshabilitarBtAceptar();
         }
-        
+
         public void ModoModificar()
         {
-            
             EdMatricula.Enabled = false;
             EdMarca.Enabled = false;
             EdModelo.Enabled = false;
             EdFechaAd.Enabled = false;
             EdFechaFa.Enabled = false;
             EdConsumo.Enabled = true;
-            
+
             EdTipo.Enabled = false;
             EdWIFI.Enabled = true;
             EdNevera.Enabled = true;
             EdTV.Enabled = true;
             EdAC.Enabled = true;
             EdBluetooth.Enabled = true;
-            
+
             EdConsumo.Focus();
-            
+
             HabilitarBtAceptar();
         }
-        
+
         public void ModoInsercion()
         {
             EdMatricula.Clear();
@@ -505,34 +487,34 @@ namespace GestionEmpresaTransporte.ui
             EdFechaAd.Text = "";
             EdFechaFa.Text = "";
             EdConsumo.Text = "";
-            
+
             EdTipo.Text = "";
             EdWIFI.Checked = false;
             EdNevera.Checked = false;
             EdTV.Checked = false;
             EdAC.Checked = false;
             EdBluetooth.Checked = false;
-            
-            
+
+
             EdMatricula.Enabled = true;
             EdMarca.Enabled = true;
             EdModelo.Enabled = true;
             EdFechaAd.Enabled = true;
             EdFechaFa.Enabled = true;
             EdConsumo.Enabled = true;
-            
+
             EdTipo.Enabled = true;
             EdWIFI.Enabled = true;
             EdNevera.Enabled = true;
             EdTV.Enabled = true;
             EdAC.Enabled = true;
             EdBluetooth.Enabled = true;
-            
+
             EdMatricula.Focus();
-            
+
             HabilitarBtAceptar();
         }
-        
+
         private void HabilitarBtAceptar()
         {
             BtBorrar.Enabled = false;
@@ -541,7 +523,7 @@ namespace GestionEmpresaTransporte.ui
             BtAceptar.Enabled = true;
             BtCancelar.Enabled = true;
         }
-        
+
         private void DeshabilitarBtAceptar()
         {
             BtBorrar.Enabled = true;
@@ -550,9 +532,5 @@ namespace GestionEmpresaTransporte.ui
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
         }
-        
-        
-        
-        
     }
 }
