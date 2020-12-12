@@ -59,14 +59,6 @@ namespace GestionEmpresaTransporte.ui
 
         public void AjustarColGrid()
         {
-            /*if (grdLista.Columns.Count > 0)
-            {
-                grdLista.Columns[0].AutoSizeMode = WForms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-                grdLista.Columns[1].AutoSizeMode = WForms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-                grdLista.Columns[2].AutoSizeMode = WForms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-                grdLista.Columns[4].Visible = false; //Ocultamos la columna 4 que contiene la direccion
-            }*/
-
             // Tomar las nuevas medidas
             var width = ClientRectangle.Width;
 

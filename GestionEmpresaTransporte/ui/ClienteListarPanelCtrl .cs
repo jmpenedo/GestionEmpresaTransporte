@@ -31,13 +31,14 @@ namespace GestionEmpresaTransporte.ui
             //Asignamos Handlers
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelCliente();
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
-            View.pnlCliente.BtInsertar.Click += (sender, e) => InsertarCliente();
+            View.pnlCliente.BtInsertar.Click += (sender, e) => ModoInsertarCliente();
             View.pnlCliente.BtAceptar.Click += (sender, e) => Aceptar();
             View.pnlCliente.BtCancelar.Click += (sender, e) => Cancelar();
             View.pnlCliente.BtBorrar.Click += (sender, e) => BorrarCliente();
             View.pnlCliente.BtModificar.Click += (sender, e) => ModoModificar();
             View.pnlCliente.BtVolver.Click += (sender, e) => Volver();
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
+
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
@@ -96,6 +97,9 @@ namespace GestionEmpresaTransporte.ui
             }
         }
 
+        /// <summary>
+        ///     Accion a realizar cuando se pulsa ACEPTAR
+        /// </summary>
         private void Aceptar()
         {
             switch (EstadoPnlCliente)
@@ -109,9 +113,6 @@ namespace GestionEmpresaTransporte.ui
                 case Estados.Modificar:
                     ModificarCliente();
                     return;
-                case Estados.Consultar:
-                    //ConsultarCliente();
-                    return;
                 default:
                     return;
             }
@@ -119,16 +120,14 @@ namespace GestionEmpresaTransporte.ui
 
         private void Cancelar()
         {
-            View.pnlCliente.ModoConsulta();
+            View.pnlCliente.ModoInicial();
             ActualizaTextCliente();
         }
 
-        private void ModoModificar()
-        {
-            EstadoPnlCliente = Estados.Modificar;
-            View.pnlCliente.ModoModificar();
-        }
 
+        /// <summary>
+        ///     Borra  ElCliente actual
+        /// </summary>
         private void BorrarCliente()
         {
             if (ElCliente != null)
@@ -144,10 +143,8 @@ namespace GestionEmpresaTransporte.ui
                     // Displays the MessageBox.
                     result = WForms.MessageBox.Show(message, caption, buttons);
                     if (result == WForms.DialogResult.Yes)
-                    {
                         _bindingList.Remove(ElCliente);
-                        ActualizarPanelCliente();
-                    }
+                    //ActualizarPanelCliente();
                 }
                 else
                 {
@@ -156,19 +153,25 @@ namespace GestionEmpresaTransporte.ui
             }
 
             View.Actualizar();
-            View.pnlCliente.ModoConsulta();
-            ActualizarPanelCliente();
+            //View.pnlCliente.ModoConsulta();
+            //ActualizarPanelCliente();
         }
 
-        private void InsertarCliente()
+        private void ModoInsertarCliente()
         {
-            View.pnlCliente.ModoInsercion();
             EstadoPnlCliente = Estados.Insertar;
+            View.pnlCliente.ModoInsercion();
+        }
+
+        private void ModoModificar()
+        {
+            EstadoPnlCliente = Estados.Modificar;
+            View.pnlCliente.ModoModificar();
         }
 
         /// <summary>
-        ///     Recoge los datos de los textbox, valida el email y actuliza el objeto
-        ///     pasado por referencia con los datos nuevos (NO se puede modificar el NIF)
+        ///     Recoge los datos de los textbox, valida el email y actualiza ElCliente
+        ///     con los datos nuevos (NO se puede modificar el NIF)
         /// </summary>
         private void ModificarCliente()
         {
@@ -192,10 +195,9 @@ namespace GestionEmpresaTransporte.ui
                 ElCliente.Telefono = telefono;
                 ElCliente.Email = correo;
                 ElCliente.Dirección = direccion;
+                View.Actualizar();
+                View.pnlCliente.ModoInicial();
             }
-
-            View.Actualizar(); //ActualizarPadre();
-            View.pnlCliente.ModoConsulta();
         }
 
         /// <summary>
@@ -219,6 +221,12 @@ namespace GestionEmpresaTransporte.ui
                 valido = false;
             }
 
+            if (MiEmpresa.ColeccionClientes.getClientebyNif(nif) != null)
+            {
+                WForms.MessageBox.Show("Ya existe un cliente con el NIF: " + nif);
+                valido = false;
+            }
+
             //El correo, NO es obligatorio pero si se pone tiene que tener un formato correcto
             if (correo.Length > 0)
                 if (!utilidades.IsValidEmail(correo))
@@ -227,24 +235,31 @@ namespace GestionEmpresaTransporte.ui
                     valido = false;
                 }
 
+
             //Si  fue bien se crea un nuevo cliente
             if (valido)
             {
                 var nuevoCliente = new Cliente(nif, nombre, telefono, correo, direccion);
                 _bindingList.Add(nuevoCliente);
                 SeleccionarCliente(nuevoCliente);
-                View.pnlCliente.ModoConsulta();
+                View.pnlCliente.ModoInicial();
             }
         }
 
+        /// <summary>
+        ///     Accion que se ejecuta al pulsar el boton Volver
+        /// </summary>
         private void Volver()
         {
             ElCliente = null;
-            View.Visible = false;
-            View.pnlCliente.ModoConsulta();
+            View.SendToBack();
+            View.pnlCliente.ModoInicial();
             View.pnlCliente.ModoSeleccion(false);
         }
 
+        /// <summary>
+        ///     Accion que se ejecuta al pulsar el boton Seleccionar
+        /// </summary>
         private void Seleccionar()
         {
             //Antes de volver revisar que hay un cliente seleccionado
@@ -255,14 +270,18 @@ namespace GestionEmpresaTransporte.ui
                     WForms.MessageBox.Show("NO se ha seleccionado ningún cliente"); //No hay clientes en la BD
             }
 
-            View.Visible = false;
-            View.pnlCliente.ModoConsulta();
+            View.SendToBack();
+            View.pnlCliente.ModoInicial();
             View.pnlCliente.ModoSeleccion(false);
         }
 
-
+        /// <summary>
+        ///     Selecciona en el gdrLista de clientes un cliente pasado como parámetro
+        /// </summary>
+        /// <param name="cliente"></param>
         public void SeleccionarCliente(Cliente cliente)
         {
+            View.pnlCliente.BtVolver.Visible = true;
             var pos = MiEmpresa.ColeccionClientes
                 .PosCliente(cliente); //CtrlpnlCliente.empresa.ColeccionClientes.PosCliente(cliente);
 

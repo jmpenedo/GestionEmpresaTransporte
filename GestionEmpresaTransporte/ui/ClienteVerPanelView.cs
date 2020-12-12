@@ -46,7 +46,7 @@
             MaximumSize = MinimumSize;
 
             ModoSeleccion(false);
-            ModoConsulta();
+            ModoInicial();
         }
 
 
@@ -249,7 +249,7 @@
             return toret;
         }
 
-        public void ModoConsulta()
+        public void ModoInicial()
         {
             EdNif.Enabled = false;
             EdNombre.Enabled = false;
@@ -308,7 +308,6 @@
         public void ModoSeleccion(bool estado)
         {
             BtSeleccionar.Visible = estado;
-            BtVolver.Visible = estado;
         }
     }
 }

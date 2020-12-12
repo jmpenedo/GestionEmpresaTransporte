@@ -37,7 +37,6 @@ namespace GestionEmpresaTransporte.ui
                 CtrlpnlCliente = new ClienteListarPanelCtrl(empresa); //Creamos el controlador de clientes
 
             CtrlpnlCliente.View.Visible = true;
-            //CtrlpnlCliente.clienteVerPanelCtrl._padre.Visible = true;
 
             return CtrlpnlCliente;
         }
@@ -63,10 +62,11 @@ namespace GestionEmpresaTransporte.ui
 
         public void GestionClientes()
         {
-            var pnlCliente = getInstanceCliente().View; //Recuperamos el panel del controlador
-            View.Controls.Add(pnlCliente); //lo asignamos al formulario principal
-            pnlCliente.Visible = true;
-            pnlCliente.BringToFront(); //la traemos al frente (el de transportes queda detrás)
+            var pnlListarCliente = getInstanceCliente().View; //Recuperamos el panel del controlador
+            View.Controls.Add(pnlListarCliente); //lo asignamos al formulario principal
+            pnlListarCliente.pnlCliente.ModoInicial();
+            pnlListarCliente.BringToFront(); //la traemos al frente (el de transportes queda detrás)
+            getInstanceCliente().ActualizarPanelCliente(); //Correcion de error tras pulsar volver
         }
 
         private void GestionVehiculos()
