@@ -6,12 +6,11 @@ using System.Linq;
 using GestionEmpresaTransporte.Core;
 using GestionEmpresaTransporte.Core.Vehiculos;
 
-
 namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
-    
+
     public class VehiculoListarPanelCtrl
     {
         public enum Estados
@@ -21,17 +20,10 @@ namespace GestionEmpresaTransporte.ui
             Borrar,
             Insertar
         }
-        
+
         private readonly BindingList<Vehiculo> _bindingList;
         private Vehiculo miVehiculo;
-        
-        public Estados EstadoPnlVehiculo { get; set; }
-        public VehiculoListarPanelView View { get; }
 
-        public VehiculoVerPanelCtrl vehiculoVerPanelCtrl { get; }
-        
-        private Empresa Empresa { get; }
-        
         public VehiculoListarPanelCtrl(Empresa Empresa)
         {
             this.Empresa = Empresa;
@@ -40,7 +32,7 @@ namespace GestionEmpresaTransporte.ui
             vehiculoVerPanelCtrl = new VehiculoVerPanelCtrl();
             View = new VehiculoListarPanelView(vehiculoVerPanelCtrl.View);
             View.grdLista.DataSource = sourceVehiculos;
-            
+
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelVehiculo();
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
 
@@ -54,7 +46,14 @@ namespace GestionEmpresaTransporte.ui
             EstadoPnlVehiculo = Estados.Consultar;
             vehiculoVerPanelCtrl.View.ModoConsulta();
         }
-        
+
+        public Estados EstadoPnlVehiculo { get; set; }
+        public VehiculoListarPanelView View { get; }
+
+        public VehiculoVerPanelCtrl vehiculoVerPanelCtrl { get; }
+
+        private Empresa Empresa { get; }
+
         public Vehiculo ElVehiculo
         {
             get => miVehiculo;
@@ -64,7 +63,7 @@ namespace GestionEmpresaTransporte.ui
                 ActualizaTextVehiculo();
             }
         }
-        
+
         public void ActualizarPanelVehiculo()
         {
             foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
@@ -76,7 +75,7 @@ namespace GestionEmpresaTransporte.ui
 
             View.AjustarColGrid();
         }
-        
+
         private void ActualizaTextVehiculo()
         {
             if (ElVehiculo != null)
@@ -95,11 +94,9 @@ namespace GestionEmpresaTransporte.ui
                 vehiculoVerPanelCtrl.View.EdAC.Checked = ElVehiculo.Comodidades.Contains("A/C");
                 vehiculoVerPanelCtrl.View.EdBluetooth.Checked = ElVehiculo.Comodidades.Contains("BLUETOOTH");
                 vehiculoVerPanelCtrl.View.EdNevera.Checked = ElVehiculo.Comodidades.Contains("NEVERA");
-
-
             }
         }
-        
+
         private void Aceptar()
         {
             switch (EstadoPnlVehiculo)
@@ -117,19 +114,19 @@ namespace GestionEmpresaTransporte.ui
                     return;
             }
         }
-        
+
         private void Cancelar()
         {
             vehiculoVerPanelCtrl.View.ModoConsulta();
             ActualizaTextVehiculo();
         }
-        
+
         private void ModoModificar()
         {
             EstadoPnlVehiculo = Estados.Modificar;
             vehiculoVerPanelCtrl.View.ModoModificar();
         }
-        
+
         private void BorrarVehiculo()
         {
             if (ElVehiculo != null)
@@ -155,7 +152,7 @@ namespace GestionEmpresaTransporte.ui
                 vehiculoVerPanelCtrl.View.ModoConsulta();
             }
         }
-        
+
         private void InsertarVehiculo()
         {
             vehiculoVerPanelCtrl.View.ModoInsercion();
@@ -164,38 +161,22 @@ namespace GestionEmpresaTransporte.ui
 
         private List<string> ListaComodidades()
         {
-            List<string> comodidades = new List<string>();
-            if (vehiculoVerPanelCtrl.View.EdWIFI.Checked)
-            {
-                comodidades.Add("WIFI");
-            }
-            if (vehiculoVerPanelCtrl.View.EdAC.Checked)
-            {
-                comodidades.Add("A/C");
-            }
-            if (vehiculoVerPanelCtrl.View.EdBluetooth.Checked)
-            {
-                comodidades.Add("BLUETOOTH");
-            }
-            if (vehiculoVerPanelCtrl.View.EdTV.Checked)
-            {
-                comodidades.Add("TV");
-            }
-            if (vehiculoVerPanelCtrl.View.EdNevera.Checked)
-            {
-                comodidades.Add("NEVERA");
-            }
+            var comodidades = new List<string>();
+            if (vehiculoVerPanelCtrl.View.EdWIFI.Checked) comodidades.Add("WIFI");
+            if (vehiculoVerPanelCtrl.View.EdAC.Checked) comodidades.Add("A/C");
+            if (vehiculoVerPanelCtrl.View.EdBluetooth.Checked) comodidades.Add("BLUETOOTH");
+            if (vehiculoVerPanelCtrl.View.EdTV.Checked) comodidades.Add("TV");
+            if (vehiculoVerPanelCtrl.View.EdNevera.Checked) comodidades.Add("NEVERA");
 
             return comodidades;
         }
 
         private void ModificarVehiculo()
         {
-
             ElVehiculo.Consumo = (double) vehiculoVerPanelCtrl.View.EdConsumo.Value;
-            
+
             ElVehiculo.Comodidades = ListaComodidades();
-            
+
             View.Actualizar();
             vehiculoVerPanelCtrl.View.ModoConsulta();
         }
@@ -209,8 +190,8 @@ namespace GestionEmpresaTransporte.ui
             var marca = vehiculoVerPanelCtrl.View.EdMarca.Text;
             var modelo = vehiculoVerPanelCtrl.View.EdModelo.Text;
             var consumo = (double) vehiculoVerPanelCtrl.View.EdConsumo.Value;
-            DateTime fechaFa = vehiculoVerPanelCtrl.View.EdFechaFa.Value;
-            DateTime fechaAd = vehiculoVerPanelCtrl.View.EdFechaAd.Value;
+            var fechaFa = vehiculoVerPanelCtrl.View.EdFechaFa.Value;
+            var fechaAd = vehiculoVerPanelCtrl.View.EdFechaAd.Value;
 
             var comodidades = ListaComodidades();
 
@@ -231,13 +212,12 @@ namespace GestionEmpresaTransporte.ui
             if (DateTime.Compare(fechaFa, fechaAd) > 0)
             {
                 WForms.MessageBox.Show("La fecha de Adquisicion no puede ser posterior a la de Fabricacion");
-                valido = false; 
+                valido = false;
             }
 
 
-        //Si  fue bien se crea un nuevo vehiculo
-        if (valido)
-            {
+            //Si  fue bien se crea un nuevo vehiculo
+            if (valido)
                 switch (tipo)
                 {
                     case "Furgoneta":
@@ -258,24 +238,22 @@ namespace GestionEmpresaTransporte.ui
                     default:
                         WForms.MessageBox.Show("Introduce el tipo de vehiculo");
                         break;
-                        
                 }
-            }
         }
-        
+
         public void SeleccionarVehiculo(Vehiculo vehiculo)
         {
             var pos = Empresa.ColeccionVehiculos.PosVehiculo(vehiculo);
 
             if (View.grdLista.Columns.Count > 0) View.grdLista.Rows[pos].Selected = true;
         }
-        
+
         private void Volver()
         {
             ElVehiculo = null;
-            View.Visible = false;
+            View.SendToBack(); //Vuelve al anterior panel llamado
+            //View.Visible = false;
             vehiculoVerPanelCtrl.View.ModoConsulta();
         }
-
     }
 }

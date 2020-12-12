@@ -265,7 +265,7 @@ namespace GestionEmpresaTransporte.ui
         private void Volver()
         {
             ElCliente = null;
-            View.SendToBack();
+            View.SendToBack(); //Vuelve al anterior panel llamado
             View.pnlCliente.ModoInicial();
             View.pnlCliente.ModoSeleccion(false);
         }
