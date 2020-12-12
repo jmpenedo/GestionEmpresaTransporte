@@ -69,7 +69,11 @@ namespace GestionEmpresaTransporte.ui
             }
             else if (columna == 2)
             {
-                //TODO 
+                var idTransporte = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
+                var TransporteSeleccionado = _bindingList.FirstOrDefault(item => item.IdTransporte == idTransporte);
+                TransporteVerPanelCtrl.ElTransporte = TransporteSeleccionado;
+                var Vehiculo = TransporteSeleccionado.Camion;
+                MainWindowControl.VerVehiculo(Vehiculo);
             }
         }
 
