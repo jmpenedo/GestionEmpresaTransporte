@@ -84,6 +84,7 @@
     <Compile Include="ui\WinFormsUI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Res\camion.ico"/>
     <Content Include="Samples\clientes.xml" />
     <Content Include="Samples\transportes.xml" />
     <Content Include="Samples\vehiculos.xml" />
