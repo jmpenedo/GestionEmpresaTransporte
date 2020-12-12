@@ -20,6 +20,7 @@ namespace GestionEmpresaTransporte.ui
             View = new TransporteListarPanelView(TransporteVerPanelCtrl.View);
             //Enlazamos el datagrid con la lista de transportes
             View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
 
             //Asignamos Handlers
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
@@ -52,6 +53,18 @@ namespace GestionEmpresaTransporte.ui
                 var idTransporte = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
                 var TransporteSeleccionado = _bindingList.FirstOrDefault(item => item.IdTransporte == idTransporte);
                 TransporteVerPanelCtrl.ElTransporte = TransporteSeleccionado;
+
+                foreach (WForms.DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.ColumnIndex == 3)
+                    {
+                        cell.ToolTipText = "Doble click para más información del cliente";
+                    }
+                    else if (cell.ColumnIndex == 2)
+                    {
+                        cell.ToolTipText = "Doble click para más información del vehículo";
+                    }
+                }
             }
 
             View.AjustarColGrid();
