@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using GestionEmpresaTransporte.Core;
 
@@ -38,7 +39,6 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtModificar.Click += (sender, e) => ModoModificar();
             View.pnlCliente.BtVolver.Click += (sender, e) => Volver();
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
-
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
@@ -163,10 +163,16 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.ModoInsercion();
         }
 
+        /// <summary>
+        ///     Iniciamos el proceso de modificacion del ElCliente actual
+        /// </summary>
         private void ModoModificar()
         {
-            EstadoPnlCliente = Estados.Modificar;
-            View.pnlCliente.ModoModificar();
+            if (ElCliente != null)
+            {
+                EstadoPnlCliente = Estados.Modificar;
+                View.pnlCliente.ModoModificar();
+            }
         }
 
         /// <summary>
@@ -191,12 +197,19 @@ namespace GestionEmpresaTransporte.ui
             //Si las validaciones son correctas se actulizan los datos del cliente
             if (valido)
             {
-                ElCliente.Nombre = nombre;
-                ElCliente.Telefono = telefono;
-                ElCliente.Email = correo;
-                ElCliente.Dirección = direccion;
-                View.Actualizar();
-                View.pnlCliente.ModoInicial();
+                if (ElCliente != null)
+                {
+                    ElCliente.Nombre = nombre;
+                    ElCliente.Telefono = telefono;
+                    ElCliente.Email = correo;
+                    ElCliente.Dirección = direccion;
+                    View.Actualizar();
+                    View.pnlCliente.ModoInicial();
+                }
+                else
+                {
+                    Trace.WriteLine("Error intentando modificar cliente NULL");
+                }
             }
         }
 
