@@ -163,6 +163,7 @@
             {
                 Dock = WForms.DockStyle.Right,
                 Width = 250,
+                Height = 150,
                 TextAlign = WForms.HorizontalAlignment.Left,
                 Multiline = true,
                 ScrollBars = WForms.ScrollBars.Vertical
