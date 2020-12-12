@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace GestionEmpresaTransporte.ui
 {
@@ -42,7 +43,7 @@ namespace GestionEmpresaTransporte.ui
             }
             catch (Exception e)
             {
-                //A log de error
+                Trace.WriteLine("Error al cargar el icono: " + e);
             }
         }
 

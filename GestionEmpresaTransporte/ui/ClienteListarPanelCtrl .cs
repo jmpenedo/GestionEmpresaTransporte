@@ -67,8 +67,7 @@ namespace GestionEmpresaTransporte.ui
                 foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
                 {
                     var nif = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
-                    var ClienteSeleccionado = _bindingList.FirstOrDefault(item => item.Nif == nif);
-                    ElCliente = ClienteSeleccionado;
+                    ElCliente = _bindingList.FirstOrDefault(item => item.Nif == nif);
                 }
             else //NO hay cliente seleccionado
                 ElCliente = null;
