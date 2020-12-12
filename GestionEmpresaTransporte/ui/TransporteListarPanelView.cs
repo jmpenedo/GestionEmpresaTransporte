@@ -64,23 +64,24 @@
             if (grdLista.Columns.Count > 0)
             {
 
-                grdLista.Columns[0].Width = (int)System.Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[0].Width = (int)System.Math.Floor(grdLista.Width * .17);
                 grdLista.Columns[1].Visible = false;
-                grdLista.Columns[2].Width = (int)System.Math.Floor(grdLista.Width * .20);
-                grdLista.Columns[3].Width = (int)System.Math.Floor(grdLista.Width * .20);
-                grdLista.Columns[4].Visible = false;
-                grdLista.Columns[5].Width = (int)System.Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[2].Width = (int)System.Math.Floor(grdLista.Width * .16);
+                grdLista.Columns[3].Width = (int)System.Math.Floor(grdLista.Width * .17);
+                grdLista.Columns[4].Width = (int)System.Math.Floor(grdLista.Width * .16);
+                grdLista.Columns[5].Width = (int)System.Math.Floor(grdLista.Width * .17);
                 grdLista.Columns[6].Visible = false;
                 grdLista.Columns[7].Visible = false;
                 grdLista.Columns[8].Visible = false;
                 grdLista.Columns[9].Visible = false;
                 grdLista.Columns[10].Visible = false;
                 grdLista.Columns[11].Visible = false;
-                grdLista.Columns[12].Width = (int)System.Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[12].Width = (int)System.Math.Floor(grdLista.Width * .17);
 
                 grdLista.Columns[0].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
                 grdLista.Columns[2].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
                 grdLista.Columns[3].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
+                grdLista.Columns[4].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
                 grdLista.Columns[5].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
                 grdLista.Columns[12].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
             }

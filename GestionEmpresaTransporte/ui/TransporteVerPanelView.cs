@@ -196,7 +196,8 @@ namespace GestionEmpresaTransporte.ui
                 Width = (int)(Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdKmsRecorridos);
@@ -272,7 +273,8 @@ namespace GestionEmpresaTransporte.ui
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdImporteDia);
@@ -302,7 +304,8 @@ namespace GestionEmpresaTransporte.ui
                 Maximum = 1,
                 Increment = 0.1M,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdIVA);
@@ -330,7 +333,8 @@ namespace GestionEmpresaTransporte.ui
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdPrecioLitro);
@@ -358,7 +362,8 @@ namespace GestionEmpresaTransporte.ui
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdGas);
