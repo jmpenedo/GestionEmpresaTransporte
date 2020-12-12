@@ -249,8 +249,8 @@ namespace GestionEmpresaTransporte.ui
             EdTipo = new WForms.ComboBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int) (Width * 0.80),
-                RightToLeft = WForms.RightToLeft.Yes
+                Width = (int) (Width * 0.60),
+                RightToLeft = WForms.RightToLeft.Inherit
             };
             object[] tipos = {"Furgoneta", "Camion", "Camion Articulado"};
             EdTipo.Items.AddRange(tipos);
