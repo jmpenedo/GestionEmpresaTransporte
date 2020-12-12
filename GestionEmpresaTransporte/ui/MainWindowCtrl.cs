@@ -36,19 +36,19 @@ namespace GestionEmpresaTransporte.ui
             if (CtrlpnlCliente == null)
                 CtrlpnlCliente = new ClienteListarPanelCtrl(empresa); //Creamos el controlador de clientes
 
-            CtrlpnlCliente.clienteVerPanelCtrl.View.Visible = true;
+            CtrlpnlCliente.View.Visible = true;
             //CtrlpnlCliente.clienteVerPanelCtrl._padre.Visible = true;
 
             return CtrlpnlCliente;
         }
-        
+
         public VehiculoListarPanelCtrl getInstanceVehiculo()
         {
             if (CtrlpnlVehiculo == null)
                 CtrlpnlVehiculo = new VehiculoListarPanelCtrl(empresa); //Creamos el controlador de vehiculo
 
             CtrlpnlVehiculo.vehiculoVerPanelCtrl.View.Visible = true;
-            
+
 
             return CtrlpnlVehiculo;
         }

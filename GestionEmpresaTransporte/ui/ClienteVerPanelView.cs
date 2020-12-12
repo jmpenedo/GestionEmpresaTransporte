@@ -44,6 +44,9 @@
             Controls.Add(BuildDireccion());
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
+
+            ModoSeleccion(false);
+            ModoConsulta();
         }
 
 
@@ -191,8 +194,6 @@
             };
             toret.Controls.Add(BtBorrar);
             toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
-
 
             BtInsertar = new WForms.Button
             {
@@ -205,7 +206,6 @@
             BtAceptar = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
-                DialogResult = WForms.DialogResult.OK,
                 Text = "&Aceptar"
             };
             toret.Controls.Add(BtAceptar);
@@ -243,13 +243,9 @@
 
             toret.Controls.Add(BtVolver);
             toret.Dock = WForms.DockStyle.Top;
+
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 
-            toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
-
-            toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
             return toret;
         }
 

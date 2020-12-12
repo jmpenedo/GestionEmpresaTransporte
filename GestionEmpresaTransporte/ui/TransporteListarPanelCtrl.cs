@@ -77,9 +77,9 @@ namespace GestionEmpresaTransporte.ui
         {
             var instanciaClientes = MainWindowControl.getInstanceCliente();
 
-            instanciaClientes.clienteVerPanelCtrl.View.BtSeleccionar.Click +=
+            instanciaClientes.View.pnlCliente.BtSeleccionar.Click +=
                 (sender, e) => CambiarCliente(instanciaClientes);
-            instanciaClientes.clienteVerPanelCtrl.View.BtVolver.Click +=
+            instanciaClientes.View.pnlCliente.BtVolver.Click +=
                 (sender, e) => CambiarCliente(instanciaClientes);
             instanciaClientes.View.pnlCliente.ModoSeleccion(true);
             MainWindowControl.GestionClientes();

@@ -23,36 +23,27 @@ namespace GestionEmpresaTransporte.ui
         public ClienteListarPanelCtrl(Empresa unaEmpresa)
         {
             MiEmpresa = unaEmpresa;
-            //GestorClientes = unaEmpresa.ColeccionClientes;
             _bindingList = new BindingList<Cliente>(unaEmpresa.ColeccionClientes.Clientes);
             var sourceClientes = new WForms.BindingSource(_bindingList, null);
-            //Creamos el control del Panel inferior con los datos del cliente
-            clienteVerPanelCtrl = new ClienteVerPanelCtrl();
-            View = new ClienteListarPanelView(clienteVerPanelCtrl.View);
+            View = new ClienteListarPanelView();
             //Enlazamos el datagrid con la lista de clientes
             View.grdLista.DataSource = sourceClientes;
             //Asignamos Handlers
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelCliente();
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
+            View.pnlCliente.BtInsertar.Click += (sender, e) => InsertarCliente();
+            View.pnlCliente.BtAceptar.Click += (sender, e) => Aceptar();
+            View.pnlCliente.BtCancelar.Click += (sender, e) => Cancelar();
+            View.pnlCliente.BtBorrar.Click += (sender, e) => BorrarCliente();
+            View.pnlCliente.BtModificar.Click += (sender, e) => ModoModificar();
+            View.pnlCliente.BtVolver.Click += (sender, e) => Volver();
+            View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
 
-            clienteVerPanelCtrl.View.BtInsertar.Click += (sender, e) => InsertarCliente();
-            clienteVerPanelCtrl.View.BtAceptar.Click += (sender, e) => Aceptar();
-            clienteVerPanelCtrl.View.BtCancelar.Click += (sender, e) => Cancelar();
-            clienteVerPanelCtrl.View.BtBorrar.Click += (sender, e) => BorrarCliente();
-            clienteVerPanelCtrl.View.BtModificar.Click += (sender, e) => ModoModificar();
-            clienteVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
-            clienteVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => Seleccionar();
-            EstadoPnlCliente = Estados.Consultar;
-            clienteVerPanelCtrl.View.ModoSeleccion(false);
-            clienteVerPanelCtrl.View.ModoConsulta();
+            EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
 
         public Estados EstadoPnlCliente { get; set; }
         public ClienteListarPanelView View { get; }
-
-        public ClienteVerPanelCtrl clienteVerPanelCtrl { get; }
-
-        //public GestorDeClientes GestorClientes { get; set; }
         private Empresa MiEmpresa { get; }
 
         public Cliente ElCliente
@@ -72,20 +63,17 @@ namespace GestionEmpresaTransporte.ui
         public void ActualizarPanelCliente()
         {
             if (View.grdLista.Rows.Count > 0 && MiEmpresa.ColeccionClientes.Count > 0)
-            {
+                //Hay clientes seleccionados
                 foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
                 {
                     var nif = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
                     var ClienteSeleccionado = _bindingList.FirstOrDefault(item => item.Nif == nif);
                     ElCliente = ClienteSeleccionado;
                 }
-            }
-            else
-            {
+            else //NO hay cliente seleccionado
                 ElCliente = null;
-                ActualizaTextCliente();
-            }
 
+            ActualizaTextCliente();
             View.AjustarColGrid();
         }
 
@@ -93,19 +81,19 @@ namespace GestionEmpresaTransporte.ui
         {
             if (ElCliente != null)
             {
-                clienteVerPanelCtrl.View.EdNif.Text = ElCliente.Nif;
-                clienteVerPanelCtrl.View.EdNombre.Text = ElCliente.Nombre;
-                clienteVerPanelCtrl.View.EdCorreo.Text = ElCliente.Email;
-                clienteVerPanelCtrl.View.EdDireccion.Text = ElCliente.Dirección;
-                clienteVerPanelCtrl.View.EdTelefono.Text = ElCliente.Telefono;
+                View.pnlCliente.EdNif.Text = ElCliente.Nif;
+                View.pnlCliente.EdNombre.Text = ElCliente.Nombre;
+                View.pnlCliente.EdCorreo.Text = ElCliente.Email;
+                View.pnlCliente.EdDireccion.Text = ElCliente.Dirección;
+                View.pnlCliente.EdTelefono.Text = ElCliente.Telefono;
             }
             else
             {
-                clienteVerPanelCtrl.View.EdNif.Clear();
-                clienteVerPanelCtrl.View.EdNombre.Clear();
-                clienteVerPanelCtrl.View.EdCorreo.Clear();
-                clienteVerPanelCtrl.View.EdDireccion.Clear();
-                clienteVerPanelCtrl.View.EdTelefono.Clear();
+                View.pnlCliente.EdNif.Clear();
+                View.pnlCliente.EdNombre.Clear();
+                View.pnlCliente.EdCorreo.Clear();
+                View.pnlCliente.EdDireccion.Clear();
+                View.pnlCliente.EdTelefono.Clear();
             }
         }
 
@@ -132,14 +120,14 @@ namespace GestionEmpresaTransporte.ui
 
         private void Cancelar()
         {
-            clienteVerPanelCtrl.View.ModoConsulta();
+            View.pnlCliente.ModoConsulta();
             ActualizaTextCliente();
         }
 
         private void ModoModificar()
         {
             EstadoPnlCliente = Estados.Modificar;
-            clienteVerPanelCtrl.View.ModoModificar();
+            View.pnlCliente.ModoModificar();
         }
 
         private void BorrarCliente()
@@ -169,13 +157,13 @@ namespace GestionEmpresaTransporte.ui
             }
 
             View.Actualizar();
-            clienteVerPanelCtrl.View.ModoConsulta();
+            View.pnlCliente.ModoConsulta();
             ActualizarPanelCliente();
         }
 
         private void InsertarCliente()
         {
-            clienteVerPanelCtrl.View.ModoInsercion();
+            View.pnlCliente.ModoInsercion();
             EstadoPnlCliente = Estados.Insertar;
         }
 
@@ -185,10 +173,10 @@ namespace GestionEmpresaTransporte.ui
         /// </summary>
         private void ModificarCliente()
         {
-            var nombre = clienteVerPanelCtrl.View.EdNombre.Text;
-            var telefono = utilidades.stringToTelString(clienteVerPanelCtrl.View.EdTelefono.Text);
-            var correo = clienteVerPanelCtrl.View.EdCorreo.Text;
-            var direccion = clienteVerPanelCtrl.View.EdDireccion.Text;
+            var nombre = View.pnlCliente.EdNombre.Text;
+            var telefono = utilidades.stringToTelString(View.pnlCliente.EdTelefono.Text);
+            var correo = View.pnlCliente.EdCorreo.Text;
+            var direccion = View.pnlCliente.EdDireccion.Text;
             var valido = true;
             //El correo, NO es obligatorio pero si se pone tiene que tener un formato correcto
             if (correo.Length > 0)
@@ -208,7 +196,7 @@ namespace GestionEmpresaTransporte.ui
             }
 
             View.Actualizar(); //ActualizarPadre();
-            clienteVerPanelCtrl.View.ModoConsulta();
+            View.pnlCliente.ModoConsulta();
         }
 
         /// <summary>
@@ -219,11 +207,11 @@ namespace GestionEmpresaTransporte.ui
         {
             //Recogemos los datos del formulario
             var valido = true;
-            var nif = clienteVerPanelCtrl.View.EdNif.Text.ToUpper();
-            var nombre = clienteVerPanelCtrl.View.EdNombre.Text;
-            var telefono = utilidades.stringToTelString(clienteVerPanelCtrl.View.EdTelefono.Text);
-            var correo = clienteVerPanelCtrl.View.EdCorreo.Text;
-            var direccion = clienteVerPanelCtrl.View.EdDireccion.Text;
+            var nif = View.pnlCliente.EdNif.Text.ToUpper();
+            var nombre = View.pnlCliente.EdNombre.Text;
+            var telefono = utilidades.stringToTelString(View.pnlCliente.EdTelefono.Text);
+            var correo = View.pnlCliente.EdCorreo.Text;
+            var direccion = View.pnlCliente.EdDireccion.Text;
 
             //El NIF es obligatorio, si no se ponde no se puede dar de alta
             if (!utilidades.valida_NIFCIFNIE(nif))
@@ -246,7 +234,7 @@ namespace GestionEmpresaTransporte.ui
                 var nuevoCliente = new Cliente(nif, nombre, telefono, correo, direccion);
                 _bindingList.Add(nuevoCliente);
                 SeleccionarCliente(nuevoCliente);
-                clienteVerPanelCtrl.View.ModoConsulta();
+                View.pnlCliente.ModoConsulta();
             }
         }
 
@@ -254,8 +242,8 @@ namespace GestionEmpresaTransporte.ui
         {
             ElCliente = null;
             View.Visible = false;
-            clienteVerPanelCtrl.View.ModoConsulta();
-            clienteVerPanelCtrl.View.ModoSeleccion(false);
+            View.pnlCliente.ModoConsulta();
+            View.pnlCliente.ModoSeleccion(false);
         }
 
         private void Seleccionar()
@@ -269,8 +257,8 @@ namespace GestionEmpresaTransporte.ui
             }
 
             View.Visible = false;
-            clienteVerPanelCtrl.View.ModoConsulta();
-            clienteVerPanelCtrl.View.ModoSeleccion(false);
+            View.pnlCliente.ModoConsulta();
+            View.pnlCliente.ModoSeleccion(false);
         }
 
 

@@ -58,7 +58,6 @@
     <Compile Include="ui\ClienteListarPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ui\ClienteVerPanelCtrl.cs" />
     <Compile Include="ui\ClienteVerPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
