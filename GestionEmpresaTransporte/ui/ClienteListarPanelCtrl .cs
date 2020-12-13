@@ -18,12 +18,15 @@ namespace GestionEmpresaTransporte.ui
             Insertar
         }
 
+        public bool seleccion;
+        
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
 
         public ClienteListarPanelCtrl(Empresa unaEmpresa)
         {
             MiEmpresa = unaEmpresa;
+            seleccion = false;
             _bindingList = new BindingList<Cliente>(unaEmpresa.ColeccionClientes.Clientes);
             var sourceClientes = new WForms.BindingSource(_bindingList, null);
             View = new ClienteListarPanelView();
@@ -39,6 +42,8 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtModificar.Click += (sender, e) => ModoModificar();
             View.pnlCliente.BtVolver.Click += (sender, e) => Volver();
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
+            
+            View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
@@ -300,5 +305,21 @@ namespace GestionEmpresaTransporte.ui
 
             if (View.grdLista.Columns.Count > 0) View.grdLista.Rows[pos].Selected = true;
         }
+        private void CeldaSeleccionada()
+        {
+            if (seleccion)
+            {
+                ActualizarPanelCliente(); //Devolvemos el vehiculo seleccionado en el grid
+                if (ElCliente == null)
+                    WForms.MessageBox.Show("No se ha seleccionado ningún cleinte"); //No hay cloentes en la BD
+
+                seleccion = false;
+                View.SendToBack();
+                View.pnlCliente.ModoInicial();
+                View.pnlCliente.ModoSeleccion(false);
+            }
+
+        }
+        
     }
 }
