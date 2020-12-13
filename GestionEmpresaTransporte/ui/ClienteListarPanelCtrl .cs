@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using GestionEmpresaTransporte.Core;
@@ -18,6 +19,8 @@ namespace GestionEmpresaTransporte.ui
             Insertar
         }
 
+        public bool seleccion;
+        
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
 
