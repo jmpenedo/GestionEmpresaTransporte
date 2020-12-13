@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using GestionEmpresaTransporte.Core;
@@ -9,7 +10,7 @@ namespace GestionEmpresaTransporte.ui
 
     internal class TransporteListarPanelCtrl
     {
-        private readonly BindingList<Transporte> _bindingList;
+        private BindingList<Transporte> _bindingList;
 
         public TransporteListarPanelCtrl(Empresa empresa)
         {
@@ -28,15 +29,20 @@ namespace GestionEmpresaTransporte.ui
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelTransporte();
             TransporteVerPanelCtrl.View.BtSelecCliente.Click += (sender, e) => SeleccionarCliente();
             TransporteVerPanelCtrl.View.BtSelecVehiculo.Click += (sender, e) => SeleccionarVehiculo();
+            TransporteVerPanelCtrl.View.BtPendiente.Click += (sender, e) => ListarPendiente();
+            TransporteVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
+            TransporteVerPanelCtrl.View.BtFiltroFecha.Click += (sender, e) => ListarFecha();
+            TransporteVerPanelCtrl.View.BtFiltroYear.Click += (sender, e) => ListarYear();
 
             TransporteVerPanelCtrl._padre = View.grdLista;
         }
-
+        
         public TransporteListarPanelCtrl(Empresa empresa, MainWindowCtrl controlPrincipal) : this(empresa)
         {
             MainWindowControl = controlPrincipal;
         }
-
+        
+        
         public TransporteListarPanelView View { get; }
         public TransporteVerPanelCtrl TransporteVerPanelCtrl { get; }
         public Empresa MiEmpresa { get; set; }
@@ -46,7 +52,7 @@ namespace GestionEmpresaTransporte.ui
         ///     Muestra la información  del cliente seleccionado
         ///     en el panel inferior
         /// </summary>
-        private void ActualizarPanelTransporte()
+        public void ActualizarPanelTransporte()
         {
             foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
             {
@@ -129,6 +135,48 @@ namespace GestionEmpresaTransporte.ui
                 TransporteVerPanelCtrl.View.EdFlota.Text = instanciaVehiculos.ElVehiculo.Matricula;
             else //caso volver
                 TransporteVerPanelCtrl.View.EdFlota.Text = "";
+        }
+
+        private void ListarPendiente()
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.Pendiente().ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
+            this.TransporteVerPanelCtrl.View.ModoVolver();
+        }
+
+        private void ListarYear()
+        {
+            var filtro = this.TransporteVerPanelCtrl.ObtenerYear();
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ReservasCamion(filtro).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
+            this.TransporteVerPanelCtrl.View.ModoVolver();
+        }
+
+        private void ListarFecha()
+        {
+            var filtro = this.TransporteVerPanelCtrl.ObtenerFecha();
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ReservasDia(filtro).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
+            this.TransporteVerPanelCtrl.View.ModoVolver();
+        }
+        
+        private void Volver()
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ColeccionTransportes.ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
+            this.TransporteVerPanelCtrl.View.ModoConsulta();
         }
     }
 }

@@ -12,10 +12,11 @@
             Consultar,
             Modificar,
             Borrar,
-            Insertar
+            Insertar,
+            Volver
         }
 
-        private readonly BindingList<Transporte> _bindingList;
+        private BindingList<Transporte> _bindingList;
         public WForms.Control _padre;
         private Transporte miTransporte;
 
@@ -110,6 +111,8 @@
                     return;
                 case Estados.Consultar:
                     //ConsultarTransporte();
+                    return;
+                case Estados.Volver:
                     return;
                 default:
                     return;
@@ -227,8 +230,9 @@
                                                          gas, precioTotal);
                     _bindingList.Add(nuevoTransporte);
                     ActualizaTextTransporte();
-                    //ActualizarPadre();
+                    ActualizarPadre();
                     View.ModoConsulta();
+                    
                 }
                 
             }
@@ -335,5 +339,37 @@
             return toret;
         }
 
+        public DateTime ObtenerFecha()
+        {
+            var fechaSeleccionada = View.EdFechaFiltro.Value;
+            
+            if (string.IsNullOrWhiteSpace(fechaSeleccionada.ToString("yyyyMMdd") ) )
+            {
+                WForms.MessageBox.Show("La fecha para filtrar es inválida, se muestran resultados para hoy");
+                fechaSeleccionada = DateTime.Now;
+            }
+
+            return fechaSeleccionada;
+        }
+        
+        
+        public int ObtenerYear()
+        {
+            var yearSeleccionado = Convert.ToInt32(View.EdYearFiltro.Value);
+            
+            if (string.IsNullOrWhiteSpace(Convert.ToString(yearSeleccionado)) 
+                || yearSeleccionado < 2000 
+                || yearSeleccionado > 2030
+                )
+            {
+                WForms.MessageBox.Show("El año para filtrar debe estar en el 2000 y el 2030");
+                yearSeleccionado = 2020;
+            }
+            
+
+            return yearSeleccionado;
+        }
+        
+        
     }
 }

@@ -29,7 +29,7 @@ namespace GestionEmpresaTransporte.ui
             BuildMenuOpciones();
             BuildStatusBar();
             SuspendLayout();
-            MinimumSize = new Draw.Size(800, 700);
+            MinimumSize = new Draw.Size(800, 1000);
             MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
             BuildIcono();
