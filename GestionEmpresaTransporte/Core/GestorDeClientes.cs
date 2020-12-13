@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,20 +13,18 @@ namespace GestionEmpresaTransporte.Core
     /// </summary>
     public class GestorDeClientes : ICollection<Cliente>
     {
-
-        public List<Cliente> Clientes = new List<Cliente>();
-        
-        
         //Asigna una variable a la ruta del fichero XML y a las etiquetas
-        
+
         public const string ArchivoXml = "../../Samples/clientes.xml";
-        public const string EtqClientes = "clientes"; 
+        public const string EtqClientes = "clientes";
         public const string EtqCliente = "cliente";
-        public const string EtqNIF = "nif"; 
-        public const string EtqNombre = "nombre"; 
-        public const string EtqTelefono = "telefono"; 
+        public const string EtqNIF = "nif";
+        public const string EtqNombre = "nombre";
+        public const string EtqTelefono = "telefono";
         public const string EtqEmail = "email";
         public const string EtqDireccionPostal = "DireccionPostal";
+
+        public List<Cliente> Clientes = new List<Cliente>();
 
         public IEnumerator<Cliente> GetEnumerator()
         {
@@ -97,10 +94,7 @@ namespace GestionEmpresaTransporte.Core
         public List<string> ListaNifs()
         {
             var toret = new List<string>();
-            foreach (Cliente Cliente in this.Clientes)
-            {
-                toret.Add(Cliente.Nif);
-            }
+            foreach (var Cliente in Clientes) toret.Add(Cliente.Nif);
             return toret;
         }
 
@@ -142,7 +136,6 @@ namespace GestionEmpresaTransporte.Core
         }
 
 
-
         /// <summary>
         ///     Devuelve el listado de clientes como  XElement
         /// </summary>
@@ -154,12 +147,12 @@ namespace GestionEmpresaTransporte.Core
             return raiz;
         }
 
-        
+
         public void GuardaXml()
         {
-            this.GuardaXml( ArchivoXml );
+            GuardaXml(ArchivoXml);
         }
-        
+
         /// <summary>
         ///     Guarda el listado en formato XML en disco con el nombre pasado
         ///     por parametro
@@ -172,8 +165,7 @@ namespace GestionEmpresaTransporte.Core
             var doc = new XDocument();
             var root = new XElement(EtqClientes);
 
-            foreach (Cliente cliente in this.Clientes)
-            {
+            foreach (var cliente in Clientes)
                 root.Add(
                     new XElement(EtqCliente,
                         new XElement(EtqNIF, cliente.Nif),
@@ -181,15 +173,14 @@ namespace GestionEmpresaTransporte.Core
                         new XElement(EtqTelefono, cliente.Telefono),
                         new XElement(EtqEmail, cliente.Email),
                         new XElement(EtqDireccionPostal, cliente.Dirección)));
-            }
-            doc.Add( root );
-            doc.Save( nf );
+            doc.Add(root);
+            doc.Save(nf);
         }
 
-        public static GestorDeClientes CargarXML(string f) 
+        public static GestorDeClientes CargarXML(string f)
         {
             var toret = new GestorDeClientes();
-            
+
             try
             {
                 var doc = XDocument.Load(f);
@@ -198,31 +189,29 @@ namespace GestionEmpresaTransporte.Core
                 {
                     var clientes = doc.Root.Elements(EtqCliente);
 
-                    foreach(XElement clienteXml in clientes) {
-                        toret.Clientes.Add( new Cliente((string)clienteXml.Element(EtqNIF),
+                    foreach (var clienteXml in clientes)
+                        toret.Clientes.Add(new Cliente((string) clienteXml.Element(EtqNIF),
                             (string) clienteXml.Element(EtqNombre),
                             (string) clienteXml.Element(EtqTelefono),
                             (string) clienteXml.Element(EtqEmail),
                             (string) clienteXml.Element(EtqDireccionPostal)));
-                    }
                 }
-                
-            }catch(XmlException)
+            }
+            catch (XmlException)
             {
-                
                 toret.Clear();
             }
-            catch(IOException)
+            catch (IOException)
             {
                 toret.Clear();
             }
 
             return toret;
         }
-        
+
         public static GestorDeClientes CargarXML()
         {
-            return CargarXML( ArchivoXml );
+            return CargarXML(ArchivoXml);
         }
     }
 }

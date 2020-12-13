@@ -491,8 +491,8 @@ namespace GestionEmpresaTransporte.ui
             EdMatricula.Clear();
             EdMarca.Clear();
             EdModelo.Clear();
-            EdFechaAd.Text = "";
-            EdFechaFa.Text = "";
+            EdFechaAd.Value = DateTime.Now.Date;
+            EdFechaFa.Value = DateTime.Now.Date;
             EdConsumo.Text = "";
 
             EdTipo.Text = "";
