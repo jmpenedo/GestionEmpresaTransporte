@@ -21,6 +21,13 @@
         public WForms.Button BtModificar { get; private set; }
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
+        
+        //Filtros
+        
+        public WForms.NumericUpDown EdYearFiltro { get; private set; }
+        public WForms.Button BtReservasCliente { get; private set; }
+        
+        public WForms.Button BtReservasClienteYear { get; private set; }
 
         public WForms.Button BtSeleccionar { get; private set; }
 
@@ -35,13 +42,17 @@
             pnlTable.Controls.Add(BuildNombre());
             pnlTable.Controls.Add(BuildTelefono());
             pnlTable.Controls.Add(BuildCorreo());
+            pnlTable.Controls.Add(BuildFiltroYear());
             pnlTable.Controls.Add(BuildPanelBotones());
             pnlTable.Controls.Add(BuildPanelBotonesSeleccion());
+
+
             pnlTable.ResumeLayout(false);
             pnlTable.MinimumSize = new Draw.Size(400, 300);
             pnlTable.MaximumSize = pnlTable.MinimumSize;
             Controls.Add(pnlTable);
             Controls.Add(BuildDireccion());
+            
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
 
@@ -175,6 +186,35 @@
 
             return toret;
         }
+        
+        private WForms.Panel BuildFiltroYear()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+
+            toret.Controls.Add(new WForms.Label
+            {
+                Dock = WForms.DockStyle.Left,
+                Text = "Filtrar por año"
+            });
+
+            EdYearFiltro = new WForms.NumericUpDown
+            {
+                Dock = WForms.DockStyle.Right,
+                Width = (int)(Width * 1.25),
+                TextAlign = WForms.HorizontalAlignment.Right,
+                Minimum = 2000,
+                Maximum = 2030,
+                Value = 2020,
+                RightToLeft = WForms.RightToLeft.Inherit
+            };
+
+            toret.Controls.Add(EdYearFiltro);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdYearFiltro.Height);
+            return toret;
+        }
 
         public WForms.Panel BuildPanelBotones()
         {
@@ -220,10 +260,10 @@
             };
             toret.Controls.Add(BtCancelar);
             toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 20);
             return toret;
         }
-
+        
         public WForms.Panel BuildPanelBotonesSeleccion()
         {
             var toret = new WForms.Panel
@@ -241,11 +281,22 @@
                 Dock = WForms.DockStyle.Right,
                 Text = "&Volver"
             };
-
             toret.Controls.Add(BtVolver);
+            BtReservasCliente = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Reservas"
+            };
+            toret.Controls.Add(BtReservasCliente);
+            BtReservasClienteYear = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Res/año"
+            };
+            toret.Controls.Add(BtReservasClienteYear);
             toret.Dock = WForms.DockStyle.Top;
 
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 20);
 
             return toret;
         }
@@ -294,6 +345,8 @@
             BtInsertar.Enabled = false;
             BtAceptar.Enabled = true;
             BtCancelar.Enabled = true;
+            BtReservasCliente.Enabled = false;
+            BtReservasClienteYear.Enabled = false;
         }
 
         private void DeshabilitarBtAceptar()
@@ -303,6 +356,8 @@
             BtInsertar.Enabled = true;
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
+            BtReservasCliente.Enabled = true;
+            BtReservasClienteYear.Enabled = true;
         }
 
 

@@ -5,7 +5,7 @@ namespace GestionEmpresaTransporte.ui
 {
     using WForms = System.Windows.Forms;
 
-    internal class MainWindowCtrl
+    public class MainWindowCtrl
     {
         private static ClienteListarPanelCtrl CtrlpnlCliente;
         private static TransporteListarPanelCtrl CtrlpnlTransporte;
@@ -34,7 +34,7 @@ namespace GestionEmpresaTransporte.ui
         public ClienteListarPanelCtrl getInstanceCliente()
         {
             if (CtrlpnlCliente == null)
-                CtrlpnlCliente = new ClienteListarPanelCtrl(empresa); //Creamos el controlador de clientes
+                CtrlpnlCliente = new ClienteListarPanelCtrl(empresa, this); //Creamos el controlador de clientes
 
             CtrlpnlCliente.View.Visible = true;
 
@@ -44,7 +44,7 @@ namespace GestionEmpresaTransporte.ui
         public VehiculoListarPanelCtrl getInstanceVehiculo()
         {
             if (CtrlpnlVehiculo == null)
-                CtrlpnlVehiculo = new VehiculoListarPanelCtrl(empresa); //Creamos el controlador de vehiculo
+                CtrlpnlVehiculo = new VehiculoListarPanelCtrl(empresa, this); //Creamos el controlador de vehiculo
 
             CtrlpnlVehiculo.vehiculoVerPanelCtrl.View.Visible = true;
 
@@ -77,7 +77,7 @@ namespace GestionEmpresaTransporte.ui
             pnlVehiculo.BringToFront(); //la traemos al frente (el de transportes queda detrás)
         }
 
-        private void GestionTransportes()
+        public void GestionTransportes()
         {
             var pnlTransporte = getInstanceTransporte().View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlTransporte); //lo asignamos al formulario principal

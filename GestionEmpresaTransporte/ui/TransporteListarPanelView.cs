@@ -3,7 +3,7 @@
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
 
-    class TransporteListarPanelView : WForms.Panel
+    public class TransporteListarPanelView : WForms.Panel
     {
         public WForms.DataGridView grdLista;
         public TransporteVerPanelView pnlTransporte;

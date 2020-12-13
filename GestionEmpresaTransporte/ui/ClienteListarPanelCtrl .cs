@@ -18,15 +18,12 @@ namespace GestionEmpresaTransporte.ui
             Insertar
         }
 
-        public bool seleccion;
-        
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
 
         public ClienteListarPanelCtrl(Empresa unaEmpresa)
         {
             MiEmpresa = unaEmpresa;
-            seleccion = false;
             _bindingList = new BindingList<Cliente>(unaEmpresa.ColeccionClientes.Clientes);
             var sourceClientes = new WForms.BindingSource(_bindingList, null);
             View = new ClienteListarPanelView();
@@ -42,15 +39,24 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtModificar.Click += (sender, e) => ModoModificar();
             View.pnlCliente.BtVolver.Click += (sender, e) => Volver();
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
+            View.pnlCliente.BtReservasCliente.Click += (sender, e) => Reservas();
+            View.pnlCliente.BtReservasClienteYear.Click += (sender, e) => ReservasYear();
             
             View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
 
+        public ClienteListarPanelCtrl(Empresa empresa, MainWindowCtrl controlPrincipal) : this(empresa)
+        {
+            MainWindowControl = controlPrincipal;
+        }
+        
         public Estados EstadoPnlCliente { get; set; }
         public ClienteListarPanelView View { get; }
         private Empresa MiEmpresa { get; }
+        
+        public MainWindowCtrl MainWindowControl { get; set; }
 
         public Cliente ElCliente
         {
@@ -305,6 +311,22 @@ namespace GestionEmpresaTransporte.ui
 
             if (View.grdLista.Columns.Count > 0) View.grdLista.Rows[pos].Selected = true;
         }
+
+        public void Reservas()
+        {
+            var nif = View.pnlCliente.EdNif.Text.ToUpper();
+            this.MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif);
+            this.MainWindowControl.GestionTransportes();
+        }
+
+        public void ReservasYear()
+        {
+            var nif = View.pnlCliente.EdNif.Text.ToUpper();
+            var year =  Convert.ToInt32(View.pnlCliente.EdYearFiltro.Value);
+            this.MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif, year);
+            this.MainWindowControl.GestionTransportes();
+        }
+        
         private void CeldaSeleccionada()
         {
             if (seleccion)
