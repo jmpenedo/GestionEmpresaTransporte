@@ -100,10 +100,13 @@ namespace GestionEmpresaTransporte.ui
         private void SeleccionarCliente()
         {
             var instanciaClientes = MainWindowControl.getInstanceCliente();
-
+            
+            instanciaClientes.seleccion = true;
             instanciaClientes.View.pnlCliente.BtSeleccionar.Click +=
                 (sender, e) => CambiarCliente(instanciaClientes);
             instanciaClientes.View.pnlCliente.BtVolver.Click +=
+                (sender, e) => CambiarCliente(instanciaClientes);
+            instanciaClientes.View.grdLista.CellDoubleClick +=
                 (sender, e) => CambiarCliente(instanciaClientes);
             instanciaClientes.View.pnlCliente.ModoSeleccion(true);
             MainWindowControl.GestionClientes();
@@ -115,6 +118,7 @@ namespace GestionEmpresaTransporte.ui
                 TransporteVerPanelCtrl.View.EdCliente.Text = instanciaClientes.ElCliente.Nif;
             else //caso volver
                 TransporteVerPanelCtrl.View.EdCliente.Text = "";
+            instanciaClientes.seleccion = false;
         }
 
         private void SeleccionarVehiculo()

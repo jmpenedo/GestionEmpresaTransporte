@@ -290,8 +290,7 @@ namespace GestionEmpresaTransporte.ui
             if (seleccion)
             {
                 ActualizarPanelVehiculo(); //Devolvemos el vehiculo seleccionado en el grid
-                    WForms.MessageBox.Show("El vehiculo" + ElVehiculo.Matricula + "selecionao" ); 
-                    if (ElVehiculo == null)
+                if (ElVehiculo == null)
                         WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay vehiculos en la BD
                 
                 seleccion = false;

@@ -19,6 +19,8 @@ namespace GestionEmpresaTransporte.ui
             Insertar
         }
 
+        public bool seleccion;
+        
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
 
@@ -42,6 +44,8 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
             View.pnlCliente.BtReservasCliente.Click += (sender, e) => Reservas();
             View.pnlCliente.BtReservasClienteYear.Click += (sender, e) => ReservasYear();
+            
+            View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
@@ -324,6 +328,22 @@ namespace GestionEmpresaTransporte.ui
             var year =  Convert.ToInt32(View.pnlCliente.EdYearFiltro.Value);
             this.MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif, year);
             this.MainWindowControl.GestionTransportes();
+        }
+        
+        private void CeldaSeleccionada()
+        {
+            if (seleccion)
+            {
+                ActualizarPanelCliente(); //Devolvemos el vehiculo seleccionado en el grid
+                if (ElCliente == null)
+                    WForms.MessageBox.Show("No se ha seleccionado ningún cleinte"); //No hay cloentes en la BD
+
+                seleccion = false;
+                View.SendToBack();
+                View.pnlCliente.ModoInicial();
+                View.pnlCliente.ModoSeleccion(false);
+            }
+
         }
         
     }
