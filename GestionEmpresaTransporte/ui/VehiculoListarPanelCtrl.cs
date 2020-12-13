@@ -18,8 +18,10 @@ namespace GestionEmpresaTransporte.ui
             Consultar,
             Modificar,
             Borrar,
-            Insertar
+            Insertar,
         }
+
+        public bool seleccion;
 
         private readonly BindingList<Vehiculo> _bindingList;
         private Vehiculo miVehiculo;
@@ -27,6 +29,7 @@ namespace GestionEmpresaTransporte.ui
         public VehiculoListarPanelCtrl(Empresa Empresa)
         {
             this.Empresa = Empresa;
+            seleccion = false;
             _bindingList = new BindingList<Vehiculo>(Empresa.ColeccionVehiculos.listaVehiculos);
             var sourceVehiculos = new WForms.BindingSource(_bindingList, null);
             vehiculoVerPanelCtrl = new VehiculoVerPanelCtrl();
@@ -35,7 +38,7 @@ namespace GestionEmpresaTransporte.ui
 
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelVehiculo();
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
-
+            
             vehiculoVerPanelCtrl.View.BtInsertar.Click += (sender, e) => InsertarVehiculo();
             vehiculoVerPanelCtrl.View.BtAceptar.Click += (sender, e) => Aceptar();
             vehiculoVerPanelCtrl.View.BtCancelar.Click += (sender, e) => Cancelar();
@@ -43,7 +46,8 @@ namespace GestionEmpresaTransporte.ui
             vehiculoVerPanelCtrl.View.BtModificar.Click += (sender, e) => ModoModificar();
             vehiculoVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
             vehiculoVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => Seleccionar();
-
+            View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
+            
             EstadoPnlVehiculo = Estados.Consultar;
             vehiculoVerPanelCtrl.View.ModoConsulta();
             vehiculoVerPanelCtrl.View.ModoSeleccion(false);
@@ -266,12 +270,29 @@ namespace GestionEmpresaTransporte.ui
             {
                 ActualizarPanelVehiculo(); //Devolvemos el vehiculo seleccionado en el grid
                 if (ElVehiculo == null)
-                    WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay clientes en la BD
+                    WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay vehiculos en la BD
             }
 
             View.SendToBack();
             vehiculoVerPanelCtrl.View.ModoConsulta();
             vehiculoVerPanelCtrl.View.ModoSeleccion(false);
+        }
+
+        private void CeldaSeleccionada()
+        {
+            if (seleccion)
+            {
+                ActualizarPanelVehiculo(); //Devolvemos el vehiculo seleccionado en el grid
+                    WForms.MessageBox.Show("El vehiculo" + ElVehiculo.Matricula + "selecionao" ); 
+                    if (ElVehiculo == null)
+                        WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay vehiculos en la BD
+                
+                seleccion = false;
+                View.SendToBack();
+                vehiculoVerPanelCtrl.View.ModoConsulta();
+                vehiculoVerPanelCtrl.View.ModoSeleccion(false);
+            }
+
         }
     }
 }

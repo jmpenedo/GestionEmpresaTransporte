@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using GestionEmpresaTransporte.Core;
 
 namespace GestionEmpresaTransporte.ui
@@ -120,10 +121,12 @@ namespace GestionEmpresaTransporte.ui
         private void SeleccionarVehiculo()
         {
             var instanciaVehiculos = MainWindowControl.getInstanceVehiculo();
-
+            instanciaVehiculos.seleccion = true;
             instanciaVehiculos.View.pnlVehiculo.BtSeleccionar.Click +=
                 (sender, e) => CambiarVehiculo(instanciaVehiculos);
             instanciaVehiculos.View.pnlVehiculo.BtVolver.Click +=
+                (sender, e) => CambiarVehiculo(instanciaVehiculos);
+            instanciaVehiculos.View.grdLista.CellDoubleClick +=
                 (sender, e) => CambiarVehiculo(instanciaVehiculos);
             instanciaVehiculos.View.pnlVehiculo.ModoSeleccion(true);
             MainWindowControl.GestionVehiculos();
@@ -131,10 +134,12 @@ namespace GestionEmpresaTransporte.ui
 
         private void CambiarVehiculo(VehiculoListarPanelCtrl instanciaVehiculos)
         {
+            
             if (instanciaVehiculos.ElVehiculo != null) //Caso seleccionar
                 TransporteVerPanelCtrl.View.EdFlota.Text = instanciaVehiculos.ElVehiculo.Matricula;
             else //caso volver
                 TransporteVerPanelCtrl.View.EdFlota.Text = "";
+            instanciaVehiculos.seleccion = false;
         }
 
         private void ListarPendiente()

@@ -208,6 +208,7 @@ namespace GestionEmpresaTransporte.ui
             {
                 Dock = WForms.DockStyle.Left,
                 Text = "Kms Recorridos"
+
             });
 
             EdKmsRecorridos = new WForms.NumericUpDown
@@ -217,7 +218,7 @@ namespace GestionEmpresaTransporte.ui
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 Value = 0,
-                RightToLeft = WForms.RightToLeft.Inherit
+                
             };
 
             toret.Controls.Add(EdKmsRecorridos);
