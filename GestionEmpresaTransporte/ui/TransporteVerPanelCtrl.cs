@@ -5,7 +5,8 @@
     using System.ComponentModel;
     using System.Globalization;
     using GestionEmpresaTransporte.Core;
-    class TransporteVerPanelCtrl
+
+    public class TransporteVerPanelCtrl
     {
         public enum Estados
         {

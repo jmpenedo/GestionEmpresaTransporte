@@ -7,7 +7,7 @@ namespace GestionEmpresaTransporte.ui
     using WForms = System.Windows.Forms;
     using GestionEmpresaTransporte.Core;
 
-    class TransporteVerPanelView : WForms.Panel
+    public class TransporteVerPanelView : WForms.Panel
     {
         public TransporteVerPanelView()
         {
@@ -685,7 +685,7 @@ namespace GestionEmpresaTransporte.ui
             BtPendiente.Enabled = true;
             BtFiltroFecha.Enabled = true;
             BtFiltroYear.Enabled = true;
-            BtVolver.Enabled = true;
+            BtVolver.Enabled = false;
         }
     }
 }

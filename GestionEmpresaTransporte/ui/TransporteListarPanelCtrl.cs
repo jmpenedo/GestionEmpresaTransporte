@@ -9,7 +9,7 @@ namespace GestionEmpresaTransporte.ui
 {
     using WForms = System.Windows.Forms;
 
-    internal class TransporteListarPanelCtrl
+    public class TransporteListarPanelCtrl
     {
         private BindingList<Transporte> _bindingList;
 
@@ -34,7 +34,6 @@ namespace GestionEmpresaTransporte.ui
             TransporteVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
             TransporteVerPanelCtrl.View.BtFiltroFecha.Click += (sender, e) => ListarFecha();
             TransporteVerPanelCtrl.View.BtFiltroYear.Click += (sender, e) => ListarYear();
-
             TransporteVerPanelCtrl._padre = View.grdLista;
         }
         
@@ -182,6 +181,26 @@ namespace GestionEmpresaTransporte.ui
             View.grdLista.DataSource = sourceTransportes;
             this.ActualizarPanelTransporte();
             this.TransporteVerPanelCtrl.View.ModoConsulta();
+        }
+
+        public void ListarReservasCliente(string nif)
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ReservasCliente(nif).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
+            this.TransporteVerPanelCtrl.View.ModoVolver();
+        }
+
+        public void ListarReservasCliente(string nif, int year)
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ReservasCliente(nif, year).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            this.ActualizarPanelTransporte();
+            this.TransporteVerPanelCtrl.View.ModoVolver();
         }
     }
 }

@@ -53,6 +53,13 @@ namespace GestionEmpresaTransporte.ui
             vehiculoVerPanelCtrl.View.ModoSeleccion(false);
         }
 
+        public VehiculoListarPanelCtrl(Empresa empresa, MainWindowCtrl controlPrincipal) : this(empresa)
+        {
+            MainWindowControl = controlPrincipal;
+        }
+        
+        public MainWindowCtrl MainWindowControl { get; set; }
+        
         public Estados EstadoPnlVehiculo { get; set; }
         public VehiculoListarPanelView View { get; }
 
