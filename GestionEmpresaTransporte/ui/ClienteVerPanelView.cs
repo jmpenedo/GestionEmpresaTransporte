@@ -21,12 +21,12 @@
         public WForms.Button BtModificar { get; private set; }
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
-        
+
         //Filtros
-        
+
         public WForms.NumericUpDown EdYearFiltro { get; private set; }
         public WForms.Button BtReservasCliente { get; private set; }
-        
+
         public WForms.Button BtReservasClienteYear { get; private set; }
 
         public WForms.Button BtSeleccionar { get; private set; }
@@ -52,7 +52,7 @@
             pnlTable.MaximumSize = pnlTable.MinimumSize;
             Controls.Add(pnlTable);
             Controls.Add(BuildDireccion());
-            
+
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
 
@@ -186,7 +186,7 @@
 
             return toret;
         }
-        
+
         private WForms.Panel BuildFiltroYear()
         {
             var toret = new WForms.Panel
@@ -203,7 +203,7 @@
             EdYearFiltro = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 2000,
                 Maximum = 2030,
@@ -260,10 +260,10 @@
             };
             toret.Controls.Add(BtCancelar);
             toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 20);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
             return toret;
         }
-        
+
         public WForms.Panel BuildPanelBotonesSeleccion()
         {
             var toret = new WForms.Panel
@@ -296,7 +296,7 @@
             toret.Controls.Add(BtReservasClienteYear);
             toret.Dock = WForms.DockStyle.Top;
 
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 20);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 
             return toret;
         }
