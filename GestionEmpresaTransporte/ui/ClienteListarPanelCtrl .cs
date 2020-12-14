@@ -22,8 +22,6 @@ namespace GestionEmpresaTransporte.ui
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
 
-        public bool seleccion;
-
         public ClienteListarPanelCtrl(Empresa unaEmpresa)
         {
             MiEmpresa = unaEmpresa;
@@ -78,14 +76,18 @@ namespace GestionEmpresaTransporte.ui
         public void ActualizarPanelCliente()
         {
             if (View.grdLista.Rows.Count > 0 && MiEmpresa.ColeccionClientes.Count > 0)
+            {
                 //Hay clientes seleccionados
-                foreach (WForms.DataGridViewRow row in View.grdLista.SelectedRows)
+                if (View.grdLista.SelectedRows.Count > 0)
                 {
                     var nif = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
                     ElCliente = _bindingList.FirstOrDefault(item => item.Nif == nif);
                 }
-            else //NO hay cliente seleccionado
+            }
+            else
+            {
                 ElCliente = null;
+            } //NO hay cliente seleccionado
 
             ActualizaTextCliente();
             View.AjustarColGrid();
@@ -313,7 +315,7 @@ namespace GestionEmpresaTransporte.ui
         {
             View.pnlCliente.BtVolver.Visible = true;
             var pos = MiEmpresa.ColeccionClientes
-                .PosCliente(cliente); //CtrlpnlCliente.empresa.ColeccionClientes.PosCliente(cliente);
+                .PosCliente(cliente);
 
             if (View.grdLista.Columns.Count > 0) View.grdLista.Rows[pos].Selected = true;
         }
@@ -345,21 +347,6 @@ namespace GestionEmpresaTransporte.ui
             else
             {
                 Trace.WriteLine("MainWindowControl es null al intentar ver ReservasYear");
-            }
-        }
-
-        private void CeldaSeleccionada()
-        {
-            if (seleccion)
-            {
-                ActualizarPanelCliente(); //Devolvemos el vehiculo seleccionado en el grid
-                if (ElCliente == null)
-                    WForms.MessageBox.Show("No se ha seleccionado ningún cliente"); //No hay cloentes en la BD
-
-                seleccion = false;
-                View.SendToBack();
-                View.pnlCliente.ModoInicial();
-                View.pnlCliente.ModoSeleccion(false);
             }
         }
     }
