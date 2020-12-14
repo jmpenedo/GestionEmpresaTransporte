@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using GestionEmpresaTransporte.Core;
 using GestionEmpresaTransporte.Core.Vehiculos;
 
@@ -50,6 +51,7 @@ namespace GestionEmpresaTransporte.ui
             View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
             View.pnlVehiculo.btReservas.Click += (sender, e) => Reservas();
             View.pnlVehiculo.btReservasYear.Click += (sender, e) => ReservasYear();
+            View.pnlVehiculo.btPendientes.Click += (sender, e) => Pendiente();
 
             EstadoPnlVehiculo = Estados.Consultar;
             vehiculoVerPanelCtrl.View.ModoConsulta();
@@ -331,6 +333,21 @@ namespace GestionEmpresaTransporte.ui
             else
             {
                 Trace.WriteLine("MainWindowControl es null al intentar ver ReservasYear");
+            }
+        }
+        
+        public void Pendiente()
+
+        {
+            if (MainWindowControl != null) //FIX 20201214730 pasar el controlador del main
+            {
+                var matricula = View.pnlVehiculo.EdMatricula.Text.ToUpper();
+                MainWindowControl.getInstanceTransporte().ListarPendientesCamion(matricula);
+                MainWindowControl.GestionTransportes();
+            }
+            else
+            {
+                Trace.WriteLine("MainWindowControl es null al intentar ver Reservas");
             }
         }
     }

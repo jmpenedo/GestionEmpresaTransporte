@@ -549,5 +549,17 @@ namespace GestionEmpresaTransporte.ui
             ActualizarPanelTransporte();
             View.pnlTransporte.ModoVolver();
         }
+
+        public void ListarPendientesCamion(string matricula)
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.Pendiente(matricula).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            ElTransporte = null;
+            View.Actualizar();
+            ActualizarPanelTransporte();
+            View.pnlTransporte.ModoVolver();
+        }
     }
 }

@@ -49,6 +49,8 @@ namespace GestionEmpresaTransporte.ui
         
         public WForms.Button btReservasYear { get; private set; }
 
+        public WForms.Button btPendientes { get; private set; }
+        
         public WForms.ComboBox EdTipoFiltro { get; private set; }
         
         public WForms.NumericUpDown EdYearFiltro { get; private set; }
@@ -510,6 +512,12 @@ namespace GestionEmpresaTransporte.ui
                 Text = "&Res/año"
             };
             toret.Controls.Add(btReservasYear);
+            btPendientes = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Pendientes"
+            };
+            toret.Controls.Add(btPendientes);
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 
@@ -638,6 +646,7 @@ namespace GestionEmpresaTransporte.ui
             btDisponibles.Enabled = false;
             btReservas.Enabled = false;
             btReservasYear.Enabled = false;
+            btPendientes.Enabled = false;
         }
 
         private void DeshabilitarBtAceptar()
@@ -650,6 +659,7 @@ namespace GestionEmpresaTransporte.ui
             btDisponibles.Enabled = true;
             btReservas.Enabled = true;
             btReservasYear.Enabled = true;
+            btPendientes.Enabled = true;
         }
     }
 }
