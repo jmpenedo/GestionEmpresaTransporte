@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using GestionEmpresaTransporte.Core;
@@ -38,7 +39,7 @@ namespace GestionEmpresaTransporte.ui
 
             View.grdLista.SelectionChanged += (sender, args) => ActualizarPanelVehiculo();
             View.grdLista.DataBindingComplete += (sender, args) => View.AjustarColGrid();
-            
+
             vehiculoVerPanelCtrl.View.BtInsertar.Click += (sender, e) => InsertarVehiculo();
             vehiculoVerPanelCtrl.View.BtAceptar.Click += (sender, e) => Aceptar();
             vehiculoVerPanelCtrl.View.BtCancelar.Click += (sender, e) => Cancelar();
@@ -47,7 +48,9 @@ namespace GestionEmpresaTransporte.ui
             vehiculoVerPanelCtrl.View.BtVolver.Click += (sender, e) => Volver();
             vehiculoVerPanelCtrl.View.BtSeleccionar.Click += (sender, e) => Seleccionar();
             View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
-            
+            View.pnlVehiculo.btReservas.Click += (sender, e) => Reservas();
+            View.pnlVehiculo.btReservasYear.Click += (sender, e) => ReservasYear();
+
             EstadoPnlVehiculo = Estados.Consultar;
             vehiculoVerPanelCtrl.View.ModoConsulta();
             vehiculoVerPanelCtrl.View.ModoSeleccion(false);
@@ -57,9 +60,9 @@ namespace GestionEmpresaTransporte.ui
         {
             MainWindowControl = controlPrincipal;
         }
-        
+
         public MainWindowCtrl MainWindowControl { get; set; }
-        
+
         public Estados EstadoPnlVehiculo { get; set; }
         public VehiculoListarPanelView View { get; }
 
@@ -291,14 +294,44 @@ namespace GestionEmpresaTransporte.ui
             {
                 ActualizarPanelVehiculo(); //Devolvemos el vehiculo seleccionado en el grid
                 if (ElVehiculo == null)
-                        WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay vehiculos en la BD
-                
+                    WForms.MessageBox.Show("No se ha seleccionado ningún vehiculo"); //No hay vehiculos en la BD
+
                 seleccion = false;
                 View.SendToBack();
                 vehiculoVerPanelCtrl.View.ModoConsulta();
                 vehiculoVerPanelCtrl.View.ModoSeleccion(false);
             }
 
+        }
+
+        public void Reservas()
+
+        {
+            if (MainWindowControl != null) //FIX 20201214730 pasar el controlador del main
+            {
+                var matricula = View.pnlVehiculo.EdMatricula.Text.ToUpper();
+                MainWindowControl.getInstanceTransporte().ListarReservasCamion(matricula);
+                MainWindowControl.GestionTransportes();
+            }
+            else
+            {
+                Trace.WriteLine("MainWindowControl es null al intentar ver Reservas");
+            }
+        }
+
+        public void ReservasYear()
+        {
+            if (MainWindowControl != null) //FIX 20201214730 pasar el controlador del main
+            {
+                var matricula = View.pnlVehiculo.EdMatricula.Text.ToUpper();
+                var year = Convert.ToInt32(View.pnlVehiculo.EdYearFiltro.Value);
+                MainWindowControl.getInstanceTransporte().ListarReservasCamion(matricula, year);
+                MainWindowControl.GestionTransportes();
+            }
+            else
+            {
+                Trace.WriteLine("MainWindowControl es null al intentar ver ReservasYear");
+            }
         }
     }
 }

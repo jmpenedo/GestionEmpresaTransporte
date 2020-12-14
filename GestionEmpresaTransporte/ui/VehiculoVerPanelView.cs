@@ -40,7 +40,20 @@ namespace GestionEmpresaTransporte.ui
 
 
         public WForms.Button BtVolver { get; private set; }
+        
+        //Búsquedas
+        
+        public WForms.Button btDisponibles { get; private set; }
+        
+        public WForms.Button btReservas { get; private set; }
+        
+        public WForms.Button btReservasYear { get; private set; }
 
+        public WForms.ComboBox EdTipoFiltro { get; private set; }
+        
+        public WForms.NumericUpDown EdYearFiltro { get; private set; }
+        
+        
         private void Build()
         {
             var PanelDatos = new WForms.TableLayoutPanel();
@@ -64,6 +77,7 @@ namespace GestionEmpresaTransporte.ui
             pnlTable1.Controls.Add(BuildConsumo());
             pnlTable1.Controls.Add(BuildFechaFa());
             pnlTable1.Controls.Add(BuildFechaAd());
+            pnlTable1.Controls.Add(BuildYearFiltro());
 
             pnlTable2.Controls.Add(BuildTipo());
             pnlTable2.Controls.Add(BuildWIFI());
@@ -71,9 +85,11 @@ namespace GestionEmpresaTransporte.ui
             pnlTable2.Controls.Add(BuildTV());
             pnlTable2.Controls.Add(BuildBluetooth());
             pnlTable2.Controls.Add(BuildNevera());
+            pnlTable2.Controls.Add(BuildTipoFiltro());
 
             pnlTable1.Controls.Add(BuildPanelBotones());
             pnlTable2.Controls.Add(BuildPanelBotonVolver());
+            pnlTable1.Controls.Add(BuildPanelBotonesFiltro());
 
             pnlTable2.ResumeLayout(false);
             pnlTable1.ResumeLayout(false);
@@ -261,6 +277,31 @@ namespace GestionEmpresaTransporte.ui
             return toret;
         }
 
+        private WForms.Panel BuildTipoFiltro()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+            toret.Controls.Add(new WForms.Label
+            {
+                Dock = WForms.DockStyle.Left,
+                Text = "Filtrar por tipo"
+            });
+            EdTipoFiltro = new WForms.ComboBox
+            {
+                Dock = WForms.DockStyle.Right,
+                Width = (int) (Width * 0.60),
+                RightToLeft = WForms.RightToLeft.Inherit
+            };
+            object[] tipos = {"No filtrar","Furgoneta", "Camion", "Camion Articulado"};
+            EdTipoFiltro.Items.AddRange(tipos);
+            EdTipoFiltro.SelectedItem = "No filtrar";
+            toret.Controls.Add(EdTipoFiltro);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdTipo.Height);
+            return toret;
+        }
+
         private WForms.Panel BuildWIFI()
         {
             var toret = new WForms.Panel
@@ -371,6 +412,35 @@ namespace GestionEmpresaTransporte.ui
             return toret;
         }
 
+        private WForms.Panel BuildYearFiltro()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+
+            toret.Controls.Add(new WForms.Label
+            {
+                Dock = WForms.DockStyle.Left,
+                Text = "Filtrar por año"
+            });
+
+            EdYearFiltro = new WForms.NumericUpDown
+            {
+                Dock = WForms.DockStyle.Right,
+                Width = (int)(Width * 1.25),
+                TextAlign = WForms.HorizontalAlignment.Right,
+                Minimum = 2000,
+                Maximum = 2030,
+                Value = 2020,
+                RightToLeft = WForms.RightToLeft.Inherit
+            };
+
+            toret.Controls.Add(EdYearFiltro);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdYearFiltro.Height);
+            return toret;
+        }
+        
         public WForms.Panel BuildPanelBotones()
         {
             var toret = new WForms.Panel
@@ -422,6 +492,31 @@ namespace GestionEmpresaTransporte.ui
             return toret;
         }
 
+        public WForms.Panel BuildPanelBotonesFiltro()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+            btReservas = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Reservas"
+            };
+            toret.Controls.Add(btReservas);
+            btReservasYear = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Res/año"
+            };
+            toret.Controls.Add(btReservasYear);
+            toret.Dock = WForms.DockStyle.Top;
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
+
+            return toret;
+        }
+        
+        
         public WForms.Panel BuildPanelBotonVolver()
         {
             var toret = new WForms.Panel
@@ -438,6 +533,12 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Right,
                 Text = "&Volver"
             };
+            btDisponibles = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Disponibles"
+            };
+            toret.Controls.Add(btDisponibles);
             toret.Controls.Add(BtSeleccionar);
             toret.Controls.Add(BtVolver);
             toret.Dock = WForms.DockStyle.Top;
@@ -534,6 +635,9 @@ namespace GestionEmpresaTransporte.ui
             BtInsertar.Enabled = false;
             BtAceptar.Enabled = true;
             BtCancelar.Enabled = true;
+            btDisponibles.Enabled = false;
+            btReservas.Enabled = false;
+            btReservasYear.Enabled = false;
         }
 
         private void DeshabilitarBtAceptar()
@@ -543,6 +647,9 @@ namespace GestionEmpresaTransporte.ui
             BtInsertar.Enabled = true;
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
+            btDisponibles.Enabled = true;
+            btReservas.Enabled = true;
+            btReservasYear.Enabled = true;
         }
     }
 }

@@ -525,5 +525,29 @@ namespace GestionEmpresaTransporte.ui
             ActualizarPanelTransporte();
             View.pnlTransporte.ModoVolver();
         }
+        
+        public void ListarReservasCamion(string matricula)
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ReservasCamion(matricula).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            ElTransporte = null;
+            View.Actualizar();
+            ActualizarPanelTransporte();
+            View.pnlTransporte.ModoVolver();
+        }
+
+        public void ListarReservasCamion(string matricula, int year)
+        {
+            _bindingList = new BindingList<Transporte>(MiEmpresa.ReservasCamion(matricula, year).ListaTransportes);
+            var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceTransportes;
+            ElTransporte = null;
+            View.Actualizar();
+            ActualizarPanelTransporte();
+            View.pnlTransporte.ModoVolver();
+        }
     }
 }

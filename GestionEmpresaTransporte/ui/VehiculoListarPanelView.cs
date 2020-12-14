@@ -25,7 +25,7 @@ namespace GestionEmpresaTransporte.ui
             Controls.Add(pnlTable);
             MinimumSize = new Draw.Size(785, 600);
             MaximumSize = MinimumSize;
-            grdLista.Height = (int) (Height * 0.60);
+            grdLista.Height = (int) (Height * 0.40);
         }
         
         private WForms.Control BuildPanelLista()
