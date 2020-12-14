@@ -15,6 +15,7 @@ namespace GestionEmpresaTransporte.ui
         public WForms.MenuItem opGestionClientes;
         public WForms.MenuItem opGestionTransportes;
         public WForms.MenuItem opGestionVehiculos;
+        public WForms.MenuItem opGestionGraficos;
         public WForms.MenuItem opGuardar;
         public WForms.MenuItem opSalir;
         public WForms.StatusBar sbStatus;
@@ -67,12 +68,17 @@ namespace GestionEmpresaTransporte.ui
             {
                 Shortcut = WForms.Shortcut.CtrlT
             };
+            opGestionGraficos = new WForms.MenuItem("&Gestión de gráficos")
+            {
+                Shortcut = WForms.Shortcut.CtrlShift0
+            };
             mArchivo.MenuItems.Add(opCargar);
             mArchivo.MenuItems.Add(opGuardar);
             mArchivo.MenuItems.Add(opSalir);
             mEditar.MenuItems.Add(opGestionClientes);
             mEditar.MenuItems.Add(opGestionVehiculos);
             mEditar.MenuItems.Add(opGestionTransportes);
+            mEditar.MenuItems.Add(opGestionGraficos);
             mPpal.MenuItems.Add(mArchivo);
             mPpal.MenuItems.Add(mEditar);
             Menu = mPpal;

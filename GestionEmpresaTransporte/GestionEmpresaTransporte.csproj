@@ -41,6 +41,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Chart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\Cliente.cs" />
     <Compile Include="Core\ColeccionTransportes.cs" />
     <Compile Include="Core\ColeccionVehiculos.cs" />
@@ -59,6 +62,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ui\ClienteVerPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\GraficoGeneralCtrl.cs" />
+    <Compile Include="ui\GraficoGeneralView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\GraficosPanelCtrl.cs" />
+    <Compile Include="ui\GraficoPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ui\SamplePanelCtrl.cs" />

@@ -10,6 +10,7 @@ namespace GestionEmpresaTransporte.ui
         private static ClienteListarPanelCtrl CtrlpnlCliente;
         private static TransporteListarPanelCtrl CtrlpnlTransporte;
         private static VehiculoListarPanelCtrl CtrlpnlVehiculo;
+        private static GraficosPanelCtrl CtrlGraficos;
 
         public MainWindowCtrl()
         {
@@ -22,6 +23,7 @@ namespace GestionEmpresaTransporte.ui
             View.opGestionClientes.Click += (sender, e) => GestionClientes();
             View.opGestionVehiculos.Click += (sender, e) => GestionVehiculos();
             View.opGestionTransportes.Click += (sender, e) => GestionTransportes();
+            View.opGestionGraficos.Click += (sender, e) => GestionGraficos();
             View.opGuardar.Click += (sender, e) => Guardar();
 
             GestionTransportes();
@@ -82,6 +84,14 @@ namespace GestionEmpresaTransporte.ui
             var pnlTransporte = getInstanceTransporte().View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlTransporte); //lo asignamos al formulario principal
             pnlTransporte.BringToFront();
+        }
+        public void GestionGraficos()
+        {
+           
+            CtrlGraficos = new GraficosPanelCtrl(empresa);
+            var pnlGrafico = CtrlGraficos.View;
+            View.Controls.Add(pnlGrafico);
+            pnlGrafico.BringToFront();
         }
 
         public void VerCliente(Cliente cliente)
