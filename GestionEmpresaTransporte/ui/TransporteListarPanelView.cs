@@ -10,9 +10,8 @@ namespace GestionEmpresaTransporte.ui
         public WForms.DataGridView grdLista;
         public TransporteVerPanelView pnlTransporte;
 
-        public TransporteListarPanelView(TransporteVerPanelView transporteVerPanelView)
+        public TransporteListarPanelView()
         {
-            pnlTransporte = transporteVerPanelView;
             Build();
         }
 
@@ -57,6 +56,7 @@ namespace GestionEmpresaTransporte.ui
 
         private WForms.Control BuildVerTransporte()
         {
+            pnlTransporte = new TransporteVerPanelView();
             pnlTransporte.Dock = WForms.DockStyle.Top;
             return pnlTransporte;
         }
@@ -86,6 +86,14 @@ namespace GestionEmpresaTransporte.ui
                 grdLista.Columns[5].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
                 grdLista.Columns[12].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
             }
+        }
+
+        public void Actualizar()
+        {
+            grdLista.Update();
+            grdLista.Refresh();
+            if (grdLista.Rows.Count > 0 && grdLista.SelectedRows.Count == 0)
+                grdLista.Rows[grdLista.Rows.Count - 1].Selected = true;
         }
     }
 }

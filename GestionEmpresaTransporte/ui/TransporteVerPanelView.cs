@@ -190,6 +190,7 @@ namespace GestionEmpresaTransporte.ui
             {
                 Dock = WForms.DockStyle.Right,
                 Width = (int)(Width * 1.25),
+                MaxDate = DateTime.Today
             };
             
             toret.Controls.Add(EdFechaContratacion);
