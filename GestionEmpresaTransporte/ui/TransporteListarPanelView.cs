@@ -46,6 +46,7 @@ namespace GestionEmpresaTransporte.ui
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
                 EnableHeadersVisualStyles = false,
+                ColumnHeadersHeightSizeMode = WForms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
                 SelectionMode = WForms.DataGridViewSelectionMode.FullRowSelect
             };
             grdLista.ColumnHeadersDefaultCellStyle.ForeColor = Draw.Color.Black;

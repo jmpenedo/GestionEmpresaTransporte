@@ -33,4 +33,33 @@
     <pesoMaximo>25</pesoMaximo>
     <comodidades/>
   </vehiculo>
+  <vehiculo>
+    <matricula>6036IQV</matricula>
+    <tipo>Camion</tipo>
+    <marca>Iveco</marca>
+    <modelo>Daily</modelo>
+    <consumoKm>5</consumoKm>
+    <fechaAdquisicion>2020-12-14T00:00:00+01:00</fechaAdquisicion>
+    <fechaFabricacion>2020-12-14T00:00:00+01:00</fechaFabricacion>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades>
+      <comodidad>WIFI</comodidad>
+      <comodidad>A/C</comodidad>
+    </comodidades>
+  </vehiculo>
+  <vehiculo>
+    <matricula>4567CNJ</matricula>
+    <tipo>Furgoneta</tipo>
+    <marca>Citröen</marca>
+    <modelo>Spacetourer</modelo>
+    <consumoKm>5</consumoKm>
+    <fechaAdquisicion>2020-12-14T00:00:00+01:00</fechaAdquisicion>
+    <fechaFabricacion>2020-12-14T00:00:00+01:00</fechaFabricacion>
+    <pesoMaximo>1.5</pesoMaximo>
+    <comodidades>
+      <comodidad>WIFI</comodidad>
+      <comodidad>A/C</comodidad>
+      <comodidad>NEVERA</comodidad>
+    </comodidades>
+  </vehiculo>
 </vehiculos>
