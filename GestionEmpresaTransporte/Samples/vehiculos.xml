@@ -24,15 +24,13 @@
   </vehiculo>
   <vehiculo>
     <matricula>3456TGF</matricula>
-    <tipo>Furgoneta</tipo>
+    <tipo>Camion</tipo>
     <marca>Citroen</marca>
     <modelo>c14</modelo>
     <consumoKm>1.6</consumoKm>
     <fechaAdquisicion>2020-12-13T00:00:00+01:00</fechaAdquisicion>
     <fechaFabricacion>2018-10-11T00:00:00</fechaFabricacion>
-    <pesoMaximo>1.5</pesoMaximo>
-    <comodidades>
-      <comodidad>A/C</comodidad>
-    </comodidades>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades/>
   </vehiculo>
 </vehiculos>
