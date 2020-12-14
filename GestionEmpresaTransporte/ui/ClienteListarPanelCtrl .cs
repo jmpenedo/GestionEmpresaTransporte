@@ -19,10 +19,10 @@ namespace GestionEmpresaTransporte.ui
             Insertar
         }
 
-        public bool seleccion;
-        
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
+
+        public bool seleccion;
 
         public ClienteListarPanelCtrl(Empresa unaEmpresa)
         {
@@ -44,7 +44,7 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
             View.pnlCliente.BtReservasCliente.Click += (sender, e) => Reservas();
             View.pnlCliente.BtReservasClienteYear.Click += (sender, e) => ReservasYear();
-            
+
             View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
@@ -54,11 +54,11 @@ namespace GestionEmpresaTransporte.ui
         {
             MainWindowControl = controlPrincipal;
         }
-        
+
         public Estados EstadoPnlCliente { get; set; }
         public ClienteListarPanelView View { get; }
         private Empresa MiEmpresa { get; }
-        
+
         public MainWindowCtrl MainWindowControl { get; set; }
 
         public Cliente ElCliente
@@ -316,20 +316,35 @@ namespace GestionEmpresaTransporte.ui
         }
 
         public void Reservas()
+
         {
-            var nif = View.pnlCliente.EdNif.Text.ToUpper();
-            this.MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif);
-            this.MainWindowControl.GestionTransportes();
+            if (MainWindowControl != null) //FIX 20201214730 pasar el controlador del main
+            {
+                var nif = View.pnlCliente.EdNif.Text.ToUpper();
+                MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif);
+                MainWindowControl.GestionTransportes();
+            }
+            else
+            {
+                Trace.WriteLine("MainWindowControl es null al intentar ver Reservas");
+            }
         }
 
         public void ReservasYear()
         {
-            var nif = View.pnlCliente.EdNif.Text.ToUpper();
-            var year =  Convert.ToInt32(View.pnlCliente.EdYearFiltro.Value);
-            this.MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif, year);
-            this.MainWindowControl.GestionTransportes();
+            if (MainWindowControl != null) //FIX 20201214730 pasar el controlador del main
+            {
+                var nif = View.pnlCliente.EdNif.Text.ToUpper();
+                var year = Convert.ToInt32(View.pnlCliente.EdYearFiltro.Value);
+                MainWindowControl.getInstanceTransporte().ListarReservasCliente(nif, year);
+                MainWindowControl.GestionTransportes();
+            }
+            else
+            {
+                Trace.WriteLine("MainWindowControl es null al intentar ver ReservasYear");
+            }
         }
-        
+
         private void CeldaSeleccionada()
         {
             if (seleccion)
@@ -343,8 +358,6 @@ namespace GestionEmpresaTransporte.ui
                 View.pnlCliente.ModoInicial();
                 View.pnlCliente.ModoSeleccion(false);
             }
-
         }
-        
     }
 }

@@ -87,7 +87,7 @@ namespace GestionEmpresaTransporte.ui
         public void VerCliente(Cliente cliente)
         {
             CtrlpnlCliente =
-                new ClienteListarPanelCtrl(empresa, this); //FIX pasar el controlador del main //Creamos el controlador
+                new ClienteListarPanelCtrl(empresa, this); //FIX 20201214730 pasar el controlador del main
             var pnlCliente = CtrlpnlCliente.View; //Recuperamos el panel del controlador
             View.Controls.Add(pnlCliente); //lo asignamos al formulario principal
             pnlCliente.BringToFront(); //la traemos al frente (el de transportes queda detrás)
