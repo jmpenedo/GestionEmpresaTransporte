@@ -45,7 +45,7 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtReservasCliente.Click += (sender, e) => Reservas();
             View.pnlCliente.BtReservasClienteYear.Click += (sender, e) => ReservasYear();
 
-            View.grdLista.CellDoubleClick += (sender, args) => CeldaSeleccionada();
+            View.grdLista.CellDoubleClick += (sender, args) => Seleccionar(); //FIX 20201214830Unificada seleccion
 
             EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
         }
@@ -289,17 +289,20 @@ namespace GestionEmpresaTransporte.ui
         /// </summary>
         private void Seleccionar()
         {
-            //Antes de volver revisar que hay un cliente seleccionado
-            if (ElCliente == null)
+            if (View.pnlCliente.BtSeleccionar.Visible)
             {
-                ActualizarPanelCliente(); //Devolvemos el cliente seleccionado en el grid
+                //Antes de volver revisar que hay un cliente seleccionado
                 if (ElCliente == null)
-                    WForms.MessageBox.Show("NO se ha seleccionado ningún cliente"); //No hay clientes en la BD
-            }
+                {
+                    ActualizarPanelCliente(); //Devolvemos el cliente seleccionado en el grid
+                    if (ElCliente == null)
+                        WForms.MessageBox.Show("NO se ha seleccionado ningún cliente"); //No hay clientes en la BD
+                }
 
-            View.SendToBack();
-            View.pnlCliente.ModoInicial();
-            View.pnlCliente.ModoSeleccion(false);
+                View.SendToBack();
+                View.pnlCliente.ModoInicial();
+                View.pnlCliente.ModoSeleccion(false);
+            }
         }
 
         /// <summary>
@@ -351,7 +354,7 @@ namespace GestionEmpresaTransporte.ui
             {
                 ActualizarPanelCliente(); //Devolvemos el vehiculo seleccionado en el grid
                 if (ElCliente == null)
-                    WForms.MessageBox.Show("No se ha seleccionado ningún cleinte"); //No hay cloentes en la BD
+                    WForms.MessageBox.Show("No se ha seleccionado ningún cliente"); //No hay cloentes en la BD
 
                 seleccion = false;
                 View.SendToBack();
