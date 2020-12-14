@@ -56,73 +56,58 @@
     <comodidades/>
   </vehiculo>
   <vehiculo>
-    <matricula>5678TYU</matricula>
-    <tipo>Camion Articulado</tipo>
-    <marca>Pegasus</marca>
-    <modelo>Damen</modelo>
-    <consumoKm>7</consumoKm>
-    <fechaAdquisicion>2019-11-14T00:00:00</fechaAdquisicion>
-    <fechaFabricacion>2018-05-31T00:00:00</fechaFabricacion>
-    <pesoMaximo>45</pesoMaximo>
-    <comodidades>
-      <comodidad>WIFI</comodidad>
-      <comodidad>A/C</comodidad>
-      <comodidad>TV</comodidad>
-    </comodidades>
-  </vehiculo>
-  <vehiculo>
     <matricula>3456TYU</matricula>
-    <tipo>Furgoneta</tipo>
+    <tipo>Camion</tipo>
     <marca>Mercedes-Benz</marca>
     <modelo>VIANO</modelo>
     <consumoKm>7.4</consumoKm>
     <fechaAdquisicion>2019-09-09T00:00:00</fechaAdquisicion>
     <fechaFabricacion>2018-08-07T00:00:00</fechaFabricacion>
-    <pesoMaximo>1.5</pesoMaximo>
-    <comodidades>
-      <comodidad>WIFI</comodidad>
-      <comodidad>BLUETOOTH</comodidad>
-    </comodidades>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades/>
   </vehiculo>
   <vehiculo>
     <matricula>4534RTY</matricula>
-    <tipo>Furgoneta</tipo>
+    <tipo>Camion</tipo>
     <marca>RENAULT</marca>
     <modelo>KANGOO</modelo>
     <consumoKm>6.7</consumoKm>
     <fechaAdquisicion>2020-05-06T00:00:00</fechaAdquisicion>
     <fechaFabricacion>2019-10-01T00:00:00</fechaFabricacion>
-    <pesoMaximo>1.5</pesoMaximo>
-    <comodidades>
-      <comodidad>WIFI</comodidad>
-      <comodidad>A/C</comodidad>
-      <comodidad>BLUETOOTH</comodidad>
-    </comodidades>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades/>
   </vehiculo>
   <vehiculo>
     <matricula>3123RES</matricula>
-    <tipo>Furgoneta</tipo>
+    <tipo>Camion</tipo>
     <marca>FIAT</marca>
     <modelo>Scudo</modelo>
     <consumoKm>6.2</consumoKm>
     <fechaAdquisicion>2001-12-14T00:00:00</fechaAdquisicion>
     <fechaFabricacion>2000-12-01T00:00:00</fechaFabricacion>
-    <pesoMaximo>1.5</pesoMaximo>
-    <comodidades>
-      <comodidad>A/C</comodidad>
-    </comodidades>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades/>
   </vehiculo>
   <vehiculo>
     <matricula>1234HUI</matricula>
-    <tipo>Furgoneta</tipo>
+    <tipo>Camion</tipo>
     <marca>Citroën</marca>
     <modelo>Nemo</modelo>
     <consumoKm>5.3</consumoKm>
     <fechaAdquisicion>2012-12-14T00:00:00</fechaAdquisicion>
     <fechaFabricacion>2005-12-05T00:00:00</fechaFabricacion>
+    <pesoMaximo>25</pesoMaximo>
+    <comodidades/>
+  </vehiculo>
+  <vehiculo>
+    <matricula>4567TYY</matricula>
+    <tipo>Furgoneta</tipo>
+    <marca>Peugeot</marca>
+    <modelo>Partner</modelo>
+    <consumoKm>5</consumoKm>
+    <fechaAdquisicion>2019-12-04T00:00:00</fechaAdquisicion>
+    <fechaFabricacion>2019-07-03T00:00:00</fechaFabricacion>
     <pesoMaximo>1.5</pesoMaximo>
-    <comodidades>
-      <comodidad>A/C</comodidad>
-    </comodidades>
+    <comodidades/>
   </vehiculo>
 </vehiculos>
