@@ -25,7 +25,7 @@ namespace GestionEmpresaTransporte.ui
 
         public bool seleccion;
 
-        private readonly BindingList<Vehiculo> _bindingList;
+        private BindingList<Vehiculo> _bindingList;
         private Vehiculo miVehiculo;
 
         public VehiculoListarPanelCtrl(Empresa Empresa)
@@ -52,6 +52,8 @@ namespace GestionEmpresaTransporte.ui
             View.pnlVehiculo.btReservas.Click += (sender, e) => Reservas();
             View.pnlVehiculo.btReservasYear.Click += (sender, e) => ReservasYear();
             View.pnlVehiculo.btPendientes.Click += (sender, e) => Pendiente();
+            View.pnlVehiculo.btDisponibles.Click += (sender, e) => Disponibles();
+            View.pnlVehiculo.btSalirFiltrado.Click += (sender, e) => Salir();
 
             EstadoPnlVehiculo = Estados.Consultar;
             vehiculoVerPanelCtrl.View.ModoConsulta();
@@ -349,6 +351,46 @@ namespace GestionEmpresaTransporte.ui
             {
                 Trace.WriteLine("MainWindowControl es null al intentar ver Reservas");
             }
+        }
+
+        public void Disponibles()
+        {
+            string filtro = vehiculoVerPanelCtrl.View.EdTipoFiltro.SelectedItem.ToString();
+            if (filtro.Equals("No filtrar"))
+            {
+                _bindingList = new BindingList<Vehiculo>(Empresa.Disponibilidad().listaVehiculos);
+                var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+                //Enlazamos el datagrid con la lista de transportes
+                View.grdLista.DataSource = sourceTransportes;
+                ElVehiculo = null;
+                View.Actualizar();
+                ActualizarPanelVehiculo();
+                View.pnlVehiculo.ModoSalir();
+            }
+            else
+            {
+                char filtrar = filtro.ToCharArray()[0];
+                _bindingList = new BindingList<Vehiculo>(Empresa.Disponibilidad(filtrar).listaVehiculos);
+                var sourceTransportes = new WForms.BindingSource(_bindingList, null);
+                //Enlazamos el datagrid con la lista de transportes
+                View.grdLista.DataSource = sourceTransportes;
+                ElVehiculo = null;
+                View.Actualizar();
+                ActualizarPanelVehiculo();
+                View.pnlVehiculo.ModoSalir();
+            }
+            
+        }
+        
+        private void Salir()
+        {
+            _bindingList = new BindingList<Vehiculo>(Empresa.ColeccionVehiculos.listaVehiculos);
+            var sourceVehiculo = new WForms.BindingSource(_bindingList, null);
+            //Enlazamos el datagrid con la lista de transportes
+            View.grdLista.DataSource = sourceVehiculo;
+            View.Actualizar();
+            ActualizarPanelVehiculo();
+            View.pnlVehiculo.ModoConsulta();
         }
     }
 }

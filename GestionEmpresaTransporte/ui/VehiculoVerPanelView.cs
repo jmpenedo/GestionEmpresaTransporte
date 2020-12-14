@@ -51,6 +51,8 @@ namespace GestionEmpresaTransporte.ui
 
         public WForms.Button btPendientes { get; private set; }
         
+        public WForms.Button btSalirFiltrado { get; private set; }
+        
         public WForms.ComboBox EdTipoFiltro { get; private set; }
         
         public WForms.NumericUpDown EdYearFiltro { get; private set; }
@@ -518,6 +520,12 @@ namespace GestionEmpresaTransporte.ui
                 Text = "&Pendientes"
             };
             toret.Controls.Add(btPendientes);
+            btSalirFiltrado = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Salir filtro"
+            };
+            toret.Controls.Add(btSalirFiltrado);
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 
@@ -636,6 +644,21 @@ namespace GestionEmpresaTransporte.ui
             BtSeleccionar.Visible = estado;
         }
 
+        public void ModoSalir()
+        {
+            BtBorrar.Enabled = false;
+            BtModificar.Enabled = false;
+            BtInsertar.Enabled = false;
+            BtAceptar.Enabled = false;
+            BtCancelar.Enabled = false;
+            btDisponibles.Enabled = false;
+            btReservas.Enabled = false;
+            btReservasYear.Enabled = false;
+            btPendientes.Enabled = false;
+            btSalirFiltrado.Enabled = true;
+            BtVolver.Enabled = false;
+        }
+
         private void HabilitarBtAceptar()
         {
             BtBorrar.Enabled = false;
@@ -647,6 +670,9 @@ namespace GestionEmpresaTransporte.ui
             btReservas.Enabled = false;
             btReservasYear.Enabled = false;
             btPendientes.Enabled = false;
+            btSalirFiltrado.Enabled = false;
+            BtVolver.Enabled = true;
+
         }
 
         private void DeshabilitarBtAceptar()
@@ -660,6 +686,10 @@ namespace GestionEmpresaTransporte.ui
             btReservas.Enabled = true;
             btReservasYear.Enabled = true;
             btPendientes.Enabled = true;
+            btSalirFiltrado.Enabled = false;
+            BtVolver.Enabled = true;
         }
+        
+        
     }
 }
