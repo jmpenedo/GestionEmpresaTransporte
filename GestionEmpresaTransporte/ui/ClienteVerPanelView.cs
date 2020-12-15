@@ -1,20 +1,16 @@
-﻿using GestionEmpresaTransporte.Core;
-
-namespace GestionEmpresaTransporte.ui
+﻿namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
 
     public class ClienteVerPanelView : WForms.Panel
     {
-        /*Datos del cliente*/
-        public WForms.Panel pnlChart;
-
         public ClienteVerPanelView()
         {
             Build();
         }
 
+        /*Datos del cliente*/
         public WForms.TextBox EdNif { get; private set; }
         public WForms.TextBox EdNombre { get; private set; }
         public WForms.TextBox EdTelefono { get; private set; }
@@ -36,10 +32,6 @@ namespace GestionEmpresaTransporte.ui
         public WForms.Button BtSeleccionar { get; private set; }
 
         public WForms.Button BtVolver { get; private set; }
-        public WForms.Button BtTipoGrafico { get; private set; }
-
-        public Chart Chart { get; set; }
-
 
         private void Build()
         {
@@ -50,18 +42,16 @@ namespace GestionEmpresaTransporte.ui
             pnlTable.Controls.Add(BuildNombre());
             pnlTable.Controls.Add(BuildTelefono());
             pnlTable.Controls.Add(BuildCorreo());
-            pnlTable.Controls.Add(BuildDireccion());
             pnlTable.Controls.Add(BuildFiltroYear());
             pnlTable.Controls.Add(BuildPanelBotones());
             pnlTable.Controls.Add(BuildPanelBotonesSeleccion());
 
 
             pnlTable.ResumeLayout(false);
-            pnlTable.MinimumSize = new Draw.Size(400, 450);
+            pnlTable.MinimumSize = new Draw.Size(400, 300);
             pnlTable.MaximumSize = pnlTable.MinimumSize;
             Controls.Add(pnlTable);
-            pnlChart = BuildChart();
-            Controls.Add(pnlChart);
+            Controls.Add(BuildDireccion());
 
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
@@ -184,39 +174,18 @@ namespace GestionEmpresaTransporte.ui
             {
                 Dock = WForms.DockStyle.Right,
                 Width = 250,
-                Height = 75,
+                Height = 150,
                 TextAlign = WForms.HorizontalAlignment.Left,
                 Multiline = true,
                 ScrollBars = WForms.ScrollBars.Vertical
             };
 
             toret.Controls.Add(EdDireccion);
-            toret.MinimumSize = new Draw.Size(350, 75);
+            toret.MinimumSize = new Draw.Size(350, 150);
             toret.MaximumSize = toret.MinimumSize;
 
             return toret;
         }
-
-        private WForms.Panel BuildChart()
-        {
-            var ChartCanvasSize = 325;
-            var toret = new WForms.Panel
-            {
-                Dock = WForms.DockStyle.Right
-            };
-
-            Chart = new Chart(ChartCanvasSize,
-                ChartCanvasSize)
-            {
-                Dock = WForms.DockStyle.Right
-            };
-            toret.Controls.Add(Chart);
-            toret.MinimumSize = new Draw.Size(ChartCanvasSize, ChartCanvasSize);
-            toret.MaximumSize = toret.MinimumSize;
-
-            return toret;
-        }
-
 
         private WForms.Panel BuildFiltroYear()
         {
@@ -249,8 +218,6 @@ namespace GestionEmpresaTransporte.ui
 
         public WForms.Panel BuildPanelBotones()
         {
-            var toolTip1 = new WForms.ToolTip();
-
             var toret = new WForms.Panel
             {
                 Dock = WForms.DockStyle.Fill
@@ -261,17 +228,13 @@ namespace GestionEmpresaTransporte.ui
                 Text = "&Modificar"
             };
             toret.Controls.Add(BtModificar);
-            toolTip1.SetToolTip(BtModificar, "Modifica los datos del cliente actual");
-
-
             BtBorrar = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
                 Text = "&Borrar"
             };
             toret.Controls.Add(BtBorrar);
-            toolTip1.SetToolTip(BtBorrar, "Borra cliente actual");
-
+            toret.Dock = WForms.DockStyle.Top;
 
             BtInsertar = new WForms.Button
             {
@@ -279,7 +242,6 @@ namespace GestionEmpresaTransporte.ui
                 Text = "&Insertar"
             };
             toret.Controls.Add(BtInsertar);
-            toolTip1.SetToolTip(BtInsertar, "Inserción de un nuevo cliente");
 
             toret.Controls.Add(BtModificar);
             BtAceptar = new WForms.Button
@@ -288,8 +250,6 @@ namespace GestionEmpresaTransporte.ui
                 Text = "&Aceptar"
             };
             toret.Controls.Add(BtAceptar);
-            toolTip1.SetToolTip(BtAceptar, "Confirma los cambios/inserción");
-
 
             toret.Controls.Add(BtModificar);
             BtCancelar = new WForms.Button
@@ -299,8 +259,6 @@ namespace GestionEmpresaTransporte.ui
                 Text = "&Cancelar"
             };
             toret.Controls.Add(BtCancelar);
-            toolTip1.SetToolTip(BtCancelar, "Descarta los cambios/inserción");
-
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
             return toret;
@@ -308,40 +266,28 @@ namespace GestionEmpresaTransporte.ui
 
         public WForms.Panel BuildPanelBotonesSeleccion()
         {
-            var toolTip1 = new WForms.ToolTip();
-
             var toret = new WForms.Panel
             {
                 Dock = WForms.DockStyle.Fill
             };
-
             BtSeleccionar = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
                 Text = "&Seleccionar"
             };
             toret.Controls.Add(BtSeleccionar);
-            toolTip1.SetToolTip(BtSeleccionar, "Selecciona el cliente actual");
-
-
             BtVolver = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
                 Text = "&Volver"
             };
             toret.Controls.Add(BtVolver);
-            toolTip1.SetToolTip(BtVolver, "Volver a transportes");
-
-
             BtReservasCliente = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
                 Text = "&Reservas"
             };
             toret.Controls.Add(BtReservasCliente);
-            toolTip1.SetToolTip(BtReservasCliente, "Muestra las reservas de un cliente");
-
-
             BtReservasClienteYear = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
@@ -349,15 +295,6 @@ namespace GestionEmpresaTransporte.ui
             };
             toret.Controls.Add(BtReservasClienteYear);
             toret.Dock = WForms.DockStyle.Top;
-            toolTip1.SetToolTip(BtReservasClienteYear, "Muestra las reservas de un cliente según el año seleccionado");
-
-            BtTipoGrafico = new WForms.Button
-            {
-                Dock = WForms.DockStyle.Right,
-                Text = "&Tipo gráfico"
-            };
-            toret.Controls.Add(BtTipoGrafico);
-            toolTip1.SetToolTip(BtTipoGrafico, "Cambia el tipo de gráfico del cliente");
 
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
 

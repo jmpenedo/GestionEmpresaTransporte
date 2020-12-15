@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -22,8 +21,6 @@ namespace GestionEmpresaTransporte.ui
 
         private readonly BindingList<Cliente> _bindingList;
         private Cliente miCliente;
-        private int tipoGrafico;
-
 
         public ClienteListarPanelCtrl(Empresa unaEmpresa)
         {
@@ -45,12 +42,11 @@ namespace GestionEmpresaTransporte.ui
             View.pnlCliente.BtSeleccionar.Click += (sender, e) => Seleccionar();
             View.pnlCliente.BtReservasCliente.Click += (sender, e) => Reservas();
             View.pnlCliente.BtReservasClienteYear.Click += (sender, e) => ReservasYear();
-            View.pnlCliente.BtTipoGrafico.Click += (sender, e) => CambiarTipoGrafico();
-            View.grdLista.CellDoubleClick += (sender, args) => Seleccionar(); //FIX 20201214830Unificada seleccion
-            EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
-            tipoGrafico = 0;
-        }
 
+            View.grdLista.CellDoubleClick += (sender, args) => Seleccionar(); //FIX 20201214830Unificada seleccion
+
+            EstadoPnlCliente = Estados.Consultar; //Al crearse siempre está en modo consulta
+        }
 
         public ClienteListarPanelCtrl(Empresa empresa, MainWindowCtrl controlPrincipal) : this(empresa)
         {
@@ -73,15 +69,6 @@ namespace GestionEmpresaTransporte.ui
             }
         }
 
-        private void CambiarTipoGrafico()
-        {
-            if (tipoGrafico == 0)
-                tipoGrafico = 1;
-            else
-                tipoGrafico = 0;
-            MostrarGrafico();
-        }
-
         /// <summary>
         ///     Muestra la información  del cliente seleccionado
         ///     en el panel inferior
@@ -95,7 +82,6 @@ namespace GestionEmpresaTransporte.ui
                 {
                     var nif = View.grdLista.SelectedRows[0].Cells[0].Value.ToString();
                     ElCliente = _bindingList.FirstOrDefault(item => item.Nif == nif);
-                    MostrarGrafico();
                 }
             }
             else
@@ -361,98 +347,6 @@ namespace GestionEmpresaTransporte.ui
             else
             {
                 Trace.WriteLine("MainWindowControl es null al intentar ver ReservasYear");
-            }
-        }
-
-        private void porCliente(string nif)
-        {
-            var anhos = new List<int>();
-            var aux = new List<int>();
-
-            foreach (var transporte in MiEmpresa.ColeccionTransportes)
-                if (nif.ToUpper() == transporte.Cliente.Nif)
-                    anhos.Add(short.Parse(transporte.FechaContratacion.ToString("yyyy")));
-            //Ordenamos amhos de menor a mayor
-
-            anhos.Sort();
-            //ELIMINO DUPLICADOS PARA SABER CUÁNTOS AÑOS HAY exactamente
-            aux = anhos.Distinct().ToList();
-
-            var values = new int[aux.Count];
-
-            foreach (var anho in anhos)
-                for (var i = 0; i < aux.Count; i++)
-                    if (anho == aux[i])
-                        values[i]++;
-
-            if (values.Length > 0)
-            {
-                View.pnlCliente.pnlChart.Controls.Clear();
-                View.pnlCliente.Chart = new Chart(500,
-                    500)
-                {
-                    Dock = WForms.DockStyle.Fill
-                };
-                View.pnlCliente.pnlChart.Controls.Add(View.pnlCliente.Chart);
-                View.pnlCliente.Chart.LegendY = "Cant. transpt.";
-                View.pnlCliente.Chart.LegendX = "Años";
-                View.pnlCliente.Chart.Visible = true;
-                View.pnlCliente.Chart.Values = values;
-                View.pnlCliente.Chart.Draw();
-            }
-            else
-            {
-                View.pnlCliente.Chart.Visible = false;
-            }
-        }
-
-        private void MostrarGrafico()
-        {
-            var nif = View.pnlCliente.EdNif.Text;
-            switch (tipoGrafico)
-            {
-                case 0:
-                    porCliente(nif);
-                    break;
-                case 1:
-                    porClienteAnho(nif);
-                    break;
-                default:
-                    porCliente(nif);
-                    break;
-            }
-        }
-
-        private void porClienteAnho(string nif)
-        {
-            var meses = new List<int>();
-            var values = new int[12];
-
-            foreach (var transporte in MiEmpresa.ColeccionTransportes)
-                if (nif == transporte.Cliente.Nif)
-                    meses.Add(short.Parse(transporte.FechaContratacion.ToString("MM")));
-            meses.Sort();
-
-            foreach (var mes in meses) values[mes - 1]++;
-
-            if (values.Max() > 0) //revisar...
-            {
-                View.pnlCliente.pnlChart.Controls.Clear();
-                View.pnlCliente.Chart = new Chart(500,
-                    500)
-                {
-                    Dock = WForms.DockStyle.Fill
-                };
-                View.pnlCliente.pnlChart.Controls.Add(View.pnlCliente.Chart);
-                View.pnlCliente.Chart.LegendY = "Cant. transpt.";
-                View.pnlCliente.Chart.LegendX = "Meses";
-                View.pnlCliente.Chart.Visible = true;
-                View.pnlCliente.Chart.Values = values;
-                View.pnlCliente.Chart.Draw();
-            }
-            else
-            {
-                View.pnlCliente.Chart.Visible = false;
             }
         }
     }
