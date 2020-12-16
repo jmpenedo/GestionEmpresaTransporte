@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+
 namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
-    using GestionEmpresaTransporte.Core;
 
-    class TransporteVerPanelView : WForms.Panel
+    public class TransporteVerPanelView : WForms.Panel
     {
-        public TransporteVerPanelView(List<string> listaClientes, List<string> listaVehiculos)
+        public TransporteVerPanelView()
         {
-            ListaClientes = listaClientes;
-            ListaFlota = listaVehiculos;
-
             Build();
         }
 
         /*Datos del cliente*/
-        public WForms.ComboBox EdCliente { get; private set; }
-        public WForms.ComboBox EdFlota { get; private set; }
+        public WForms.TextBox EdCliente { get; private set; }
+        public WForms.TextBox EdFlota { get; private set; }
         public WForms.DateTimePicker EdFechaContratacion { get; private set; }
         public WForms.NumericUpDown EdKmsRecorridos { get; private set; }
         public WForms.DateTimePicker EdFechaSalida { get; private set; }
@@ -33,11 +28,23 @@ namespace GestionEmpresaTransporte.ui
         public WForms.Button BtModificar { get; private set; }
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
+        public WForms.Button BtSelecCliente { get; private set; }
+        public WForms.Button BtSelecVehiculo { get; private set; }
         public WForms.TextBox EdFactura { get; private set; }
 
-        private List<string> ListaClientes { get; set; }
+        //Botones individual búsqueda transporte y datos
 
-        private List<string> ListaFlota { get; set; }
+        public WForms.NumericUpDown EdYearFiltro { get; private set; }
+
+        public WForms.DateTimePicker EdFechaFiltro { get; private set; }
+
+        public WForms.Button BtPendiente { get; private set; }
+
+        public WForms.Button BtFiltroYear { get; private set; }
+
+        public WForms.Button BtFiltroFecha { get; private set; }
+
+        public WForms.Button BtVolver { get; private set; }
 
         private void Build()
         {
@@ -66,8 +73,15 @@ namespace GestionEmpresaTransporte.ui
             pnlTable2.Controls.Add(BuildIVA());
             pnlTable2.Controls.Add(BuildPrecioLitro());
             pnlTable2.Controls.Add(BuildGas());
+
+            pnlTable1.Controls.Add(BuildRelleno());
             pnlTable2.Controls.Add(BuildRelleno());
+
+            pnlTable1.Controls.Add(BuildFiltroYear());
+            pnlTable2.Controls.Add(BuildFiltroFecha());
             pnlTable2.Controls.Add(BuildPanelBotones());
+            pnlTable1.Controls.Add(BuildPanelBotonesFiltro());
+
 
             var PanelFactura = new WForms.TableLayoutPanel();
             PanelFactura.SuspendLayout();
@@ -92,7 +106,7 @@ namespace GestionEmpresaTransporte.ui
             Controls.Add(PanelDatos);
             Controls.Add(PanelFactura);
 
-            MinimumSize = new Draw.Size(775, 300);
+            MinimumSize = new Draw.Size(775, 330);
             MaximumSize = MinimumSize;
         }
 
@@ -108,15 +122,21 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Left,
                 Text = "Cliente"
             });
-            EdCliente = new WForms.ComboBox
+            EdCliente = new WForms.TextBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 0.87),
                 SelectionLength = 0,
-                DropDownStyle = WForms.ComboBoxStyle.DropDownList,
+                ReadOnly = true
             };
-            EdCliente.Items.AddRange(ListaClientes.ToArray<object>());
+            BtSelecCliente = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
+
             toret.Controls.Add(EdCliente);
+            toret.Controls.Add(BtSelecCliente);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdCliente.Height);
             return toret;
         }
@@ -132,13 +152,21 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Left,
                 Text = "Matrícula"
             });
-            EdFlota = new WForms.ComboBox
+            EdFlota = new WForms.TextBox
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 0.87),
+                SelectionLength = 0,
+                ReadOnly = true
             };
-            EdFlota.Items.AddRange(ListaFlota.ToArray<object>());
+            BtSelecVehiculo = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
+
             toret.Controls.Add(EdFlota);
+            toret.Controls.Add(BtSelecVehiculo);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdFlota.Height);
             return toret;
         }
@@ -159,9 +187,10 @@ namespace GestionEmpresaTransporte.ui
             EdFechaContratacion = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
+                MaxDate = DateTime.Today
             };
-            
+
             toret.Controls.Add(EdFechaContratacion);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdFechaContratacion.Height);
             return toret;
@@ -183,7 +212,7 @@ namespace GestionEmpresaTransporte.ui
             EdKmsRecorridos = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 Value = 0
@@ -210,7 +239,7 @@ namespace GestionEmpresaTransporte.ui
             EdFechaSalida = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25)
             };
 
             toret.Controls.Add(EdFechaSalida);
@@ -234,7 +263,7 @@ namespace GestionEmpresaTransporte.ui
             EdFechaEntrega = new WForms.DateTimePicker
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25)
             };
 
             toret.Controls.Add(EdFechaEntrega);
@@ -258,11 +287,12 @@ namespace GestionEmpresaTransporte.ui
             EdImporteDia = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdImporteDia);
@@ -286,13 +316,14 @@ namespace GestionEmpresaTransporte.ui
             EdIVA = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 Maximum = 1,
                 Increment = 0.1M,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdIVA);
@@ -316,11 +347,12 @@ namespace GestionEmpresaTransporte.ui
             EdPrecioLitro = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdPrecioLitro);
@@ -344,15 +376,70 @@ namespace GestionEmpresaTransporte.ui
             EdGas = new WForms.NumericUpDown
             {
                 Dock = WForms.DockStyle.Right,
-                Width = (int)(Width * 1.25),
+                Width = (int) (Width * 1.25),
                 TextAlign = WForms.HorizontalAlignment.Right,
                 Minimum = 0,
                 DecimalPlaces = 2,
-                Value = 0
+                Value = 0,
+                RightToLeft = WForms.RightToLeft.Inherit
             };
 
             toret.Controls.Add(EdGas);
             toret.MaximumSize = new Draw.Size(int.MaxValue, EdGas.Height);
+            return toret;
+        }
+
+        private WForms.Panel BuildFiltroYear()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+
+            toret.Controls.Add(new WForms.Label
+            {
+                Dock = WForms.DockStyle.Left,
+                Text = "Filtrar por año"
+            });
+
+            EdYearFiltro = new WForms.NumericUpDown
+            {
+                Dock = WForms.DockStyle.Right,
+                Width = (int) (Width * 1.25),
+                TextAlign = WForms.HorizontalAlignment.Right,
+                Minimum = 2000,
+                Maximum = 2030,
+                Value = 2020,
+                RightToLeft = WForms.RightToLeft.Inherit
+            };
+
+            toret.Controls.Add(EdYearFiltro);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdYearFiltro.Height);
+            return toret;
+        }
+
+        private WForms.Panel BuildFiltroFecha()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+
+            toret.Controls.Add(new WForms.Label
+            {
+                Dock = WForms.DockStyle.Left,
+                Text = "Filtrar por fecha"
+            });
+
+            EdFechaFiltro = new WForms.DateTimePicker
+            {
+                Dock = WForms.DockStyle.Right,
+                Width = (int) (Width * 1.25)
+            };
+
+
+            toret.Controls.Add(EdFechaFiltro);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdFechaFiltro.Height);
             return toret;
         }
 
@@ -420,6 +507,44 @@ namespace GestionEmpresaTransporte.ui
             return toret;
         }
 
+        public WForms.Panel BuildPanelBotonesFiltro()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+            //Botones individual_búsquedas
+            BtPendiente = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Pendientes"
+            };
+            toret.Controls.Add(BtPendiente);
+            BtFiltroYear = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Filtrar año"
+            };
+            toret.Controls.Add(BtFiltroYear);
+
+            BtFiltroFecha = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Filtrar fecha"
+            };
+            toret.Controls.Add(BtFiltroFecha);
+
+            BtVolver = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Volver"
+            };
+            toret.Controls.Add(BtVolver);
+            toret.Dock = WForms.DockStyle.Top;
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
+            return toret;
+        }
+
         private WForms.Panel BuildFactura()
         {
             var toret = new WForms.Panel();
@@ -438,13 +563,26 @@ namespace GestionEmpresaTransporte.ui
                 Dock = WForms.DockStyle.Top
             };
 
-            toret.Controls.Add(this.EdFactura);
+            toret.Controls.Add(EdFactura);
             toret.Controls.Add(lbFactura);
             toret.Dock = WForms.DockStyle.Top;
 
             return toret;
         }
 
+
+        public void ModoVolver()
+        {
+            BtBorrar.Enabled = false;
+            BtModificar.Enabled = false;
+            BtInsertar.Enabled = false;
+            BtAceptar.Enabled = false;
+            BtCancelar.Enabled = false;
+            BtPendiente.Enabled = false;
+            BtFiltroFecha.Enabled = false;
+            BtFiltroYear.Enabled = false;
+            BtVolver.Enabled = true;
+        }
 
         public void ModoConsulta()
         {
@@ -458,6 +596,8 @@ namespace GestionEmpresaTransporte.ui
             EdIVA.Enabled = false;
             EdPrecioLitro.Enabled = false;
             EdGas.Enabled = false;
+            EdFechaFiltro.Enabled = true;
+            EdYearFiltro.Enabled = true;
 
             DeshabilitarBtAceptar();
         }
@@ -474,6 +614,10 @@ namespace GestionEmpresaTransporte.ui
             EdIVA.Enabled = true;
             EdPrecioLitro.Enabled = true;
             EdGas.Enabled = true;
+            BtSelecCliente.Enabled = false;
+            BtSelecVehiculo.Enabled = false;
+            EdFechaFiltro.Enabled = false;
+            EdYearFiltro.Enabled = false;
 
             EdKmsRecorridos.Focus();
             HabilitarBtAceptar();
@@ -483,10 +627,11 @@ namespace GestionEmpresaTransporte.ui
         {
             EdCliente.Text = "";
             EdFlota.Text = "";
-            EdFechaContratacion.Text = "";
+            EdFechaContratacion.Value =
+                DateTime.Now.Date; //FIX 202012141810 Error al insertar tranportes con fecha por defecto
             EdKmsRecorridos.Text = "";
-            EdFechaSalida.Text = "";
-            EdFechaEntrega.Text = "";
+            EdFechaSalida.Value = DateTime.Now.Date;
+            EdFechaEntrega.Value = DateTime.Now.Date;
             EdImporteDia.Text = "";
             EdIVA.Text = "";
             EdPrecioLitro.Text = "";
@@ -502,6 +647,10 @@ namespace GestionEmpresaTransporte.ui
             EdIVA.Enabled = true;
             EdPrecioLitro.Enabled = true;
             EdGas.Enabled = true;
+            BtSelecCliente.Enabled = true;
+            BtSelecVehiculo.Enabled = true;
+            EdFechaFiltro.Enabled = false;
+            EdYearFiltro.Enabled = false;
 
             EdCliente.Focus();
             HabilitarBtAceptar();
@@ -514,6 +663,10 @@ namespace GestionEmpresaTransporte.ui
             BtInsertar.Enabled = false;
             BtAceptar.Enabled = true;
             BtCancelar.Enabled = true;
+            BtPendiente.Enabled = false;
+            BtFiltroFecha.Enabled = false;
+            BtFiltroYear.Enabled = false;
+            BtVolver.Enabled = false;
         }
 
         private void DeshabilitarBtAceptar()
@@ -523,6 +676,12 @@ namespace GestionEmpresaTransporte.ui
             BtInsertar.Enabled = true;
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
+            BtSelecCliente.Enabled = false;
+            BtSelecVehiculo.Enabled = false;
+            BtPendiente.Enabled = true;
+            BtFiltroFecha.Enabled = true;
+            BtFiltroYear.Enabled = true;
+            BtVolver.Enabled = false;
         }
     }
 }

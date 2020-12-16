@@ -22,6 +22,17 @@
         public WForms.Button BtBorrar { get; private set; }
         public WForms.Button BtInsertar { get; private set; }
 
+        //Filtros
+
+        public WForms.NumericUpDown EdYearFiltro { get; private set; }
+        public WForms.Button BtReservasCliente { get; private set; }
+
+        public WForms.Button BtReservasClienteYear { get; private set; }
+
+        public WForms.Button BtSeleccionar { get; private set; }
+
+        public WForms.Button BtVolver { get; private set; }
+
         private void Build()
         {
             var pnlTable = new WForms.TableLayoutPanel();
@@ -31,14 +42,22 @@
             pnlTable.Controls.Add(BuildNombre());
             pnlTable.Controls.Add(BuildTelefono());
             pnlTable.Controls.Add(BuildCorreo());
+            pnlTable.Controls.Add(BuildFiltroYear());
             pnlTable.Controls.Add(BuildPanelBotones());
+            pnlTable.Controls.Add(BuildPanelBotonesSeleccion());
+
+
             pnlTable.ResumeLayout(false);
             pnlTable.MinimumSize = new Draw.Size(400, 300);
             pnlTable.MaximumSize = pnlTable.MinimumSize;
             Controls.Add(pnlTable);
             Controls.Add(BuildDireccion());
+
             MinimumSize = new Draw.Size(775, 300);
             MaximumSize = MinimumSize;
+
+            ModoSeleccion(false);
+            ModoInicial();
         }
 
 
@@ -112,6 +131,7 @@
             return toret;
         }
 
+
         private WForms.Panel BuildCorreo()
         {
             var toret = new WForms.Panel
@@ -154,15 +174,45 @@
             {
                 Dock = WForms.DockStyle.Right,
                 Width = 250,
+                Height = 150,
                 TextAlign = WForms.HorizontalAlignment.Left,
                 Multiline = true,
                 ScrollBars = WForms.ScrollBars.Vertical
             };
 
             toret.Controls.Add(EdDireccion);
-            toret.MinimumSize = new Draw.Size(350, 300);
+            toret.MinimumSize = new Draw.Size(350, 150);
             toret.MaximumSize = toret.MinimumSize;
 
+            return toret;
+        }
+
+        private WForms.Panel BuildFiltroYear()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+
+            toret.Controls.Add(new WForms.Label
+            {
+                Dock = WForms.DockStyle.Left,
+                Text = "Filtrar por año"
+            });
+
+            EdYearFiltro = new WForms.NumericUpDown
+            {
+                Dock = WForms.DockStyle.Right,
+                Width = (int) (Width * 1.25),
+                TextAlign = WForms.HorizontalAlignment.Right,
+                Minimum = 2000,
+                Maximum = 2030,
+                Value = 2020,
+                RightToLeft = WForms.RightToLeft.Inherit
+            };
+
+            toret.Controls.Add(EdYearFiltro);
+            toret.MaximumSize = new Draw.Size(int.MaxValue, EdYearFiltro.Height);
             return toret;
         }
 
@@ -185,8 +235,6 @@
             };
             toret.Controls.Add(BtBorrar);
             toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
-
 
             BtInsertar = new WForms.Button
             {
@@ -199,7 +247,6 @@
             BtAceptar = new WForms.Button
             {
                 Dock = WForms.DockStyle.Right,
-                DialogResult = WForms.DialogResult.OK,
                 Text = "&Aceptar"
             };
             toret.Controls.Add(BtAceptar);
@@ -212,18 +259,49 @@
                 Text = "&Cancelar"
             };
             toret.Controls.Add(BtCancelar);
-
-
-            toret.Dock = WForms.DockStyle.Top;
-            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
-
-
             toret.Dock = WForms.DockStyle.Top;
             toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
             return toret;
         }
 
-        public void ModoConsulta()
+        public WForms.Panel BuildPanelBotonesSeleccion()
+        {
+            var toret = new WForms.Panel
+            {
+                Dock = WForms.DockStyle.Fill
+            };
+            BtSeleccionar = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Seleccionar"
+            };
+            toret.Controls.Add(BtSeleccionar);
+            BtVolver = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Volver"
+            };
+            toret.Controls.Add(BtVolver);
+            BtReservasCliente = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Reservas"
+            };
+            toret.Controls.Add(BtReservasCliente);
+            BtReservasClienteYear = new WForms.Button
+            {
+                Dock = WForms.DockStyle.Right,
+                Text = "&Res/año"
+            };
+            toret.Controls.Add(BtReservasClienteYear);
+            toret.Dock = WForms.DockStyle.Top;
+
+            toret.MaximumSize = new Draw.Size(int.MaxValue, 30);
+
+            return toret;
+        }
+
+        public void ModoInicial()
         {
             EdNif.Enabled = false;
             EdNombre.Enabled = false;
@@ -267,6 +345,8 @@
             BtInsertar.Enabled = false;
             BtAceptar.Enabled = true;
             BtCancelar.Enabled = true;
+            BtReservasCliente.Enabled = false;
+            BtReservasClienteYear.Enabled = false;
         }
 
         private void DeshabilitarBtAceptar()
@@ -276,6 +356,14 @@
             BtInsertar.Enabled = true;
             BtAceptar.Enabled = false;
             BtCancelar.Enabled = false;
+            BtReservasCliente.Enabled = true;
+            BtReservasClienteYear.Enabled = true;
+        }
+
+
+        public void ModoSeleccion(bool estado)
+        {
+            BtSeleccionar.Visible = estado;
         }
     }
 }

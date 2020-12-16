@@ -1,33 +1,168 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <transportes>
   <transporte>
-    <ID>9999AAA20201208</ID>
+    <ID>9999AAA20201204</ID>
     <tipo>Camion</tipo>
     <matriculaVehiculo>9999AAA</matriculaVehiculo>
-    <nifCliente>E35911197</nifCliente>
-    <fechaContratacion>20201208</fechaContratacion>
+    <nifCliente>A32226003</nifCliente>
+    <fechaContratacion>2020-12-04T00:00:00+01:00</fechaContratacion>
     <kmRecorridos>50</kmRecorridos>
-    <fechaSalida>20201208</fechaSalida>
-    <fechaEntrega>20201208</fechaEntrega>
+    <fechaSalida>2020-12-09T17:51:19</fechaSalida>
+    <fechaEntrega>2020-12-13T17:51:19</fechaEntrega>
     <importeDia>10</importeDia>
     <iva>0.21</iva>
-    <precioLitro>1.25</precioLitro>
-    <gasConsumido>40</gasConsumido>
-    <precioTotal>71.09</precioTotal>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>167.89</precioTotal>
   </transporte>
   <transporte>
     <ID>8888BBB20201208</ID>
     <tipo>Camion</tipo>
     <matriculaVehiculo>8888BBB</matriculaVehiculo>
     <nifCliente>88740046C</nifCliente>
-    <fechaContratacion>20201208</fechaContratacion>
-    <kmRecorridos>20</kmRecorridos>
-    <fechaSalida>20201208</fechaSalida>
-    <fechaEntrega>20201208</fechaEntrega>
-    <importeDia>11</importeDia>
+    <fechaContratacion>2020-12-08T00:00:00+01:00</fechaContratacion>
+    <kmRecorridos>45</kmRecorridos>
+    <fechaSalida>2020-12-10T17:52:27</fechaSalida>
+    <fechaEntrega>2020-12-16T17:52:27</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.15</precioLitro>
+    <gasConsumido>38</gasConsumido>
+    <precioTotal>209.97</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>3456TGF20201214</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>3456TGF</matriculaVehiculo>
+    <nifCliente>96229159B</nifCliente>
+    <fechaContratacion>2020-12-14T00:00:00+01:00</fechaContratacion>
+    <kmRecorridos>56</kmRecorridos>
+    <fechaSalida>2020-12-14T00:00:00+01:00</fechaSalida>
+    <fechaEntrega>2020-12-14T00:00:00+01:00</fechaEntrega>
+    <importeDia>10</importeDia>
     <iva>0.21</iva>
     <precioLitro>1.05</precioLitro>
-    <gasConsumido>27</gasConsumido>
-    <precioTotal>40.29</precioTotal>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>393.54</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>8888BBB20201201</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>8888BBB</matriculaVehiculo>
+    <nifCliente>F32001976</nifCliente>
+    <fechaContratacion>2020-12-01T00:00:00</fechaContratacion>
+    <kmRecorridos>56</kmRecorridos>
+    <fechaSalida>2020-12-14T00:00:00+01:00</fechaSalida>
+    <fechaEntrega>2020-12-16T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>121.77</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>3456TGF20201211</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>3456TGF</matriculaVehiculo>
+    <nifCliente>96229159B</nifCliente>
+    <fechaContratacion>2020-12-11T00:00:00</fechaContratacion>
+    <kmRecorridos>58</kmRecorridos>
+    <fechaSalida>2020-12-15T00:00:00</fechaSalida>
+    <fechaEntrega>2020-12-17T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>454.14</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>6036IQV20201214</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>6036IQV</matriculaVehiculo>
+    <nifCliente>9537853Y</nifCliente>
+    <fechaContratacion>2020-12-14T00:00:00+01:00</fechaContratacion>
+    <kmRecorridos>50</kmRecorridos>
+    <fechaSalida>2020-12-14T00:00:00+01:00</fechaSalida>
+    <fechaEntrega>2020-12-16T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>1053.3</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>6036IQV20201103</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>6036IQV</matriculaVehiculo>
+    <nifCliente>38820695F</nifCliente>
+    <fechaContratacion>2020-11-03T00:00:00</fechaContratacion>
+    <kmRecorridos>100</kmRecorridos>
+    <fechaSalida>2020-11-17T00:00:00</fechaSalida>
+    <fechaEntrega>2020-12-08T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>2465.98</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>9999AAA20200902</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>9999AAA</matriculaVehiculo>
+    <nifCliente>38820695F</nifCliente>
+    <fechaContratacion>2020-09-02T00:00:00</fechaContratacion>
+    <kmRecorridos>50</kmRecorridos>
+    <fechaSalida>2020-11-05T00:00:00</fechaSalida>
+    <fechaEntrega>2020-11-24T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>530.89</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>3456TGF20200507</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>3456TGF</matriculaVehiculo>
+    <nifCliente>96229159B</nifCliente>
+    <fechaContratacion>2020-05-07T00:00:00</fechaContratacion>
+    <kmRecorridos>100</kmRecorridos>
+    <fechaSalida>2020-08-14T00:00:00</fechaSalida>
+    <fechaEntrega>2020-08-19T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>782.87</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>8888BBB20200101</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>8888BBB</matriculaVehiculo>
+    <nifCliente>Q5133195G</nifCliente>
+    <fechaContratacion>2020-01-01T00:00:00</fechaContratacion>
+    <kmRecorridos>50</kmRecorridos>
+    <fechaSalida>2020-01-14T00:00:00</fechaSalida>
+    <fechaEntrega>2020-02-14T00:00:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>821.29</precioTotal>
+  </transporte>
+  <transporte>
+    <ID>8888BBB20201214</ID>
+    <tipo>Camion</tipo>
+    <matriculaVehiculo>8888BBB</matriculaVehiculo>
+    <nifCliente>9537853Y</nifCliente>
+    <fechaContratacion>2020-12-14T00:00:00</fechaContratacion>
+    <kmRecorridos>50</kmRecorridos>
+    <fechaSalida>2020-12-14T00:00:00+01:00</fechaSalida>
+    <fechaEntrega>2020-12-14T00:00:00+01:00</fechaEntrega>
+    <importeDia>10</importeDia>
+    <iva>0.21</iva>
+    <precioLitro>1.05</precioLitro>
+    <gasConsumido>43</gasConsumido>
+    <precioTotal>71.09</precioTotal>
   </transporte>
 </transportes>

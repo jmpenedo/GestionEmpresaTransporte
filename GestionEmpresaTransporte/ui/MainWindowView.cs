@@ -1,4 +1,7 @@
-﻿namespace GestionEmpresaTransporte.ui
+﻿using System;
+using System.Diagnostics;
+
+namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
@@ -10,8 +13,9 @@
         public WForms.MainMenu mPpal;
         public WForms.MenuItem opCargar;
         public WForms.MenuItem opGestionClientes;
-        public WForms.MenuItem opGestionVehiculos;
         public WForms.MenuItem opGestionTransportes;
+        public WForms.MenuItem opGestionVehiculos;
+        public WForms.MenuItem opGestionGraficos;
         public WForms.MenuItem opGuardar;
         public WForms.MenuItem opSalir;
         public WForms.StatusBar sbStatus;
@@ -26,10 +30,22 @@
             BuildMenuOpciones();
             BuildStatusBar();
             SuspendLayout();
-            MinimumSize = new Draw.Size(800, 645);
-            //MaximumSize = MinimumSize;
+            MinimumSize = new Draw.Size(800, 700);
+            MaximumSize = MinimumSize;
             Text = "Gestion de trasportes";
-            ResumeLayout(true);
+            BuildIcono();
+        }
+
+        private void BuildIcono()
+        {
+            try
+            {
+                Icon = new Draw.Icon("../../Res/camion.ico");
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine("Error al cargar el icono: " + e);
+            }
         }
 
         private void BuildMenuOpciones()
@@ -52,12 +68,17 @@
             {
                 Shortcut = WForms.Shortcut.CtrlT
             };
+            opGestionGraficos = new WForms.MenuItem("&Gestión de gráficos")
+            {
+                Shortcut = WForms.Shortcut.CtrlShift0
+            };
             mArchivo.MenuItems.Add(opCargar);
             mArchivo.MenuItems.Add(opGuardar);
             mArchivo.MenuItems.Add(opSalir);
             mEditar.MenuItems.Add(opGestionClientes);
             mEditar.MenuItems.Add(opGestionVehiculos);
             mEditar.MenuItems.Add(opGestionTransportes);
+            mEditar.MenuItems.Add(opGestionGraficos);
             mPpal.MenuItems.Add(mArchivo);
             mPpal.MenuItems.Add(mEditar);
             Menu = mPpal;

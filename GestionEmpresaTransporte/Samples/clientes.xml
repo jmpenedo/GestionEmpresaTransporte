@@ -5,28 +5,28 @@
     <nombre>Juan Perez Fernandez</nombre>
     <telefono>988567890</telefono>
     <email>juan.perz.fernandez@gmail.com</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>Avenida del Carmen, 45, 32004, Ourense, España</DireccionPostal>
   </cliente>
   <cliente>
     <nif>E35911197</nif>
     <nombre>Empresa de prueba 1</nombre>
     <telefono>890789099</telefono>
     <email>empresa1@hotmail.com</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>Avenida 45, piso 34, 45003, Barcelona, España</DireccionPostal>
   </cliente>
   <cliente>
     <nif>A32226003</nif>
     <nombre>Sociedad Textil Lonia Sa</nombre>
     <telefono>988519444</telefono>
     <email>contacto|@stlonia.com</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>Parque Empresarial De Pereiro De Aguiar 32792 - (Pereiro De Aguiar) - Orense</DireccionPostal>
   </cliente>
   <cliente>
     <nif>F32001976</nif>
     <nombre>COOP OURENSANAS S. C. GALEGA</nombre>
     <telefono>988369400</telefono>
     <email>contacto@coren.es</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>CALLE JUAN XXIII, 33 - 32003 OURENSE (Orense)</DireccionPostal>
   </cliente>
   <cliente>
     <nif>X4054242D</nif>
@@ -40,20 +40,83 @@
     <nombre>Filemon Pi</nombre>
     <telefono>678343434</telefono>
     <email>filemonPi@tia.com</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>Rua da Canle, 24, Ourense, 32004</DireccionPostal>
   </cliente>
   <cliente>
     <nif>96229159B</nif>
     <nombre>Mortadelo Azpilicuetagorricoechea</nombre>
     <telefono>678788900</telefono>
     <email>mortadeloA@tia.com</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>Rua perdida, 45, Ourense, 32001</DireccionPostal>
   </cliente>
   <cliente>
     <nif>Q5133195G</nif>
     <nombre>TIA(Técnicos de Investigación Aeroterráquea)</nombre>
     <telefono>9024566789</telefono>
     <email>contacto@tia.com</email>
-    <DireccionPostal></DireccionPostal>
+    <DireccionPostal>Avd Habana 79, 32004, Ourense,España</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>38820695F</nif>
+    <nombre>Ofelia Michelínez</nombre>
+    <telefono>677899890</telefono>
+    <email>ofelia@tia.com</email>
+    <DireccionPostal>Carretera Lorem ipsum dolor, 12A 17ºF</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>9537853Y</nif>
+    <nombre>Amaia Garate Gorron</nombre>
+    <telefono>789678567</telefono>
+    <email>blorem@blorem.net</email>
+    <DireccionPostal>Urbanización Lorem ipsum dolor, 173 10ºA</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>80745543H</nif>
+    <nombre>Almudena Laures Risel</nombre>
+    <telefono>988675645</telefono>
+    <email>olese@blorem.es</email>
+    <DireccionPostal>Rambla Lorem ipsum dolor sit, 222B 8º</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>A78155272</nif>
+    <nombre>Viviendas Y Obras Civiles Sa</nombre>
+    <telefono>988391960</telefono>
+    <email>info@obrasciviles.com</email>
+    <DireccionPostal>CALLE CURROS ENRIQUEZ, 1 - 1 8ª PLANTA</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>A32266462</nif>
+    <nombre>Vinos &amp; Bodegas Gallegas Sa</nombre>
+    <telefono>988384200</telefono>
+    <email>vinos@bodegasgallegas.com</email>
+    <DireccionPostal>Lugar Casardomato (arrabaldo), 49, Ourense, 32990 , Orense</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>B32221566</nif>
+    <nombre>Pernas Fuentes Sl</nombre>
+    <telefono>988216885</telefono>
+    <email>e.s.elpino@gmail.com</email>
+    <DireccionPostal>Avenida de la Habana, 39 - 4º B, Ourense, 32003 , Orense</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>A32026924</nif>
+    <nombre>Bermello Sa</nombre>
+    <telefono>988365092</telefono>
+    <email>administracion@bermello.com</email>
+    <DireccionPostal>Calle do Progreso, 111, Ourense, 32003 , Orense</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>B32318354</nif>
+    <nombre>Redegal S</nombre>
+    <telefono>988549858</telefono>
+    <email>info@redegal.com</email>
+    <DireccionPostal>Calle Telleira, 11 - ENTRESUELO, Ourense, 32004 , Orense</DireccionPostal>
+  </cliente>
+  <cliente>
+    <nif>B32429128</nif>
+    <nombre>Carnicas Milucho E Hijos Sl.</nombre>
+    <telefono>988225837</telefono>
+    <email>milucho@carnicasmilucho.es</email>
+    <DireccionPostal>Calle da Concordia (ourense), 26 - PISO 2 A, Ourense, 32003 , Orense</DireccionPostal>
   </cliente>
 </clientes>

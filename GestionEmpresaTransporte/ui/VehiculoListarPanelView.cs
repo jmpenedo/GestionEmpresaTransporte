@@ -1,21 +1,20 @@
-﻿using System;
+using System;
 
 namespace GestionEmpresaTransporte.ui
 {
     using Draw = System.Drawing;
     using WForms = System.Windows.Forms;
 
-    public class TransporteListarPanelView : WForms.Panel
+    public class VehiculoListarPanelView : WForms.Panel
     {
         public WForms.DataGridView grdLista;
-        public TransporteVerPanelView pnlTransporte;
+        public VehiculoVerPanelView pnlVehiculo;
 
-        public TransporteListarPanelView()
+        public VehiculoListarPanelView(VehiculoVerPanelView vehiculoVerPanelView)
         {
+            pnlVehiculo = vehiculoVerPanelView;
             Build();
         }
-
-        public WForms.TextBox EdInferior { get; private set; }
 
         private void Build()
         {
@@ -24,7 +23,7 @@ namespace GestionEmpresaTransporte.ui
             pnlTable.SuspendLayout();
             pnlTable.Dock = WForms.DockStyle.Fill;
             pnlTable.Controls.Add(BuildPanelLista());
-            pnlTable.Controls.Add(BuildVerTransporte());
+            pnlTable.Controls.Add(BuildVerVehiculo());
             pnlTable.ResumeLayout(false);
             Controls.Add(pnlTable);
             MinimumSize = new Draw.Size(785, 600);
@@ -39,7 +38,6 @@ namespace GestionEmpresaTransporte.ui
             {
                 Dock = WForms.DockStyle.Top,
                 AllowUserToResizeRows = false,
-                AllowUserToResizeColumns = false,
                 RowHeadersVisible = false,
                 ReadOnly = true,
                 MultiSelect = false,
@@ -55,37 +53,32 @@ namespace GestionEmpresaTransporte.ui
             return grdLista;
         }
 
-        private WForms.Control BuildVerTransporte()
+        private WForms.Control BuildVerVehiculo()
         {
-            pnlTransporte = new TransporteVerPanelView();
-            pnlTransporte.Dock = WForms.DockStyle.Top;
-            return pnlTransporte;
+            pnlVehiculo.Dock = WForms.DockStyle.Top;
+            return pnlVehiculo;
         }
 
         public void AjustarColGrid()
         {
             if (grdLista.Columns.Count > 0)
             {
-                grdLista.Columns[0].Width = (int) Math.Floor(grdLista.Width * .17);
-                grdLista.Columns[1].Visible = false;
-                grdLista.Columns[2].Width = (int) Math.Floor(grdLista.Width * .16);
-                grdLista.Columns[3].Width = (int) Math.Floor(grdLista.Width * .17);
-                grdLista.Columns[4].Width = (int) Math.Floor(grdLista.Width * .16);
-                grdLista.Columns[5].Width = (int) Math.Floor(grdLista.Width * .17);
-                grdLista.Columns[6].Visible = false;
-                grdLista.Columns[7].Visible = false;
-                grdLista.Columns[8].Visible = false;
-                grdLista.Columns[9].Visible = false;
-                grdLista.Columns[10].Visible = false;
-                grdLista.Columns[11].Visible = false;
-                grdLista.Columns[12].Width = (int) Math.Floor(grdLista.Width * .17);
+                grdLista.Columns[0].Width = (int) Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[1].Width = (int) Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[2].Width = (int) Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[3].Width = (int) Math.Floor(grdLista.Width * .10);
+                grdLista.Columns[5].Width = (int) Math.Floor(grdLista.Width * .20);
+                grdLista.Columns[6].Width = (int) Math.Floor(grdLista.Width * .10);
 
-                grdLista.Columns[0].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
-                grdLista.Columns[2].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
+                grdLista.Columns[4].Visible = false;
+                grdLista.Columns[7].Visible = false;
+
+
+                grdLista.Columns[0].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleRight;
+                grdLista.Columns[1].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleRight;
+                grdLista.Columns[2].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleRight;
                 grdLista.Columns[3].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
-                grdLista.Columns[4].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
-                grdLista.Columns[5].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
-                grdLista.Columns[12].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleCenter;
+                grdLista.Columns[5].DefaultCellStyle.Alignment = WForms.DataGridViewContentAlignment.MiddleRight;
             }
         }
 
@@ -93,8 +86,6 @@ namespace GestionEmpresaTransporte.ui
         {
             grdLista.Update();
             grdLista.Refresh();
-            if (grdLista.Rows.Count > 0 && grdLista.SelectedRows.Count == 0)
-                grdLista.Rows[grdLista.Rows.Count - 1].Selected = true;
         }
     }
 }

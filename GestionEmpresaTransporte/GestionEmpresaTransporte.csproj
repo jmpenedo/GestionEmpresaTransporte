@@ -41,6 +41,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Chart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\Cliente.cs" />
     <Compile Include="Core\ColeccionTransportes.cs" />
     <Compile Include="Core\ColeccionVehiculos.cs" />
@@ -58,8 +61,15 @@
     <Compile Include="ui\ClienteListarPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ui\ClienteVerPanelCtrl.cs" />
     <Compile Include="ui\ClienteVerPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\GraficoGeneralCtrl.cs" />
+    <Compile Include="ui\GraficoGeneralView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\GraficosPanelCtrl.cs" />
+    <Compile Include="ui\GraficoPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ui\SamplePanelCtrl.cs" />
@@ -74,13 +84,17 @@
     <Compile Include="ui\TransporteListarPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ui\TransporteVerPanelCtrl.cs" />
     <Compile Include="ui\TransporteVerPanelView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ui\VehiculoListarPanelCtrl.cs" />
+    <Compile Include="ui\VehiculoListarPanelView.cs" />
+    <Compile Include="ui\VehiculoVerPanelCtrl.cs" />
+    <Compile Include="ui\VehiculoVerPanelView.cs" />
     <Compile Include="ui\WinFormsUI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Res\camion.ico" />
     <Content Include="Samples\clientes.xml" />
     <Content Include="Samples\transportes.xml" />
     <Content Include="Samples\vehiculos.xml" />
